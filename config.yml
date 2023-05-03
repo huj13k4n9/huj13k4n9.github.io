@@ -1,0 +1,184 @@
+baseURL: "https://hujiekang.top/"
+title: Jiekang Hu's Blog
+paginate: 8
+theme: PaperMod
+
+enableRobotsTXT: true
+buildDrafts: false
+buildFuture: false
+buildExpired: false
+
+googleAnalytics: G-JSFZKESSB0
+
+minify:
+  disableXML: true
+  minifyOutput: true
+
+params:
+  env: production # to enable google analytics, opengraph, twitter-cards and schema.
+  title: Jiekang Hu's Blog
+  description: "Jiekang Hu's Blog"
+  keywords: [Blog,　PaperMod]
+  author: Jiekang Hu
+  images: ["<link or path of image for opengraph, twitter-cards>"]
+  DateFormat: "Jan. 2, 2006"
+  defaultTheme: auto # dark, light
+  disableThemeToggle: false
+
+  ShowReadingTime: true
+  ShowShareButtons: false
+  ShowPostNavLinks: false
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowWordCount: true
+  ShowRssButtonInSectionTermList: true
+  ShowPageNums: false
+  UseHugoToc: false
+  disableSpecial1stPost: false
+  disableScrollToTop: false
+  comments: false
+  hidemeta: false
+  hideSummary: false
+  showtoc: true
+  tocopen: false
+
+  assets:
+    # disableHLJS: true # to disable highlight.js
+    # disableFingerprinting: true
+    favicon: "/apple-touch-icon.png"
+    favicon16x16: "/apple-touch-icon.png"
+    favicon32x32: "/apple-touch-icon.png"
+    apple_touch_icon: "/apple-touch-icon.png"
+    safari_pinned_tab: "/apple-touch-icon.png"
+
+  label:
+    text: "Jiekang Hu's Blog"
+    # icon: /apple-touch-icon.png
+    iconHeight: 35
+
+  # profile-mode
+  profileMode:
+    enabled: false # needs to be explicitly set
+    title: ExampleSite
+    subtitle: "This is subtitle"
+    imageUrl: "<img location>"
+    imageWidth: 120
+    imageHeight: 120
+    imageTitle: my image
+    buttons:
+      - name: Posts
+        url: posts
+      - name: Tags
+        url: tags
+
+  # home-info mode
+  homeInfoParams:
+    Title: "Hi there \U0001F44B"
+    Content: ありがたいからありがとう、去りがたいだら去りがとう。
+
+  socialIcons:
+    - name: github
+      url: "https://github.com/huj13k4n9"
+    - name: email
+      url: "mailto:jiekang.hu@outlook.com"
+    - name: rss
+      url: "/index.xml"
+
+  analytics:
+    google:
+      SiteVerificationTag: "XYZabc"
+    bing:
+      SiteVerificationTag: "XYZabc"
+    yandex:
+      SiteVerificationTag: "XYZabc"
+
+  cover:
+    hidden: false # hide everywhere but not in structured data
+    hiddenInList: true # hide on list pages and home
+    hiddenInSingle: true # hide on single page
+
+  # editPost:
+  #   URL: "https://github.com/<path_to_repo>/content"
+  #   Text: "Suggest Changes" # edit text
+  #   appendFilePath: true # to append file path to Edit link
+
+  # for search
+  # https://fusejs.io/api/options.html
+  fuseOpts:
+    isCaseSensitive: false
+    shouldSort: true
+    location: 0
+    distance: 1000
+    threshold: 0.4
+    minMatchCharLength: 0
+    keys: ["title", "permalink", "summary", "content"]
+
+  friend:
+    - name: cxxz
+      link: https://cxxz16.top/
+    - name: 唐仔橙
+      link: https://tangzichengcc.github.io/
+    - name: CrumbledWall
+      link: https://harmless.blue/
+    - name: byc404
+      link: https://bycsec.top/
+    - name: Ch3Uhx9
+      link: https://cheuhxg.github.io/
+    - name: Mtaun
+      link: https://mtaun.github.io/
+    - name: Hughes
+      link: https://hughlhz.github.io/
+
+menu:
+  main:
+    - identifier: Home
+      name: Home
+      url: /
+      weight: 1
+    - identifier: Archives
+      name: Archives
+      url: /archives/
+      weight: 10
+    - identifier: Categories
+      name: Categories
+      url: /categories/
+      weight: 20
+    - identifier: About
+      name: About
+      url: /about/
+      weight: 5
+    - identifier: Misc
+      name: Misc
+      url: /misc/
+      weight: 40
+    - identifier: Search
+      name: Search
+      url: /search/
+      weight: 50
+    - identifier: SwitchUI
+      name: Switch UI
+      url: "https://o.hujiekang.top"
+      weight: 60
+
+outputs:
+    home:
+        - HTML
+        - RSS
+        - JSON # is necessary
+
+# Read: https://github.com/adityatelange/hugo-PaperMod/wiki/FAQs#using-hugos-syntax-highlighter-chroma
+pygmentsUseClasses: true
+markup:
+  highlight:
+    noClasses: false
+    # anchorLineNos: true
+    # codeFences: true
+    # guessSyntax: true
+    # lineNos: true
+    # style: monokai
+
+sitemap:
+  changefreq: monthly
+  filename: sitemap.xml
+  priority: -1
+enableRobotsTXT: true

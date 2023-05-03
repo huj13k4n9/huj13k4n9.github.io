@@ -1,0 +1,116 @@
+:root {
+    --gap: 24px;
+    --content-gap: 20px;
+    --nav-width: 1024px;
+    --main-width: 860px;
+    --header-height: 60px;
+    --footer-height: 60px;
+    --radius: 8px;
+    --theme: rgb(255, 255, 255);
+    --entry: rgb(255, 255, 255);
+    --primary: rgb(30, 30, 30);
+    --secondary: rgb(108, 108, 108);
+    --tertiary: rgb(214, 214, 214);
+    --content: rgb(31, 31, 31);
+    --hljs-bg: rgb(232, 232, 232);
+    --code-bg: rgb(245, 245, 245);
+    --bg: rgb(245, 245, 245);
+    --border: rgb(225, 225, 225);
+    --shadow: rgba(0, 0, 0, 0.27);
+    --shadow1: rgba(0, 0, 0, 0.5);
+    --border-hover: linear-gradient(135deg, rgb(240, 240, 240), rgb(220, 220, 220));
+    --border-hover-rev: linear-gradient(135deg, hsl(240, 5%, 15%), hsl(240, 5%, 25%));
+}
+
+.dark {
+    --theme: rgb(24, 25, 27);
+    --entry: rgb(41, 41, 46);
+    --primary: rgb(218, 218, 219);
+    --secondary: rgb(155, 156, 157);
+    --tertiary: rgb(65, 66, 68);
+    --content: rgb(196, 196, 197);
+    --hljs-bg: hsl(240, 5%, 20%);
+    --code-bg: rgb(55, 56, 62);
+    --bg: rgb(24, 25, 27);
+    --border: rgb(51, 51, 51);
+    --shadow: rgba(255, 255, 255, 0.2);
+    --shadow1: rgba(255, 255, 255, 0.5);
+    --border-hover: linear-gradient(135deg, hsl(240, 5%, 15%), hsl(240, 5%, 25%));
+    --border-hover-rev: linear-gradient(135deg, rgb(240, 240, 240), rgb(220, 220, 220));
+}
+
+.list {
+    background: var(--code-bg);
+}
+
+.dark.list {
+    background: var(--theme);
+}
+
+::selection {
+    background: #808080;
+}
+
+::-moz-selection {
+    background: #808080;
+}
+
+::-webkit-selection {
+    background: #808080;
+}
+
+@font-face {
+    font-family: 'Inter Display';
+    font-style: normal;
+    font-weight: 400;
+    src: url('/fonts/Inter-Display.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Inter Display';
+    font-style: normal;
+    font-weight: 500;
+    src: url('/fonts/Inter-DisplayMedium.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Inter Display';
+    font-style: normal;
+    font-weight: 700;
+    src: url('/fonts/Inter-DisplayBold.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Inter Display';
+    font-style: italic;
+    font-weight: 400;
+    src: url('/fonts/Inter-DisplayItalic.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Inter Display';
+    font-style: italic;
+    font-weight: 500;
+    src: url('/fonts/Inter-DisplayMediumItalic.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Inter Display';
+    font-style: italic;
+    font-weight: 700;
+    src: url('/fonts/Inter-DisplayBoldItalic.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'MiSans';
+    font-style: normal;
+    font-weight: 400;
+    src: url('/fonts/MiSans-Regular.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'MiSans';
+    font-style: normal;
+    font-weight: 700;
+    src: url('/fonts/MiSans-Demibold.woff2') format('woff2');
+}

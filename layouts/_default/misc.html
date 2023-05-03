@@ -1,0 +1,24 @@
+{{- define "main" }} {{- if .Title }}
+<header class="page-header">
+    <h1>{{ .Title }}</h1>
+    {{- if .Description }}
+    <div class="post-description">
+        {{ .Description }}
+    </div>
+    {{- end }}
+</header>
+{{- end }}
+
+<style>
+    ul li {
+        font-size: 21px;
+    }
+</style>
+
+<ul class="friends">
+    <li><a href="/misc/pintu" target="_blank">ChouXiang Puzzle Game</a></li>
+    <li><a href="/misc/yxh" target="_blank">YingXiaoHao Generator</a></li>
+    <li><a href="/misc/hash" target="_blank">Magic Hashes in PHP</a></li>
+</ul>
+
+{{- end }} {{/* end main */ -}}

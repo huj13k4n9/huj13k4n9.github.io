@@ -1,0 +1,214 @@
+<html>
+
+<head>
+    <title>营销号生成器</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@500&family=Noto+Serif+SC:wght@500&display=swap');
+</style>
+<center>
+    <audio autoplay="autoplay" id="yxh_music" src="yingxiaohao.mp3" loop="true" hidden="true"></audio>
+    <div id="bdtts_div_id">
+        <audio id="tts_autio_id" autoplay="autoplay">
+            <source id="tts_source_id" type="audio/mpeg">
+            <embed id="tts_embed_id" height="0" width="0" src="">
+        </audio>
+    </div>
+
+    <h1>一开口就是老营销号了</h1>
+    <div id="main">
+        <div id="contentwrap" class="contentwrap">
+            <label><input type="radio" id="zenmehuishi" name="radio" onclick="怎么回事();" checked/>怎么回事型</label>
+            <label><input type="radio" id="waiguoxiaoge" name="radio" onclick="外国小哥();"/>外国小哥型</label>
+        </div>
+        <table id="zmhs" style="display: contents;">
+            <form id="???">
+                <tr align="right" id="slogan">
+                    <td><span>节目Slogan</span></td>
+                    <td><input type="text" placeholder="不讲武德，耗子尾汁" id="slogan"></td>
+                </tr>
+                <tr align="right" id="jiemu">
+                    <td><span>节目名称</span></td>
+                    <td><input type="text" placeholder="保国爱生活" id="节目"></td>
+                </tr>
+                <tr align="right" id="zhuti">
+                    <td><span>文章主体</span></td>
+                    <td><input type="text" placeholder="马保国" id="主体"></td>
+                </tr>
+                <tr align="right" id="dongzuo">
+                    <td><span>主体动作</span></td>
+                    <td><input type="text" placeholder="打200多斤的英国大力士" id="动作"></td>
+                </tr>
+                <tr align="right" id="huangeshuofa">
+                    <td><span>(可选)换个说法</span></td>
+                    <td><input type="text" placeholder="" id="换个说法"></td>
+                </tr>
+            </form>
+        </table>
+        <table id="wgxg" style="display: none;">
+            <form id="!!!">
+                <tr align="right" id="slogan">
+                    <td><span>节目Slogan</span></td>
+                    <td><input type="text" placeholder="不讲武德，耗子尾汁" id="slogan"></td>
+                </tr>
+                <tr align="right" id="jiemu">
+                    <td><span>节目名称</span></td>
+                    <td><input type="text" placeholder="保国爱生活" id="节目"></td>
+                </tr>
+                <tr align="right" id="dongzuo">
+                    <td><span>主体动作</span></td>
+                    <td><input type="text" placeholder="发现氧气可以致命" id="动作"></td>
+                </tr>
+                <tr align="right" id="huangeshuofa">
+                    <td><span>详细描述</span></td>
+                    <td><input type="text" placeholder="发现吸氧气的人绝大多数都活不过100岁" id="详细描述"></td>
+                </tr>
+                <tr align="right" id="huangeshuofa">
+                    <td><span>网友心情</span></td>
+                    <td><input type="text" placeholder="恐怖" id="心情"></td>
+                </tr>
+            </form>
+        </table>
+        <button onclick="老营销号了();doTTS();">生成</button>
+        <div id="文章" style="display:none"></div>
+    </div>
+
+</center>
+<div id="footer">
+    <center>Powered By <a href="https://www.hujiekang.top" target="_blank">Jiekang Hu</a>&nbsp;&nbsp;&nbsp;&nbsp;Inspired By
+        <a href="https://suulnnka.github.io/BullshitGenerator/index.html" target="_blank">BullshitGenerator</a></center>
+</div>
+<script src="./yingxiaohao.js"></script>
+<style>
+    a:link {
+        color: #454545 !important;
+    }
+    
+    a:visited {
+        color: #454545 !important;
+    }
+    
+    table {
+        font-family: 'Noto Sans SC', sans-serif;
+    }
+    
+    @media screen and (max-width: 1024px) {
+        html {
+            font-size: 2vw;
+            margin: 10px;
+            padding: 15px;
+        }
+        h1 {
+            font-size: 3.5rem;
+            padding-top: 40px;
+            padding-bottom: 20px;
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+        #contentwrap {
+            margin: 0 0 33px 0;
+            font-size: 2rem;
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+        input {
+            margin: 10px 20px 10px 20px;
+            font-size: 1.8rem;
+            border: none;
+            border-bottom: #454545 2px solid;
+        }
+        button {
+            font-size: 2rem;
+            margin-top: 80px;
+            margin-bottom: 50px;
+            background: #454545;
+            color: #f8f8f8;
+            padding: 15px 30px 15px 30px;
+            border: 0;
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+        span {
+            font-size: 1.8rem;
+        }
+        #文章 {
+            font-size: 1.8rem;
+            margin: 50px 50px 30px 50px;
+            border: 2px solid #000000;
+            padding: 40px;
+            font-family: 'Noto Serif SC', sans-serif;
+        }
+        #dongzuo {
+            padding: 15px 0px 15px 0px;
+        }
+        #jiemu {
+            padding: 0px 0px 20px 0px;
+        }
+        #huangeshuofa {
+            padding: 20px 0px 0px 0px;
+        }
+    }
+    
+    #footer {
+        font-size: 1.5rem;
+        width: 100%;
+        padding-top: 30px;
+        font-family: 'Noto Serif SC', sans-serif;
+    }
+    
+    @media screen and (min-width: 1024px) {
+        html {
+            font-size: 1.3vw;
+            color: #454545;
+            margin: 20px;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 2.2rem;
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+        #contentwrap {
+            margin: 20px;
+            font-size: 1.1rem;
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+        #main {
+            border: 2px solid #454545;
+            border-radius: 10px;
+        }
+        input {
+            margin: 10px 20px 10px 20px;
+            font-size: 1rem;
+            border: none;
+            border-bottom: #454545 2px solid;
+        }
+        input[type="text"] {
+            width: 500px;
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+        span {
+            font-size: 1rem;
+        }
+        button {
+            font-size: 1rem;
+            margin: 30px 0;
+            background: #454545;
+            color: #f8f8f8;
+            padding: 5px 15px 5px 15px;
+            border: 0;
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+        #文章 {
+            text-align: left;
+            margin: 10px 40px 30px 40px;
+            padding: 20px;
+            font-family: 'Noto Serif SC', sans-serif;
+        }
+        #footer {
+            font-size: 0.8rem;
+            width: 100%;
+            padding-top: 30px;
+            font-family: 'Noto Serif SC', sans-serif;
+        }
+    }
+</style>
+
+</html>

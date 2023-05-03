@@ -1,0 +1,31 @@
+{{- define "main" }} {{- if .Title }}
+<header class="page-header">
+    <h1 style="text-align:center">{{ .Title }}</h1>
+    {{- if .Description }}
+    <div class="post-description">
+        {{ .Description }}
+    </div>
+    {{- end }}
+</header>
+{{- end }}
+
+<img class="about-avatar" src="/ProfilePhoto.png" />
+
+<div class="about-social-icons">
+    {{ partial "social_icons.html" site.Params.socialIcons }}
+</div>
+
+<ul class="about-info">
+    <li>💊 A Postgraduate in IIE @ UCAS</li>
+    <li>⚒️ Web Security / Pentest / Virtualization</li>
+    <li>🗻 日本語学習中</li>
+</ul>
+
+<h2 style="text-align:center;margin:40px auto 10px">Friends</h2>
+<ul class="friends">
+    {{- if or $.Site.Params.friend }} {{ range $.Site.Params.friend }}
+    <li><a href="{{ .link }}" target="_blank">{{ .name }}</a></li>
+    {{ end }} {{- end }}
+</ul>
+
+{{- end }} {{/* end main */ -}}
