@@ -18,6 +18,11 @@
     margin: auto var(--gap);
 }
 
+#menu {
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
 .logo {
     flex-wrap: inherit;
 }

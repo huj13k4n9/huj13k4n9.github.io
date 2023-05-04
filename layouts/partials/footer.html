@@ -2,7 +2,8 @@
 <footer class="footer">
     {{- if site.Copyright }}
     <span>{{ site.Copyright | markdownify }}</span> {{- else }}
-    <span>&copy; {{ now.Year }} <a href="{{ "" | absLangURL }}">{{ site.Title }}</a></span> {{- end }}
+    <span>&copy; {{ now.Year }} <a href="{{ "" | absLangURL }}">{{ site.Title }}</a></span> {{- end }} &nbsp;·&nbsp;
+    <a href="https://beian.miit.gov.cn/">蜀ICP备19032124号</a>
     <br><span id="timeDate"></span>
     <span id="times"></span>
     <script>
