@@ -27,6 +27,7 @@
     }
     #menu li {
         line-height: calc(var(--header-height) *2/3);
+        margin: 0px 3px;
     }
 }
 

@@ -63,54 +63,75 @@
     font-family: 'Inter Display';
     font-style: normal;
     font-weight: 400;
-    src: url('/fonts/Inter-Display.woff2') format('woff2');
+    src: url('/webfonts/Inter-Display.woff2') format('woff2');
 }
 
 @font-face {
     font-family: 'Inter Display';
     font-style: normal;
     font-weight: 500;
-    src: url('/fonts/Inter-DisplayMedium.woff2') format('woff2');
+    src: url('/webfonts/Inter-DisplayMedium.woff2') format('woff2');
 }
 
 @font-face {
     font-family: 'Inter Display';
     font-style: normal;
     font-weight: 700;
-    src: url('/fonts/Inter-DisplayBold.woff2') format('woff2');
+    src: url('/webfonts/Inter-DisplayBold.woff2') format('woff2');
 }
 
 @font-face {
     font-family: 'Inter Display';
     font-style: italic;
     font-weight: 400;
-    src: url('/fonts/Inter-DisplayItalic.woff2') format('woff2');
+    src: url('/webfonts/Inter-DisplayItalic.woff2') format('woff2');
 }
 
 @font-face {
     font-family: 'Inter Display';
     font-style: italic;
     font-weight: 500;
-    src: url('/fonts/Inter-DisplayMediumItalic.woff2') format('woff2');
+    src: url('/webfonts/Inter-DisplayMediumItalic.woff2') format('woff2');
 }
 
 @font-face {
     font-family: 'Inter Display';
     font-style: italic;
     font-weight: 700;
-    src: url('/fonts/Inter-DisplayBoldItalic.woff2') format('woff2');
+    src: url('/webfonts/Inter-DisplayBoldItalic.woff2') format('woff2');
 }
 
 @font-face {
     font-family: 'MiSans';
     font-style: normal;
     font-weight: 400;
-    src: url('/fonts/MiSans-Regular.woff2') format('woff2');
+    src: url('/webfonts/MiSans-Regular.woff2') format('woff2');
 }
 
 @font-face {
     font-family: 'MiSans';
     font-style: normal;
     font-weight: 700;
-    src: url('/fonts/MiSans-Demibold.woff2') format('woff2');
+    src: url('/webfonts/MiSans-Demibold.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'iAWritingMonoS';
+    font-style: normal;
+    font-weight: normal;
+    src: url('/webfonts/iAWriterMonoS-Regular.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'iAWritingMonoS';
+    font-style: italic;
+    font-weight: normal;
+    src: url('/webfonts/iAWriterMonoS-Italic.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'iAWritingMonoS';
+    font-style: normal;
+    font-weight: bold;
+    src: url('/webfonts/iAWriterMonoS-Bold.woff2') format('woff2');
 }

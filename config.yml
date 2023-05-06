@@ -134,31 +134,33 @@ menu:
     - identifier: Home
       name: Home
       url: /
+      pre: 🏠
       weight: 1
     - identifier: Archives
       name: Archives
       url: /archives/
+      pre: 📙
       weight: 10
     - identifier: Categories
       name: Categories
       url: /categories/
+      pre: 📂
       weight: 20
     - identifier: About
       name: About
       url: /about/
+      pre: 👻
       weight: 5
     - identifier: Misc
       name: Misc
       url: /misc/
+      pre: 📌
       weight: 40
     - identifier: Search
       name: Search
       url: /search/
+      pre: 🔎
       weight: 50
-    - identifier: SwitchUI
-      name: Switch UI
-      url: "https://o.hujiekang.top"
-      weight: 60
 
 outputs:
     home:

@@ -70,6 +70,7 @@ a.current {
 
 code {
     direction: ltr;
+    font-family: 'iAWritingMonoS', 'Consolas', 'Courier New', monospace;
 }
 
 div.highlight,
@@ -95,4 +96,12 @@ pre {
 div.highlight:hover .copy-code,
 pre:hover .copy-code {
     opacity: 1;
+}
+
+.text-hide {
+    display: none;
+}
+
+.active .text-hide {
+    display: inherit;
 }
