@@ -22,8 +22,7 @@ params:
   author: Jiekang Hu
   images: ["<link or path of image for opengraph, twitter-cards>"]
   DateFormat: "Jan. 2, 2006"
-  defaultTheme: auto # dark, light
-  disableThemeToggle: false
+  defaultTheme: dark # dark, light
 
   ShowReadingTime: true
   ShowShareButtons: false
@@ -35,7 +34,6 @@ params:
   ShowPageNums: false
   UseHugoToc: false
   disableSpecial1stPost: false
-  disableScrollToTop: false
   comments: false
   hidemeta: false
   hideSummary: false
@@ -84,13 +82,13 @@ params:
     - name: rss
       url: "/index.xml"
 
-  analytics:
-    google:
-      SiteVerificationTag: "XYZabc"
-    bing:
-      SiteVerificationTag: "XYZabc"
-    yandex:
-      SiteVerificationTag: "XYZabc"
+  # analytics:
+  #   google:
+  #     SiteVerificationTag: "XYZabc"
+  #   bing:
+  #     SiteVerificationTag: "XYZabc"
+  #   yandex:
+  #     SiteVerificationTag: "XYZabc"
 
   cover:
     hidden: false # hide everywhere but not in structured data
@@ -150,7 +148,7 @@ menu:
       name: About
       url: /about/
       pre: 👻
-      weight: 5
+      weight: 45
     - identifier: Misc
       name: Misc
       url: /misc/

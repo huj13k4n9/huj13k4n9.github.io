@@ -27,13 +27,7 @@ Feistel网络的加密过程为：将明文$x$一分为二，即$x=L_0R_0$，$L_
 
 SP网络主要是对明文进行两项操作：由子密钥控制的替换S、置换或可逆的线性变换P。前者主要起混淆作用，后者主要起扩散作用。
 
-```mermaid
-graph LR
-	g0[<big>X</big><small>i-1</small>] --> g1[由子密钥控制的替换S]
-	g1 --> g2[置换或可逆线性变换P]
-	g2 --> g3[<big>X</big><small>i</small>]
-	g4[<big>K</big><small>i</small>] --> g1
-```
+![](https://hujiekang.top/images/uploads/big/08b9fe61c34dfbf0a9a323d83126ab17.png)
 
 设计分组密码，有以下几个要求：
 

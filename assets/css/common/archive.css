@@ -42,6 +42,8 @@
 .archive-entry-title {
     margin: 5px 0;
     font-weight: 400;
+    display: inline-block;
+    transition: all 0.2s;
 }
 
 .archive-count,
@@ -49,3 +51,12 @@
     color: var(--secondary);
     font-size: 14px;
 }
+
+
+/* .archive-entry:hover .archive-entry-title {
+    text-decoration: underline;
+    text-decoration-color: red;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+    text-decoration-skip-ink: auto;
+} */

@@ -1,0 +1,45 @@
+{{- $katex := (resources.Get "js/katex.min.js") | fingerprint }}
+{{- $autoRender := (resources.Get "js/auto-render.min.js") | fingerprint }}
+{{- $pangu := (resources.Get "js/pangu.min.js") | fingerprint }}
+{{- $gsap := (resources.Get "js/gsap.min.js") | fingerprint }}
+{{- $anime := (resources.Get "js/anime.min.js") | fingerprint }}
+{{- $barba := (resources.Get "js/barba.umd.js") | resources.Minify | fingerprint }}
+{{- $fusejs := (resources.Get "js/fuse.basic.min.js") | fingerprint }}
+{{- $custom := (resources.Get "js/custom.js") | resources.Minify | fingerprint }}
+
+<script defer src="{{ $katex.RelPermalink }}" crossorigin="anonymous"></script>
+<script defer src="{{ $autoRender.RelPermalink }}" crossorigin="anonymous"></script>
+<script defer crossorigin="anonymous" src="{{ $fusejs.RelPermalink }}"></script>
+<script src="{{ $pangu.RelPermalink }}"></script>
+<!--<script src="{{ $gsap.RelPermalink }}"></script>
+<script src="{{ $anime.RelPermalink }}"></script>-->
+<script src="{{ $barba.RelPermalink }}"></script>
+<script src="{{ $custom.RelPermalink }}"></script>
+<script>
+    function pageInit() {
+        renderMathInElement(document.body, {
+            delimiters: [{ left: "$$", right: "$$", display: !0 }, { left: "$", right: "$", display: !1 }]
+        });
+        pangu.isAutoSpacingPageExecuted = false;
+        pangu.autoSpacingPage();
+        setupCodeCopyButton();
+        setupTheme();
+        setupTopButton();
+        if (document.querySelector('div[data-barba-namespace="search"]') !== null) {
+            fastSearch(JSON.stringify({{ (dict "params" (dict "fuseOpts" site.Params.fuseOpts)) | jsonify }}))
+        } else {
+            document.onkeydown = null;
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        pageInit();
+    });
+
+    barba.init();
+    barba.hooks.after(() => {
+        hljs.configure({ ignoreUnescapedHTML: true });
+        hljs.highlightAll();
+        pageInit();
+    });
+</script>

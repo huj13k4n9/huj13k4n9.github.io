@@ -87,7 +87,7 @@
 {{- if gt $paginator.TotalPages 1 }}
 <footer class="page-footer">
   <nav class="pagination">
-    <a class="prev{{- if not $paginator.HasPrev }} hidden{{- end }}" href="{{- if not $paginator.HasPrev }}#{{- else }}{{ $paginator.Prev.URL | absURL }}{{- end }}">
+    <a class="prev{{- if not $paginator.HasPrev }} hidden{{- end }}" href="{{- if not $paginator.HasPrev }}{{- else }}{{ $paginator.Prev.URL | absURL }}{{- end }}">
       «&nbsp;{{ i18n "prev_page" }}&nbsp;
       {{- if (.Param "ShowPageNums") }}
       {{- sub $paginator.PageNumber 1 }}/{{ $paginator.TotalPages }}
