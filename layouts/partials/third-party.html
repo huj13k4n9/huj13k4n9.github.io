@@ -11,12 +11,13 @@
 <script defer src="{{ $autoRender.RelPermalink }}" crossorigin="anonymous"></script>
 <script defer crossorigin="anonymous" src="{{ $fusejs.RelPermalink }}"></script>
 <script src="{{ $pangu.RelPermalink }}"></script>
-<!--<script src="{{ $gsap.RelPermalink }}"></script>
-<script src="{{ $anime.RelPermalink }}"></script>-->
+<script src="{{ $gsap.RelPermalink }}"></script>
+<!--<script src="{{ $anime.RelPermalink }}"></script>-->
 <script src="{{ $barba.RelPermalink }}"></script>
 <script src="{{ $custom.RelPermalink }}"></script>
 <script>
     function pageInit() {
+        window.scrollTo(0, 0);
         renderMathInElement(document.body, {
             delimiters: [{ left: "$$", right: "$$", display: !0 }, { left: "$", right: "$", display: !1 }]
         });
@@ -36,7 +37,51 @@
         pageInit();
     });
 
-    barba.init();
+    barba.init({
+        debug: true,
+        transitions: [{
+            name: 'custom-transition',
+            leave({ current }) {
+                var tl = gsap.timeline();
+                return tl.to(current.container.querySelector("nav div.logo"), {
+                    x: -25,
+                    opacity: 0,
+                    duration: 0.5,
+                    ease: "sine.in"
+                }).to(current.container.querySelector("nav #menu"), {
+                    x: 25,
+                    opacity: 0,
+                    duration: 0.5,
+                    ease: "sine.in"
+                }, "<").to(current.container.querySelector("main.main"), {
+                    y: -300,
+                    opacity: 0,
+                    duration: 0.5,
+                    ease: "back.in"
+                }, "<0.3");
+            },
+            after({ next }) {
+                var tl = gsap.timeline();
+                tl.from(next.container.querySelector("main.main"), {
+                    y: 300,
+                    opacity: 0,
+                    duration: 0.5,
+                    ease: "back.out"
+                }).from(next.container.querySelector("nav div.logo"), {
+                    x: -25,
+                    opacity: 0,
+                    duration: 0.5,
+                    ease: "sine.out"
+                }, "<0.1").from(next.container.querySelector("nav #menu"), {
+                    x: 25,
+                    opacity: 0,
+                    duration: 0.5,
+                    ease: "sine.out"
+                }, "<");
+                return tl;
+            }
+        }]
+    });
     barba.hooks.after(() => {
         hljs.configure({ ignoreUnescapedHTML: true });
         hljs.highlightAll();

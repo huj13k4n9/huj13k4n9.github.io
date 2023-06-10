@@ -1,3 +1,15 @@
+@media screen and (max-width: 548px) {
+    .top-line {
+        display: inherit;
+    }
+}
+
+@media screen and (max-width: 604px) {
+    nav.nav .logo, nav.nav #menu {
+        margin: auto;
+    }
+}
+
 @media screen and (max-width: 768px) {
     /* theme-vars */
      :root {
@@ -29,8 +41,11 @@
         line-height: calc(var(--header-height) *2/3);
         margin: 0px 3px;
     }
-}
 
+    .nav {
+        padding: 0px 10px;
+    }
+}
 
 /* footer */
 
