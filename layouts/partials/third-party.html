@@ -48,7 +48,11 @@
                     opacity: 0,
                     duration: 0.5,
                     ease: "sine.in"
-                }).to(current.container.querySelector("nav #menu"), {
+                }).to(current.container.querySelector("header div.top-line"), {
+                    opacity: 0,
+                    duration: 0.5,
+                    ease: "sine.in"
+                }, "<").to(current.container.querySelector("nav #menu"), {
                     x: 25,
                     opacity: 0,
                     duration: 0.5,
@@ -67,7 +71,11 @@
                     opacity: 0,
                     duration: 0.5,
                     ease: "back.out"
-                }).from(next.container.querySelector("nav div.logo"), {
+                }).from(next.container.querySelector("header div.top-line"), {
+                    opacity: 0,
+                    duration: 0.5,
+                    ease: "sine.out"
+                }, "<").from(next.container.querySelector("nav div.logo"), {
                     x: -25,
                     opacity: 0,
                     duration: 0.5,
