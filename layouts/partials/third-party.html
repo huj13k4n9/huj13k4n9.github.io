@@ -40,7 +40,51 @@
     barba.init({
         debug: true,
         transitions: [{
-            name: 'custom-transition',
+            name: 'to-post',
+            to: { namespace: ['article'] },
+            leave({ current }) {
+                var tl = gsap.timeline();
+                return tl.to(current.container.querySelector("nav div.logo"), {
+                    opacity: 0,
+                    duration: 0.5,
+                    ease: "sine.in"
+                }).to(current.container.querySelector("header div.top-line"), {
+                    opacity: 0,
+                    duration: 0.5,
+                    ease: "sine.in"
+                }, "<").to(current.container.querySelector("nav #menu"), {
+                    opacity: 0,
+                    duration: 0.5,
+                    ease: "sine.in"
+                }, "<").to(current.container.querySelector("main.main"), {
+                    opacity: 0,
+                    duration: 0.5,
+                    ease: "power2.in"
+                }, "<");
+            },
+            after({ next }) {
+                var tl = gsap.timeline();
+                tl.from(next.container.querySelector("main.main"), {
+                    opacity: 0,
+                    duration: 0.8,
+                    ease: "power2.out"
+                }).from(next.container.querySelector("header div.top-line"), {
+                    opacity: 0,
+                    duration: 0.8,
+                    ease: "sine.out"
+                }, "<").from(next.container.querySelector("nav div.logo"), {
+                    opacity: 0,
+                    duration: 0.8,
+                    ease: "sine.out"
+                }, "<").from(next.container.querySelector("nav #menu"), {
+                    opacity: 0,
+                    duration: 0.8,
+                    ease: "sine.out"
+                }, "<");
+                return tl;
+            }
+        }, {
+            name: 'main',
             leave({ current }) {
                 var tl = gsap.timeline();
                 return tl.to(current.container.querySelector("nav div.logo"), {

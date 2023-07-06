@@ -171,6 +171,7 @@ pygmentsUseClasses: true
 markup:
   highlight:
     noClasses: false
+    lineNos: true
     # anchorLineNos: true
     # codeFences: true
     # guessSyntax: true
