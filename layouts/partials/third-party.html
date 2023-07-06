@@ -2,7 +2,6 @@
 {{- $autoRender := (resources.Get "js/auto-render.min.js") | fingerprint }}
 {{- $pangu := (resources.Get "js/pangu.min.js") | fingerprint }}
 {{- $gsap := (resources.Get "js/gsap.min.js") | fingerprint }}
-{{- $anime := (resources.Get "js/anime.min.js") | fingerprint }}
 {{- $barba := (resources.Get "js/barba.umd.js") | resources.Minify | fingerprint }}
 {{- $fusejs := (resources.Get "js/fuse.basic.min.js") | fingerprint }}
 {{- $custom := (resources.Get "js/custom.js") | resources.Minify | fingerprint }}
@@ -12,15 +11,17 @@
 <script defer crossorigin="anonymous" src="{{ $fusejs.RelPermalink }}"></script>
 <script src="{{ $pangu.RelPermalink }}"></script>
 <script src="{{ $gsap.RelPermalink }}"></script>
-<!--<script src="{{ $anime.RelPermalink }}"></script>-->
 <script src="{{ $barba.RelPermalink }}"></script>
 <script src="{{ $custom.RelPermalink }}"></script>
 <script>
     function pageInit() {
         window.scrollTo(0, 0);
-        renderMathInElement(document.body, {
-            delimiters: [{ left: "$$", right: "$$", display: !0 }, { left: "$", right: "$", display: !1 }]
-        });
+        try{
+            renderMathInElement(document.body.querySelector('div[data-barba-namespace="article"]'), {
+                delimiters: [{ left: "$$", right: "$$", display: !0 }, { left: "$", right: "$", display: !1 }],
+                strict: false
+            });
+        } catch (e) {}
         pangu.isAutoSpacingPageExecuted = false;
         pangu.autoSpacingPage();
         setupCodeCopyButton();
@@ -38,7 +39,6 @@
     });
 
     barba.init({
-        debug: true,
         transitions: [{
             name: 'to-post',
             to: { namespace: ['article'] },
