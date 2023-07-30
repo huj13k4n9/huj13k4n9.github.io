@@ -36,16 +36,6 @@
 <meta name="naver-site-verification" content="{{ site.Params.analytics.naver.SiteVerificationTag }}">
 {{- end }}
 
-{{- $isHLJSdisabled := (site.Params.assets.disableHLJS | default false) }}
-{{- if $isHLJSdisabled }}
-<style>.chroma { background-color: unset !important;}</style>
-{{- else }}
-{{- $darkTheme := (resources.Get "css/hljs/github-dark.css") }}
-{{- $lightTheme := (resources.Get "css/hljs/github.css") }}
-<link rel="prefetch stylesheet" title="light" href="{{ $lightTheme.RelPermalink }}" disabled="disabled">
-<link rel="prefetch stylesheet" title="dark" href="{{ $darkTheme.RelPermalink }}">
-{{- end }}
-
 {{- /* Styles */}}
 
 {{- /* includes */}}
@@ -81,18 +71,6 @@
 {{- end }}
 {{- $katexCSS := resources.Get "css/katex.min.css" }}
 <link rel="stylesheet" href="{{ $katexCSS.RelPermalink }}" crossorigin="anonymous">
-
-{{- /* Highlight.js */}}
-{{- $isHLJSdisabled := (site.Params.assets.disableHLJS | default .Params.disableHLJS ) }}
-{{- if (not $isHLJSdisabled) }}
-{{- if not site.Params.assets.disableFingerprinting }}
-{{- $highlight := slice (resources.Get "js/highlight.min.js") | resources.Concat "assets/js/highlight.js" | fingerprint }}
-<script defer crossorigin="anonymous" src="{{ $highlight.RelPermalink }}" onload="hljs.configure({ignoreUnescapedHTML: true});hljs.highlightAll();"></script>
-{{- else }}
-{{- $highlight := slice (resources.Get "js/highlight.min.js") | resources.Concat "assets/js/highlight.js" }}
-<script defer crossorigin="anonymous" src="{{ $highlight.RelPermalink }}" onload="hljs.configure({ignoreUnescapedHTML: true});hljs.highlightAll();"></script>
-{{- end }}
-{{- end }}
 
 {{- /* Favicons */}}
 <link rel="icon" href="{{ site.Params.assets.favicon | default "favicon.ico" | absURL }}">

@@ -45,7 +45,7 @@
 
 .post-content h1 {
     margin: 40px auto 32px;
-    font-size: 40px;
+    font-size: 36px;
 }
 
 .post-content h2 {
@@ -196,15 +196,15 @@
     font-size: 0.78em;
     line-height: 1.5;
     background: var(--code-bg);
-    border-radius: 2px;
+    /* border-radius: 2px; */
 }
 
 .post-content pre code {
     display: block;
     margin: auto 0;
-    padding: 18px;
+    padding: unset;
     background: var(--hljs-bg) !important;
-    border-radius: var(--radius);
+    /* border-radius: var(--radius); */
     overflow-x: auto;
     word-break: break-all;
     transition: all 0.2s;

