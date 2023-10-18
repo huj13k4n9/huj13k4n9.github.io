@@ -3,6 +3,17 @@ This is just a placeholder blank stylesheet so as to support adding custom style
 
 Read https://github.com/adityatelange/hugo-PaperMod/wiki/FAQs#bundling-custom-css-with-themes-assets for more info
 */
+
+div.highlight:hover {
+    border: 2px solid var(--secondary);
+    box-shadow: var(--shadow)0 2px 7px;
+}
+
+div.highlight {
+    border: 2px solid var(--hljs-bg);
+    transition: all .2s;
+}
+
 div.chroma {
     background-color: unset !important;
     padding: 15px 0px;
@@ -14,11 +25,19 @@ div.chroma {
 }
 
 .chroma .lntable > tbody > tr > td:nth-child(1) {
-    width: 30px;
+    width: 5%;
+}
+
+.chroma .lntable {
+    border-radius: unset!important;
 }
 
 .chroma .lnt {
     padding: 0 15px 0 20px!important
+}
+
+.post-content table code {
+    border-radius: unset!important;
 }
 
 /* Background */ .bg { color: var(--chroma-fg); background-color: var(--chroma-bg); }
