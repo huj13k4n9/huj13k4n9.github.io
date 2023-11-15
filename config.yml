@@ -103,12 +103,14 @@ params:
   # https://fusejs.io/api/options.html
   fuseOpts:
     isCaseSensitive: false
+    includeScore: true
+    includeMatches: true
+    findAllMatches: false
+    ignoreLocation: true
     shouldSort: true
-    location: 0
-    distance: 1000
-    threshold: 0.4
-    minMatchCharLength: 0
-    keys: ["title", "permalink", "summary", "content"]
+    threshold: 0.0
+    minMatchCharLength: 1
+    keys: ["title", "content"]
 
   friend:
     - name: cxxz
@@ -143,16 +145,16 @@ menu:
       url: /categories/
       pre: 📂
       weight: 20
+    - identifier: Album
+      name: Album
+      url: /album/
+      pre: 🎞️
+      weight: 40
     - identifier: About
       name: About
       url: /about/
       pre: 👻
       weight: 45
-    - identifier: Misc
-      name: Misc
-      url: /misc/
-      pre: 📌
-      weight: 40
     - identifier: Search
       name: Search
       url: /search/

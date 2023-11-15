@@ -5,6 +5,9 @@
 {{- $barba := (resources.Get "js/barba.umd.js") | resources.Minify | fingerprint }}
 {{- $fusejs := (resources.Get "js/fuse.basic.min.js") | fingerprint }}
 {{- $custom := (resources.Get "js/custom.js") | resources.Minify | fingerprint }}
+{{- $viewImage := (resources.Get "js/view-image.min.js") | resources.Minify | fingerprint }}
+{{- $waterfall := (resources.Get "js/waterfall.min.js") | resources.Minify | fingerprint }}
+{{- $imgStatus := (resources.Get "js/img-status.min.js") | resources.Minify | fingerprint }}
 
 <script defer src="{{ $katex.RelPermalink }}" crossorigin="anonymous"></script>
 <script defer src="{{ $autoRender.RelPermalink }}" crossorigin="anonymous"></script>
@@ -12,7 +15,10 @@
 <script src="{{ $pangu.RelPermalink }}"></script>
 <script src="{{ $gsap.RelPermalink }}"></script>
 <script src="{{ $barba.RelPermalink }}"></script>
+<script src="{{ $viewImage.RelPermalink }}"></script>
 <script src="{{ $custom.RelPermalink }}"></script>
+<script src="{{ $waterfall.RelPermalink }}"></script>
+<script src="{{ $imgStatus.RelPermalink }}"></script>
 <script>
     function pageInit() {
         window.scrollTo(0, 0);
@@ -24,13 +30,28 @@
         } catch (e) {}
         pangu.isAutoSpacingPageExecuted = false;
         pangu.autoSpacingPage();
+        window.ViewImage && ViewImage.init('main.main img')
         setupCodeCopyButton();
         setupTheme();
         setupTopButton();
         if (document.querySelector('div[data-barba-namespace="search"]') !== null) {
-            fastSearch(JSON.stringify({{ (dict "params" (dict "fuseOpts" site.Params.fuseOpts)) | jsonify }}))
+            fastSearch(JSON.parse({{ (dict "fuseOpts" site.Params.fuseOpts) | jsonify }}))
         } else {
             document.onkeydown = null;
+        }
+        if (document.querySelector('div[data-barba-namespace="album"]') !== null) {
+            imgStatus.watch('.photo-img', function(imgs) {
+                waterfall('.gallery-photos');
+                let pagePhoto = document.querySelectorAll('.gallery-photo');
+                for (var i = 0; i < pagePhoto.length; i++) {
+                    if (pagePhoto[i].className.indexOf("visible") == -1) {
+                        pagePhoto[i].className += " visible";
+                    }
+                }
+            });
+            window.addEventListener('resize', function () {
+                waterfall('.gallery-photos');
+            });
         }
     }
 
@@ -40,99 +61,60 @@
 
     barba.init({
         transitions: [{
-            name: 'to-post',
-            to: { namespace: ['article'] },
+            name: 'main',
             leave({ current }) {
                 var tl = gsap.timeline();
                 return tl.to(current.container.querySelector("nav div.logo"), {
-                    opacity: 0,
-                    duration: 0.5,
-                    ease: "sine.in"
+                    opacity: 0, duration: 0.5, ease: "sine.in"
                 }).to(current.container.querySelector("header div.top-line"), {
-                    opacity: 0,
-                    duration: 0.5,
-                    ease: "sine.in"
+                    opacity: 0, duration: 0.5, ease: "sine.in"
                 }, "<").to(current.container.querySelector("nav #menu"), {
-                    opacity: 0,
-                    duration: 0.5,
-                    ease: "sine.in"
+                    opacity: 0, duration: 0.5, ease: "sine.in"
                 }, "<").to(current.container.querySelector("main.main"), {
-                    opacity: 0,
-                    duration: 0.5,
-                    ease: "power2.in"
+                    opacity: 0, duration: 0.5, ease: "power2.in"
                 }, "<");
             },
             after({ next }) {
                 var tl = gsap.timeline();
                 tl.from(next.container.querySelector("main.main"), {
-                    opacity: 0,
-                    duration: 0.8,
-                    ease: "power2.out"
+                    opacity: 0, duration: 0.8, ease: "power2.out"
                 }).from(next.container.querySelector("header div.top-line"), {
-                    opacity: 0,
-                    duration: 0.8,
-                    ease: "sine.out"
+                    opacity: 0, duration: 0.8, ease: "sine.out"
                 }, "<").from(next.container.querySelector("nav div.logo"), {
-                    opacity: 0,
-                    duration: 0.8,
-                    ease: "sine.out"
+                    opacity: 0, duration: 0.8, ease: "sine.out"
                 }, "<").from(next.container.querySelector("nav #menu"), {
-                    opacity: 0,
-                    duration: 0.8,
-                    ease: "sine.out"
+                    opacity: 0, duration: 0.8, ease: "sine.out"
                 }, "<");
                 return tl;
             }
-        }, {
+        }/*, {
             name: 'main',
             leave({ current }) {
                 var tl = gsap.timeline();
                 return tl.to(current.container.querySelector("nav div.logo"), {
-                    x: -25,
-                    opacity: 0,
-                    duration: 0.5,
-                    ease: "sine.in"
+                    x: -25, opacity: 0, duration: 0.5, ease: "sine.in"
                 }).to(current.container.querySelector("header div.top-line"), {
-                    opacity: 0,
-                    duration: 0.5,
-                    ease: "sine.in"
+                    opacity: 0, duration: 0.5, ease: "sine.in"
                 }, "<").to(current.container.querySelector("nav #menu"), {
-                    x: 25,
-                    opacity: 0,
-                    duration: 0.5,
-                    ease: "sine.in"
+                    x: 25, opacity: 0, duration: 0.5, ease: "sine.in"
                 }, "<").to(current.container.querySelector("main.main"), {
-                    y: -300,
-                    opacity: 0,
-                    duration: 0.5,
-                    ease: "back.in"
+                    y: -300, opacity: 0, duration: 0.5, ease: "back.in"
                 }, "<0.3");
             },
             after({ next }) {
                 var tl = gsap.timeline();
                 tl.from(next.container.querySelector("main.main"), {
-                    y: 300,
-                    opacity: 0,
-                    duration: 0.5,
-                    ease: "back.out"
+                    y: 300, opacity: 0, duration: 0.5, ease: "back.out"
                 }).from(next.container.querySelector("header div.top-line"), {
-                    opacity: 0,
-                    duration: 0.5,
-                    ease: "sine.out"
+                    opacity: 0, duration: 0.5, ease: "sine.out"
                 }, "<").from(next.container.querySelector("nav div.logo"), {
-                    x: -25,
-                    opacity: 0,
-                    duration: 0.5,
-                    ease: "sine.out"
+                    x: -25, opacity: 0, duration: 0.5, ease: "sine.out"
                 }, "<0.1").from(next.container.querySelector("nav #menu"), {
-                    x: 25,
-                    opacity: 0,
-                    duration: 0.5,
-                    ease: "sine.out"
+                    x: 25, opacity: 0, duration: 0.5, ease: "sine.out"
                 }, "<");
                 return tl;
             }
-        }]
+        }*/]
     });
     barba.hooks.after(() => {
         pageInit();

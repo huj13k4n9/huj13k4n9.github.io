@@ -1,0 +1,68 @@
+{{ define "main" }}
+<div class="gallery-photos page" view-image="true">
+    {{ $watermark := resources.Get "watermark.png" }}
+    {{ range (sort (readDir "./assets/photos") "Name")}}
+        {{ if ( .Name | findRE "\\.(gif|jpg|jpeg|tiff|png|bmp|webp|avif|jxl)") }}
+            {{ $img := (printf "photos/%s" .Name | resources.Get) }}
+
+            {{/* Image Orientation */}}
+            {{ with $img }}
+                {{ with .Exif }}
+                    {{ if (eq .Tags.Orientation 1) }}
+                    {{ else if (eq .Tags.Orientation 2) }}
+                        {{ $img = $img.Flip "horizontal" }}
+                    {{ else if (eq .Tags.Orientation 3) }}
+                        {{ $img = $img.Process "r180" }}
+                    {{ else if (eq .Tags.Orientation 4) }}
+                        {{ $img = $img.Flip "vertical" }}
+                    {{ else if (eq .Tags.Orientation 5) }}
+                        {{ $img = $img.Process "r270" }}
+                        {{ $img = $img.Flip "horizontal" }}
+                    {{ else if (eq .Tags.Orientation 6) }}
+                        {{ $img = $img.Process "r270" }}
+                    {{ else if (eq .Tags.Orientation 7) }}
+                        {{ $img = $img.Process "r90" }}
+                        {{ $img = $img.Flip "horizontal" }}
+                    {{ else if (eq .Tags.Orientation 8) }}
+                        {{ $img = $img.Process "r90" }}
+                    {{ end }}
+                {{ end }}
+            {{ end }}
+
+            {{/* Image Compression */}}
+            {{ $thumbnail := $img.Resize "640x" }}
+            {{ $renderImg := $img }}
+            {{ if (and (gt $renderImg.Width 2560) (ge $renderImg.Width $renderImg.Height)) }}
+                {{ $renderImg = $renderImg.Resize "2560x" }}
+            {{ else if (and (gt $renderImg.Height 2560) (gt $renderImg.Height $renderImg.Width)) }}
+                {{ $renderImg = $renderImg.Resize "x2560" }}
+            {{ end }}
+
+            {{/* Place Watermark */}}
+            {{ $wRatio := 0.07 }}
+            {{ $hRatio := (mul $wRatio (div (float $watermark.Height) (float $watermark.Width)) (div 16.0 9.0)) }}
+            {{ $resizedWm := cond (ge (div (float $renderImg.Width) (float $renderImg.Height)) (div 16.0 9.0)) ($watermark.Resize (printf "%.0fx" (mul $renderImg.Width $wRatio))) ($watermark.Resize (printf "x%.0f" (mul $renderImg.Height $hRatio))) }}
+            {{ $renderImg = $renderImg.Filter (images.Overlay $resizedWm (div (float (sub $renderImg.Width $resizedWm.Width)) 2) (sub $renderImg.Height $resizedWm.Height (mul $resizedWm.Height 0.35))) }}
+
+
+<div class="gallery-photo">
+    <img class="photo-img" loading='lazy' decoding="async" data-original="{{ $renderImg.RelPermalink }}" src="{{ $thumbnail.RelPermalink }}" alt="{{ .Name }}"/>
+    <span class="photo-title">
+        <p><b>{{ strings.TrimSuffix (path.Ext .Name) .Name }}</b></p>
+        {{ with $img }}
+            {{ with .Exif }}
+                {{ $FocalLength := .Tags.FocalLengthIn35mmFilm }}
+                {{ $ExposureTime := .Tags.ExposureTime }}
+                {{ $FNumber := .Tags.FNumber }}
+                {{ $ISO := .Tags.ISOSpeedRatings}}
+                {{ $ExposureTimeNum := cond (eq $ExposureTime.Num 1) $ExposureTime.Num 1 }}
+                {{ $ExposureTimeDenom := cond (eq $ExposureTime.Num 1) $ExposureTime.Denom (div (float $ExposureTime.Denom.Int64) (float $ExposureTime.Num.Int64)) }}
+                <p class="photo-info">{{ printf "%dmm f/%.1f %d/%.0fs ISO%d" $FocalLength $FNumber $ExposureTimeNum $ExposureTimeDenom $ISO }}</p>
+            {{ end }}
+        {{ end }}
+    </span>
+</div>
+        {{ end }}
+    {{ end }}
+</div>
+{{ end }}

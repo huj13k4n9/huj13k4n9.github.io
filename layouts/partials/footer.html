@@ -4,6 +4,7 @@
     <span>{{ site.Copyright | markdownify }}</span> {{- else }}
     <span>&copy; {{ now.Year }} <a href="{{ "" | absLangURL }}">{{ site.Title }}</a></span> {{- end }} &nbsp;·&nbsp;
     <a href="https://beian.miit.gov.cn/">蜀ICP备19032124号</a>
+    &nbsp;·&nbsp;&nbsp;<a href="https://o.hujiekang.top" target="_blank">使用旧版主题</a>
     <br><span id="timeDate"></span>
     <span id="times"></span>
     <script>
@@ -41,5 +42,6 @@
         <path d="M12 6H0l6-6z" />
     </svg>
 </a>
-{{- end }} {{- partial "extend_footer.html" . }}
+{{- end }}
+{{- partial "extend_footer.html" . }}
 {{ partial "third-party.html" . }}

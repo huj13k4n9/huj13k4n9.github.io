@@ -13,7 +13,7 @@
 {{- print " dark" }}
 {{- end -}}
 " id="top" data-barba="wrapper">
-    <div class="barba" data-barba="container" data-barba-namespace="{{- if (eq .Layout `search`) -}}search{{- else if (eq .Type `posts`) -}}article{{- else -}}main{{- end -}}">
+    <div class="barba" data-barba="container" data-barba-namespace="{{- if (eq .Layout `search`) -}}search{{- else if (eq .Type `posts`) -}}article{{- else if (eq .Layout `album`) -}}album{{- else -}}main{{- end -}}">
         {{- partialCached "header.html" . .Page -}}
         <main class="main">
             {{- block "main" . }}{{ end }}

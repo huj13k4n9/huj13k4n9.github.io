@@ -2,25 +2,14 @@ function setupTheme() {
     document.getElementById("theme-toggle").addEventListener("click", () => {
         if (document.body.className.includes("dark")) {
             document.body.classList.remove('dark');
-            document.querySelector('link[title="light"]').removeAttribute('disabled');
-            document.querySelector('link[title="dark"]').setAttribute('disabled', 'disabled');
             localStorage.setItem("pref-theme", 'light');
         } else {
             document.body.classList.add('dark');
-            document.querySelector('link[title="dark"]').removeAttribute('disabled');
-            document.querySelector('link[title="light"]').setAttribute('disabled', 'disabled');
             localStorage.setItem("pref-theme", 'dark');
         }
     });
     if (localStorage.getItem("pref-theme") === "light") {
         document.body.classList.remove('dark')
-    }
-    if (document.body.classList.contains('dark')) {
-        document.querySelector('link[title="dark"]').removeAttribute('disabled');
-        document.querySelector('link[title="light"]').setAttribute('disabled', 'disabled');
-    } else {
-        document.querySelector('link[title="light"]').removeAttribute('disabled');
-        document.querySelector('link[title="dark"]').setAttribute('disabled', 'disabled');
     }
 }
 
@@ -188,17 +177,19 @@ function fastSearch(params){
         // run a search query (for "term") every time a letter is typed
         // in the search box
         if (fuse) {
+            let xxx = this.value.trim();
             const results = fuse.search(this.value.trim()); // the actual query being run using fuse.js
             if (results.length !== 0) {
                 // build our html if result exists
                 let resultSet = ''; // our results bucket
                 let unique = [];
 
-                for (let item in results) {
-                    if (!unique.includes(results[item].item.permalink)) {
-                        resultSet += `<li class="post-entry"><header class="entry-header"><span>${results[item].item.title}&nbsp;</span><span>»&nbsp;&nbsp;</span></header>` +
-                        `<a href="${results[item].item.permalink}" aria-label="${results[item].item.title}"></a></li>`;
-                        unique.push(results[item].item.permalink);
+                for (let index in results) {
+                    if (!unique.includes(results[index].item.permalink) && results[index].score < 0.5) {
+                        resultSet +=
+                        `<li class="post-entry"><header class="entry-header"><span>${results[index].item.title}&nbsp;</span><span>»&nbsp;&nbsp;</span></header>` +
+                        `<a href="${results[index].item.permalink}" aria-label="${results[index].item.title}"></a></li>`;
+                        unique.push(results[index].item.permalink);
                     }
                 }
 
