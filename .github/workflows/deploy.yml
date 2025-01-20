@@ -30,4 +30,6 @@ jobs:
           if-no-files-found: error
 
       - name: Invoke Webhook
-        run: echo "artifact ${{ steps.artifact-upload-step.outputs.artifact-id }} ${{ steps.artifact-upload-step.outputs.artifact-digest }}"
+        run: |
+          echo "artifact-id ${{ steps.artifact-upload-step.outputs.artifact-id }}" && \
+          echo "artifact-digest ${{ steps.artifact-upload-step.outputs.artifact-digest }}"
