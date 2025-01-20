@@ -3,9 +3,6 @@ title: CNSS Recruit 2019 WriteUp
 date: 2019-09-23 14:20:13
 categories:
   - CTF
-tags:
-  - Web
-  - Misc
 ---
 
 # Web部分

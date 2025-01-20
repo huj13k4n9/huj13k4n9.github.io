@@ -3,8 +3,6 @@ title: XCTF攻防世界 WriteUp(Web)
 date: 2020-03-19 14:44:39
 categories:
   - CTF
-tags:
-  - Web
 ---
 
 感觉XCTF这个平台还是8错的，题目量也多质量也还可以，准备后面慢慢刷

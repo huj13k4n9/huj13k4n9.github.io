@@ -3,8 +3,6 @@ title: Jarvis OJ WriteUp(Web)
 date: 2020-03-10 12:47:16
 categories:
   - CTF
-tags:
-  - Web
 ---
 
 平台链接：<https://www.jarvisoj.com/challenges>

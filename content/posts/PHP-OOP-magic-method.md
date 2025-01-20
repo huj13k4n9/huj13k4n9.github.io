@@ -3,8 +3,6 @@ title: PHP中类的魔术方法总结
 date: 2019-10-23 13:21:20
 categories:
   - Web
-tags:
-  - PHP
 ---
 
 PHP中对对象设计了15个非常有用的魔术方法，分别是`__construct()`， `__destruct()`， `__call()`， `__callStatic()`， `__get()`， `__set()`， `__isset()`， `__unset()`， `__sleep()`， `__wakeup()`， `__toString()`， `__invoke()`， `__set_state()`， `__clone()` 和 `__debugInfo()`。这些魔术方法有助于对象在不同的情况下自动的实现一些行为，如初始化对象自动赋值、对象被销毁时发出提示信息等等。下面对这些魔术方法的功能进行简要总结。

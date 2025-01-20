@@ -1,0 +1,27 @@
+name: Deploy Hugo Blog
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-hugo-blog:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Build Blog Site
+        uses: chabad360/hugo-actions@v2
+        with:
+          buildPath: public
+          hugoVersion: extended_0.141.0
+          args: --buildDrafts --minify --baseURL ${{ vars.SITE_BASE_URL }}
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: hugo-blog
+          path: public/
+          if-no-files-found: error

@@ -3,8 +3,6 @@ title: PHP中对数组的操作
 date: 2019-10-19 16:38:39
 categories:
   - Web
-tags:
-  - PHP
 ---
 
 # 数组的声明

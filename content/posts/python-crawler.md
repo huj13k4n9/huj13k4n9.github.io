@@ -3,9 +3,6 @@ title: Python爬虫学习总结
 date: 2019-09-27 2:20:13
 categories:
   - Summary
-tags:
-  - Scraping
-  - Python
 ---
 
 # 网络爬虫的流程和原理

@@ -1,10 +1,8 @@
 ---
 title: 汇编语言学习笔记
 date: 2020-02-20 15:46:37
-categories: 
+categories:
   - Summary
-tags:
-  - DOS
 ---
 
 在读[《汇编语言》](https://book.douban.com/subject/25726019/)这本书学习汇编语言的时候，在此对每一章的要点进行总结和记录，以便日后复习与查看。

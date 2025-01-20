@@ -1,6 +1,7 @@
 baseURL: "https://hujiekang.top/"
 title: Jiekang Hu's Blog
-paginate: 8
+pagination:
+  pagerSize: 8
 theme: PaperMod
 
 enableRobotsTXT: true
@@ -182,3 +183,4 @@ sitemap:
   filename: sitemap.xml
   priority: -1
 enableRobotsTXT: true
+ignorelogs: warning-goldmark-raw-html

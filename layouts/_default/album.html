@@ -51,12 +51,12 @@
         <p><b>{{ strings.TrimSuffix (path.Ext .Name) .Name }}</b></p>
         {{ with $img }}
             {{ with .Exif }}
-                {{ $FocalLength := .Tags.FocalLengthIn35mmFilm }}
+                {{ $FocalLength := .Tags.FocalLengthIn35mmFormat }}
                 {{ $ExposureTime := .Tags.ExposureTime }}
-                {{ $FNumber := .Tags.FNumber }}
-                {{ $ISO := .Tags.ISOSpeedRatings}}
+                {{ $FNumber := .Tags.FNumber.Float64 }}
+                {{ $ISO := .Tags.ISO}}
                 {{ $ExposureTimeNum := cond (eq $ExposureTime.Num 1) $ExposureTime.Num 1 }}
-                {{ $ExposureTimeDenom := cond (eq $ExposureTime.Num 1) $ExposureTime.Denom (div (float $ExposureTime.Denom.Int64) (float $ExposureTime.Num.Int64)) }}
+                {{ $ExposureTimeDenom := cond (eq $ExposureTime.Num 1) (float $ExposureTime.Den) (div (float $ExposureTime.Den) (float $ExposureTime.Num)) }}
                 <p class="photo-info">{{ printf "%dmm f/%.1f %d/%.0fs ISO%d" $FocalLength $FNumber $ExposureTimeNum $ExposureTimeDenom $ISO }}</p>
             {{ end }}
         {{ end }}

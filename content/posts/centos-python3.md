@@ -1,9 +1,6 @@
 ---
 title: CentOS服务器上安装Python3.7并设置为默认Python
 date: 2019-11-01 15:21:53
-tags:
-  - Linux
-  - Python
 categories:
   - Tutorials
 ---

@@ -1,8 +1,6 @@
 ---
 title: Git初探
 date: 2020-02-16 13:19:58
-tags:
-  - Git
 categories:
   - Web
 ---

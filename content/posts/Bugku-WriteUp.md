@@ -3,8 +3,6 @@ title: Bugku论剑场WriteUp(Web)
 date: 2019-10-28 19:10:05
 categories:
   - CTF
-tags:
-  - Web
 ---
 
 自己第一次真正意义上开始练习CTF，收获很多，看来还是面向漏洞学习更有效率一点。。。

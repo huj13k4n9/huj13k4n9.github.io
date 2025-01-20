@@ -3,8 +3,6 @@ title: 有关多项式的算法——四则运算、求逆
 date: 2019-12-18 14:04:24
 categories:
   - Algorithm
-tags:
-  - Java
 ---
 
 ## 算法介绍

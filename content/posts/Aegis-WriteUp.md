@@ -4,8 +4,6 @@ date: 2019-09-22 21:26:32
 update: 2019-09-23 14:10:32
 categories:
   - CTF
-tags:
-  - Web
 ---
 
 # Adventures in PHP (0)

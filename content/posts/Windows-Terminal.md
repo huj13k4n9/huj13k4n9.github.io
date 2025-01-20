@@ -3,8 +3,6 @@ title: Windows Terminal美化
 date: 2019-11-27 14:14:15
 categories:
   - Tutorials
-tags:
-  - Windows Terminal
 ---
 
 Windows Terminal是微软新发布的一款Terminal产品（以下称WT）。对比之前传统的`cmd`和`Powershell`来说，WT对定制的支持更好，同时又支持GPU对页面的渲染、emoji表情、多标签等的特点。其项目地址为：[https://github.com/microsoft/terminal](https://github.com/microsoft/terminal)。
