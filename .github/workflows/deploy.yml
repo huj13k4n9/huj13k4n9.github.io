@@ -29,5 +29,5 @@ jobs:
           path: public/
           if-no-files-found: error
 
-    outputs:
-      digest: ${{ steps.artifact-upload-step.outputs.artifact-digest }}
+      - name: Invoke Webhook
+        run: echo "artifact ${{ steps.artifact-upload-step.outputs.artifact-id }} ${{ steps.artifact-upload-step.outputs.artifact-digest }}"
