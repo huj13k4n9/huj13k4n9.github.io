@@ -12,12 +12,14 @@ jobs:
       - name: Checkout Source Code
         uses: actions/checkout@v4
 
-      - name: Build Blog Site
-        uses: chabad360/hugo-actions@master
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
         with:
-          buildPath: public
-          hugoVersion: extended_0.141.0
-          args: --buildDrafts --minify --baseURL ${{ vars.SITE_BASE_URL }}
+          hugo-version: '0.141.0'
+          extended: true
+
+      - name: Build Blog Site
+        run: hugo --gc --buildDrafts --minify --baseURL ${{ vars.SITE_BASE_URL }}
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
