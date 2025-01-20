@@ -19,7 +19,7 @@ jobs:
           extended: true
 
       - name: Build Blog Site
-        run: hugo --gc --buildDrafts --minify --baseURL ${{ vars.SITE_BASE_URL }}
+        run: hugo --gc --buildDrafts --minify --baseURL ${{ secrets.SITE_BASE_URL }}
 
       - name: Upload Artifact
         id: artifact-upload-step
