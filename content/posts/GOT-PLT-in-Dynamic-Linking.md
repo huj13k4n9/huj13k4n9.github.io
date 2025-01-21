@@ -77,7 +77,7 @@ $ export LD_LIBRARY_PATH
 
 类似的概念同样存在于可执行文件上，被称为位置无关可执行文件（Position-independent Executable，PIE）。上述编译指令中`-no-pie`参数的意义即为关闭PIE。当PIE关闭时，链接器会默认将其加载到OS虚拟地址空间的代码段（Text Segment）中，此时可执行文件将会有一个固定的地址前缀（如x86_32下为`0x08048000`，x86_64下为`0x0000000000400000`），这也正是代码段的起始地址（可以参考x86的ABI中对虚拟内存空间的布局）。使用GDB分别对开启PIE和未开启PIE的程序进行反编译，可以看见开启PIE的代码地址以及函数调用地址均为相对的偏移量，而未开启PIE的程序则全部为绝对地址：
 
-![](https://hujiekang.top/images/uploads/big/ba4c305c4cec120afe48bf03ac1a7bcb.png)
+![](https://pic.hujiekang.top/uploads/big/ba4c305c4cec120afe48bf03ac1a7bcb.png)
 
 # 重定向表
 
@@ -181,7 +181,7 @@ End of assembler dump.
 
 接下来可以dump出`.plt`段的具体数据：
 
-![](https://hujiekang.top/images/uploads/big/81539b90056ec33203ce042f73cfa58d.png)
+![](https://pic.hujiekang.top/uploads/big/81539b90056ec33203ce042f73cfa58d.png)
 
 经过GDB的标注，可以发现PLT表可以通过每0x10个字节来进行划分。首先是第一部分，这段代码是PLT的公共代码，用于调用动态链接器来装填外部函数的地址。但是可以发现在程序尚未运行的时候，这两个地址（0x804bff8和0x804bffc，位于`.got.plt`）对应的值为0，是因为这两个值同样是由动态链接器进行填充。
 
@@ -227,7 +227,7 @@ Relocation section '.rel.plt' at offset 0x330 contains 4 entries:
 
 基于上面的分析，可以画出这个可执行程序中的GOT和PLT布局图。
 
-![](https://hujiekang.top/images/uploads/big/f40d697634e54af5d5cdb3b01f9940cb.png)
+![](https://pic.hujiekang.top/uploads/big/f40d697634e54af5d5cdb3b01f9940cb.png)
 
 ## 动态分析
 

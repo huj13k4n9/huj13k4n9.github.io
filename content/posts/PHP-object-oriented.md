@@ -102,7 +102,7 @@ display_errors = On
             echo "hi";
         }
     }
-    
+
     $c1=new example2();
 ?>
 
@@ -120,7 +120,7 @@ display_errors = On
             echo "hi";
         }
     }
-    
+
     $c1=new example2();
 ?>
 
@@ -141,7 +141,7 @@ display_errors = On
 <?php
     class example1{
         static $objnum = 0;
-        
+
         function __construct(){
             self::$objnum++;
         }
@@ -179,7 +179,7 @@ abstract function func();
 
 下图中可以很清楚的看出接口和类的关系：
 
-![](https://hujiekang.top/images/uploads/medium/f33dcd00d7c52422b6d7ad8c24f048a0.png)
+![](https://pic.hujiekang.top/uploads/medium/f33dcd00d7c52422b6d7ad8c24f048a0.png)
 
 使用接口，可以指定某个类**必须实现哪些方法**，但**不需要定义这些方法的具体内容**。和抽象类一样，**实现接口必须实现接口的所有方法**。
 接口中定义的**所有方法都必须是公有**，这是**接口的特性**。
@@ -270,5 +270,5 @@ interface t2 extends t1{
 
    // 输出：
    // object(test)#1 (1) { ["test1"]=> string(28) "I'm a instance of this class" }
-   // object(test)#3 (1) { ["test1"]=> string(28) "I'm a instance of this class" } 
+   // object(test)#3 (1) { ["test1"]=> string(28) "I'm a instance of this class" }
    ```

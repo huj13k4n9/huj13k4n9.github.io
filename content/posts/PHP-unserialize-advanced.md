@@ -47,10 +47,10 @@ categories:
    }
    $a = new SampleClass();
    $a->value = 1;
-   
+
    $b = new SampleClass();
    $b->value = $a;  // 对象引用
-   
+
    echo "<pre>";
    var_dump($a);
    var_dump($b);
@@ -69,10 +69,10 @@ categories:
    }
    $a = new SampleClass();
    $a->value = 1;
-   
+
    $b = new SampleClass();
    $b->value = $a;  // 对象引用
-   
+
    echo "<pre>";
    var_dump($a);
    var_dump($b);
@@ -87,7 +87,7 @@ categories:
 
    下面是两端程序输出的差异：
 
-   ![](https://hujiekang.top/images/uploads/big/92acc99968dddc6fa7d127d2de4f5d5f.png)
+   ![](https://pic.hujiekang.top/uploads/big/92acc99968dddc6fa7d127d2de4f5d5f.png)
 
    需要注意的是，对象引用只有在对象序列化时才会产生，对数组和其他标量类型是无法产生的。
 
@@ -146,16 +146,16 @@ echo urlencode(serialize(new SampleClass("a", "b", "c")));
 这里使用到了上面说的，字符串长度的值为非负数，允许使用`+`号。下面是一道CTF题的部分代码（[完整题目](/2020/03/19/xctf-wp/#web_php_unserialize)）：
 
 ```php
-if (isset($_GET['var'])) { 
-    $var = base64_decode($_GET['var']); 
-    if (preg_match('/[oc]:\d+:/i', $var)) { 
-        die('stop hacking!'); 
+if (isset($_GET['var'])) {
+    $var = base64_decode($_GET['var']);
+    if (preg_match('/[oc]:\d+:/i', $var)) {
+        die('stop hacking!');
     } else {
-        @unserialize($var); 
-    } 
-} else { 
-    highlight_file("index.php"); 
-} 
+        @unserialize($var);
+    }
+} else {
+    highlight_file("index.php");
+}
 ```
 
 可以看见这里对序列化字符串做了过滤，即检测到序列化对象即退出程序（`O:1`、`o:1`、`C:1`），这里就可以通过添加`+`号来绕过这个正则表达式。

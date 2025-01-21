@@ -56,8 +56,8 @@ Are you sure you want to continue connecting (yes/no)?
 如果用户确认无误，就可以输入`yes`，继续连接。接下来服务器会把这个客户端添加至“已信任的主机”列表（`known_hosts`）里。
 
 ```
-Warning: Permanently added 'example.com (xxx.xxx.xxx.xxx)' (RSA) to the list of known hosts. 
-Password: (enter password) 
+Warning: Permanently added 'example.com (xxx.xxx.xxx.xxx)' (RSA) to the list of known hosts.
+Password: (enter password)
 ```
 
 ### 使用公钥认证
@@ -73,7 +73,7 @@ Password: (enter password)
 
 客户端可以通过`ssh-keygen`命令来生成自己的公钥和私钥。在生成过程中，会提示要不要对私钥设置口令（`passphrase`），如果担心私钥的安全，这里可以设置一个。其他的选项一般来说一路回车保持默认即可。
 
-![](https://hujiekang.top/images/uploads/big/a55cdd4c862e6756ac0e2911d6309161.png)
+![](https://pic.hujiekang.top/uploads/big/a55cdd4c862e6756ac0e2911d6309161.png)
 
 这些文件默认会保存在用户文件夹的`.ssh`目录下，其中`id_rsa`是私钥文件，`id_rsa.pub`是公钥文件。所以接下来要做的，就是把`id_rsa.pub`的内容上传给服务器。
 
@@ -89,7 +89,7 @@ ssh-copy-id 用户名@服务器IP
 
 ```bash
 # 第一个参数表示源文件路径，第二个参数表示目的路径，服务器IP与路径间使用逗号隔开
-scp C:/Users/you/.ssh/id_rsa.pub 用户名@服务器IP:~/.ssh 
+scp C:/Users/you/.ssh/id_rsa.pub 用户名@服务器IP:~/.ssh
 ```
 
 接下来在服务器端输入以下命令，将公钥内容添加到`$HOME/.ssh/authorized_keys`文件中：
@@ -113,7 +113,7 @@ rm ~/.ssh/id_rsa.pub
 
 接下来断开服务器连接，再次连接时，就不需要输入密码直接登录了：
 
-![](https://hujiekang.top/images/uploads/big/76efa6aa71d297f95288dfd11a7c505e.png)
+![](https://pic.hujiekang.top/uploads/big/76efa6aa71d297f95288dfd11a7c505e.png)
 
 
 

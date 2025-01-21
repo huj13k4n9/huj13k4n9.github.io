@@ -69,10 +69,10 @@ base {
 redsocks {
 	local_ip = 0.0.0.0;   // 使用0.0.0.0即可允许其他主机流量进入，使用127.0.0.1只能本机流量进入
 	local_port = 50080;   // Redsocks监听端口
-	
+
 	ip = 127.0.0.1;
 	port = 9050;    // 填写Tor监听端口
-	
+
 	type = socks5;
     // 可选 自定义登录用户名和密码
 	// login = "username";
@@ -168,7 +168,7 @@ iptables -t nat -nvL --line-number
 
 任意需要访问Tor服务的主机，将网关设置为该主机的IP地址即可，然后访问https://check.torproject.org，成功截图如下：
 
-![](https://hujiekang.top/images/uploads/big/86cd9082a22ff807d7ea564fd2189bbc.png)
+![](https://pic.hujiekang.top/uploads/big/86cd9082a22ff807d7ea564fd2189bbc.png)
 
 ## 参考资料
 

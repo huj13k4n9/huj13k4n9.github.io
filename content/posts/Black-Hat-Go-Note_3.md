@@ -88,7 +88,7 @@ for query.Next() {
 通过`mgo.Dial()`方法来建立一个新的MongoDB会话：
 
 ```go
-// URL Pattern: 
+// URL Pattern:
 // [mongodb://][user:pass@]host1[:port1][,host2[:port2],...][/database][?options]
 conn, err := mgo.Dial("192.168.159.128:27017")
 if err != nil {
@@ -191,7 +191,7 @@ for _, device := range devices {
     }
 }
 
-// Output: 
+// Output:
 // [NAME] \Device\NPF_{D851352E-50E2-4BB5-97CB-7883FCA908A3}
 // [DESC] VMware Virtual Ethernet Adapter for VMnet8
 //     [IP] fe80::2551:aca3:1d55:a6e3
@@ -266,7 +266,7 @@ for packet := range source.Packets() {
 // - Layer 1 (04 bytes) = Loopback	{Contents=[24, 0, 0, 0] Payload=[..72..] Family=IPv6}
 // - Layer 2 (40 bytes) = IPv6	{Contents=[..40..] Payload=[..32..] Version=6 TrafficClass=0 FlowLabel=653070 Length=32 NextHeader=TCP HopLimit=128 SrcIP=::1 DstIP=::1 HopByHop=nil}
 // - Layer 3 (32 bytes) = TCP	{Contents=[..32..] Payload=[] SrcPort=5572 DstPort=4000(terabase) Seq=2338074922 Ack=0 DataOffset=8 FIN=false SYN=true RST=false PSH=false ACK=false URG=false ECE=false CWR=false NS=false Window=65535 Checksum=37652 Urgent=0 Options=[..6..] Padding=[]}
-// 
+//
 // PACKET: 76 bytes, wire length 76 cap length 76 @ 2021-09-06 22:23:59.265278 +0800 CST
 // - Layer 1 (04 bytes) = Loopback	{Contents=[24, 0, 0, 0] Payload=[..72..] Family=IPv6}
 // - Layer 2 (40 bytes) = IPv6	{Contents=[..40..] Payload=[..32..] Version=6 TrafficClass=0 FlowLabel=921073 Length=32 NextHeader=TCP HopLimit=128 SrcIP=::1 DstIP=::1 HopByHop=nil}
@@ -340,7 +340,7 @@ for packet := range source.Packets() {
 
 运行结果：
 
-![](https://hujiekang.top/images/uploads/big/2f18862b03c310ea31457d4f16d659dd.png)
+![](https://pic.hujiekang.top/uploads/big/2f18862b03c310ea31457d4f16d659dd.png)
 
 上面只是利用到了数据包中应用层的信息。如果对所有层的信息都感兴趣，那么可以使用`github.com/google/gopacket/layers`子包，里面包含了对数据包进行解码、编码的方法以及各层一些常量的定义。使用该子包可以构建自定义的数据包，也可以直接将整个数据包解析为Go结构体。更多信息可以参考[这篇文章](https://colobu.com/2019/06/01/packet-capture-injection-and-analysis-gopacket/)以及官方文档。
 
@@ -578,7 +578,7 @@ go build -buildmode=plugin -o 'libnss_X/P0P_SH3LLZ_ .so.2' lib.go
 
 接下来测试程序是否能够提权。拉取符合版本要求的Docker镜像`manishfoodtechs/xfcefulldesktop_ubuntu20.4`（目前最新版本的Ubuntu已经修补了漏洞，所以即使sudo版本符合要求仍然无法提权），下面是运行截图，可以看见和原C语言程序完全一致，提权成功：
 
-![](https://hujiekang.top/images/uploads/big/8706a6cd9ca9b8f91c881c635af16e68.png)
+![](https://pic.hujiekang.top/uploads/big/8706a6cd9ca9b8f91c881c635af16e68.png)
 
 ## 在Go中应用Shellcode
 
@@ -613,15 +613,15 @@ go build -buildmode=c-shared -o test.dll test.go
 
 ```go
 package main
- 
+
 import "C"
 import "fmt"
- 
+
 //export PrintBye
 func PrintBye() {
     fmt.Println("From DLL: Bye!")
 }
- 
+
 func main() {
     // Need a main function to make CGO compile package as C shared library
 }

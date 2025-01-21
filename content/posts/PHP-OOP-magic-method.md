@@ -69,7 +69,7 @@ PHP中对对象设计了15个非常有用的魔术方法，分别是`__construct
     }
 
     // __callStatic()方法必须是公共的和静态的
-    public static function __callStatic($fun_name, $args){          
+    public static function __callStatic($fun_name, $args){
       echo 'I cannot do this static thing "'.$fun_name.'" with "';
       print_r($args);
       echo '" !<br>';
@@ -105,10 +105,10 @@ PHP中对对象设计了15个非常有用的魔术方法，分别是`__construct
       $this->sex = $sex;
       $this->age = $age;
     }
-    
+
     function __set($name, $value)
     {
-        // 性别非“男”和“女”则不做修改，返回      
+        // 性别非“男”和“女”则不做修改，返回
         if($name == "sex"){
             if($value != "Male" && $value != "Female"){
                 return;
@@ -143,7 +143,7 @@ PHP中对对象设计了15个非常有用的魔术方法，分别是`__construct
   }
 
     $zhangsan = new Person("Zhangsan", "Male", 25);
-    
+
     // 一波赋值操作
     $zhangsan->name = "Lisi";
     $zhangsan->sex = "Female";
@@ -166,7 +166,7 @@ PHP中对对象设计了15个非常有用的魔术方法，分别是`__construct
 **注意：因为PHP处理赋值运算的方式，`__set()`的返回值将被忽略。类似的, 在下面这样的链式赋值中，`__get()` 不会被调用：**
 
 ```php
- $a = $obj->b = 8; 
+ $a = $obj->b = 8;
 ```
 
 ### `__isset()` 和 `__unset()`
@@ -188,7 +188,7 @@ PHP中对对象设计了15个非常有用的魔术方法，分别是`__construct
       $this->sex = $sex;
       $this->age = $age;
     }
-    
+
     function __isset($name)
     {
         if($name == "sex" || $name == "age"){
@@ -204,7 +204,7 @@ PHP中对对象设计了15个非常有用的魔术方法，分别是`__construct
   }
 
     $zhangsan = new Person("Zhangsan", "Male", 25);
-    
+
     var_dump(isset($zhangsan->sex));
     unset($zhangsan->sex);
 ?>
@@ -226,7 +226,7 @@ PHP中对对象设计了15个非常有用的魔术方法，分别是`__construct
 
 上面这段代码新建了一个`Test`对象`$t1`，将其序列化之后的字符串反序列化至另一个`Test`对象`$t2`。输出结果如下，可以看到两个对象的内容一模一样。
 
-![](https://hujiekang.top/images/uploads/big/f5fdd47033076f1f85d994697643218f.png)
+![](https://pic.hujiekang.top/uploads/big/f5fdd47033076f1f85d994697643218f.png)
 
 `__sleep()`、`__wakeup()`这两个方法分别在对象被序列化和反序列化时自动调用。`__sleep()`在对象被序列化为字符串之前调用，可以使用这个魔术方法来控制要序列化哪些变量；`__wakeup()`在对象被反序列化之后调用，用于对反序列化后的部分成员进行重新初始化。
 
@@ -299,7 +299,7 @@ PHP中对对象设计了15个非常有用的魔术方法，分别是`__construct
     echo $s."<br>";
 ?>
 
-// 输出：O:6:"Person":2:{s:12:"Personname";s:8:"Zhangsan";s:3:"sex";s:4:"Male";} 
+// 输出：O:6:"Person":2:{s:12:"Personname";s:8:"Zhangsan";s:3:"sex";s:4:"Male";}
 ```
 
 <b style="color:#ff7473">可以看到<code style="color:#ff7473">Personname</code>的长度为<code style="color:#ff7473">10</code>，而字符串中的长度为<code style="color:#ff7473">12</code>。
@@ -312,7 +312,7 @@ var_dump(unserialize($s1));
 
 <b style="color:#ff7473">果然输出了字节数大小的错误，<code style="color:#ff7473">unserialize()</code>函数也返回了<code style="color:#ff7473">false</code>。</b>
 
-![](https://hujiekang.top/images/uploads/big/793cc3f01fa16a7d777162e709897c38.png)
+![](https://pic.hujiekang.top/uploads/big/793cc3f01fa16a7d777162e709897c38.png)
 
 <b style="color:#ff7473">如果修改字符数为正确值再去反序列化，会发现对象已经发生了改变：</b>
 
@@ -363,7 +363,7 @@ var_dump(unserialize($s1));
             return $x*$x;
         }
     }
-  
+
     $t1 = new test();
     echo $t1(5)."<br>";
     var_dump(is_callable($t1));
@@ -480,18 +480,18 @@ var_dump(unserialize($s1));
 <?php
   class Test {
           private $num;
-      
+
           public function __construct($val) {
               $this->num = $val;
           }
-      
+
           public function __debugInfo() {
               return [
                   'Thisnum' => $this->num ** 2,
               ];
           }
       }
-      
+
       var_dump(new Test(10));
 ?>
 

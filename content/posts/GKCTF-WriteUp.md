@@ -52,11 +52,11 @@ new ClassName();
 
 就RCE了，直接拿到flag：
 
-![](https://hujiekang.top/images/uploads/big/9d0eb9841e3d66998909c36db230e151.png)
+![](https://pic.hujiekang.top/uploads/big/9d0eb9841e3d66998909c36db230e151.png)
 
 **更新：** 后面再次尝试，发现只是插件不行，利用`LD_PRELOAD`环境变量劫持同样可以RCE：（更多请看我[之前的文章](/2020/04/22/Ha1cyonCTF-WriteUp/#realezphp)）
 
-![](https://hujiekang.top/images/uploads/big/0d99cd64bf23d22e04ec1189447b228c.png)
+![](https://pic.hujiekang.top/uploads/big/0d99cd64bf23d22e04ec1189447b228c.png)
 
 ## cve版签到
 
@@ -82,7 +82,7 @@ new ClassName();
 
 访问`?url=http://127.0.0.123%00.ctfhub.com`直接可以拿到flag：
 
-![](https://hujiekang.top/images/uploads/big/a7daea8cb32ba87111648ddb474e34c4.png)
+![](https://pic.hujiekang.top/uploads/big/a7daea8cb32ba87111648ddb474e34c4.png)
 
 ## 老八小超市儿
 
@@ -100,11 +100,11 @@ new ClassName();
 
 访问admin.php，输入默认账户密码，成功进入管理界面：
 
-![](https://hujiekang.top/images/uploads/big/232690379e86bd312de345343fd3a6f6.png)
+![](https://pic.hujiekang.top/uploads/big/232690379e86bd312de345343fd3a6f6.png)
 
 然后在网站管理 > 主题管理下面找到一个文件上传点，在官网的[应用商店](https://store.shopxo.net/theme.html)里面提供了两个免费的主题，随便下一个，静态文件里面丢一个一句话木马传上去就getshell了：（参考<http://www.nctry.com/1660.html>）
 
-![](https://hujiekang.top/images/uploads/big/16665f5c80777fc7b5fa54f257038b71.png)
+![](https://pic.hujiekang.top/uploads/big/16665f5c80777fc7b5fa54f257038b71.png)
 
 根目录发现flag文件和flag.hint，flag文件中告知真flag在`/root`目录，hint内容如下：
 
@@ -113,11 +113,11 @@ new ClassName();
 
 然而当前shell的用户不是root，所以就访问不到`/root`目录，但是根目录下还有一个`auto.sh`：
 
-![](https://hujiekang.top/images/uploads/big/8336794ba7552209ff6725889dbff613.png)
+![](https://pic.hujiekang.top/uploads/big/8336794ba7552209ff6725889dbff613.png)
 
 顺藤摸瓜摸到这个Python文件，发现权限是766，也就是可修改：
 
-![](https://hujiekang.top/images/uploads/big/e2c810737f3e8e8852335394511c35b0.png)
+![](https://pic.hujiekang.top/uploads/big/e2c810737f3e8e8852335394511c35b0.png)
 
 所以目前已知的就是这个脚本每隔一分钟会执行一次这个Python脚本重写一次时间，然后可以修改脚本内容。
 
@@ -142,7 +142,7 @@ ff.close()
 
 后面看别的师傅的WP发现了一个更简单的方法。。。直接`os.system('chmod -R 777 /root')`然后就可以直接`cat`了：
 
-![](https://hujiekang.top/images/uploads/big/1052084b6c27d6a1d29ada18ee9c160c.png)
+![](https://pic.hujiekang.top/uploads/big/1052084b6c27d6a1d29ada18ee9c160c.png)
 
 flag：`flag{78e8bd48-d5a9-4b2f-a3a1-4cbda7169ff5}`
 
@@ -292,23 +292,23 @@ flag：`flag{3d0914a1-1e97-4822-a745-c7e20c5179b9}`
 
 题目附件是《口袋妖怪：绿宝石》的GBA ROM，使用GBA模拟器打开，走完前面剧情，可以自由活动之后去103号道路，看到地上草丛摆成的flag：`flag{PokEmon_14_CutE}`
 
-![](https://hujiekang.top/images/uploads/big/49605e43264b0f36f48023cf85c9405d.png)
+![](https://pic.hujiekang.top/uploads/big/49605e43264b0f36f48023cf85c9405d.png)
 
 ## code obfuscation
 
 附件是一张图片：
 
-![](https://hujiekang.top/images/uploads/big/e50953ce7a939147006c6c6030cf9f94.png)
+![](https://pic.hujiekang.top/uploads/big/e50953ce7a939147006c6c6030cf9f94.png)
 
 用PS消除间隔并矫正形状得到二维码：
 
-![](https://hujiekang.top/images/uploads/big/66aca3c6a9623b2c2b208b4b432f6dfc.png)
+![](https://pic.hujiekang.top/uploads/big/66aca3c6a9623b2c2b208b4b432f6dfc.png)
 
 扫描结果为`base(gkctf)`，此时没有更多信息了，于是尝试再次提取原图片的信息。
 
 使用Stegslove，发现图片中有另一个数据块，很明显能够发现RAR的文件头`52 61 72 21`：
 
-![](https://hujiekang.top/images/uploads/big/c93325fe8925e760f6124c1ccbd9aad1.png)
+![](https://pic.hujiekang.top/uploads/big/c93325fe8925e760f6124c1ccbd9aad1.png)
 
 于是把这块数据提取出来，得到一个有密码的RAR压缩包。此时利用之前的二维码扫描结果，于是想到basexx编码，尝试把字符串`gkctf`进行base16、base32、base64、base58编码，最后base58`CfjxaPF`成功解压，拿到一张图片和一段代码：
 
@@ -316,7 +316,7 @@ flag：`flag{3d0914a1-1e97-4822-a745-c7e20c5179b9}`
 eval(function(p,a,c,k,e,d){e=function(c){return(c<a?"":e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)d[e(c)]=k[c]||e(c);k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1;};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p;}('15 n 14 a b c d e f g h i j k l m n o p q r s t u v w x y z 10 11 17="n"12 15 n 14 A B C D E F G H I J K L M N O P Q R S T U V W X Y Z 10 11 17="n"12 13=0 15 n 14 a b c d e f g h i j 10 11 16="n"13=$((13+1))12 1g("1f=\' \';1e=\'"\';16=\'#\';1j=\'(\';1i=\')\';1h=\'.\';1a=\';\';19=\'<\';18=\'>\';1d=\'1c\';1b=\'{\';1k=\'}\';1t=\'0\';1u=\'1\';1s=\'2\';1r=\'3\';1n=\'4\';1m=\'5\';1l=\'6\';1q=\'7\';1p=\'8\';1o=\'9\';")',62,93,'||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||do|eval|done|num|in|for|Bn|An|Ce|Cc|Cb|Cn|_|Cl|Bm|Bk|alert|By|Bt|Bs|Cp|Dg|Df|De|Dj|Di|Dh|Dd|Dc|Da|Db'.split('|'),0,{}))
 ```
 
-![](https://hujiekang.top/images/uploads/big/9319cb0569f5bc7da5a0d5657e00524f.png)
+![](https://pic.hujiekang.top/uploads/big/9319cb0569f5bc7da5a0d5657e00524f.png)
 
 上面的代码进行了JS混淆，解混淆后格式化结果如下：
 
@@ -351,7 +351,7 @@ flag：`flag{w3lc0me_4o_9kct5}`
 
 音频的最后有一段电话拨号的声音，截取下来，用Au放慢速度自己用手机对着听或者直接用`dtmf2num.exe`分析都可以顺利拿到对应的信息：`#222833344477773338866#`
 
-![](https://hujiekang.top/images/uploads/big/92638b7b58c8010453041ee0a864cd31.png)
+![](https://pic.hujiekang.top/uploads/big/92638b7b58c8010453041ee0a864cd31.png)
 
 此时看第二个hint，搜索发现是个图片隐写软件：
 
@@ -359,11 +359,11 @@ flag：`flag{w3lc0me_4o_9kct5}`
 
 此时之前的图片也有用了，把图片丢进去解密，一开始直接输入`#222833344477773338866#`提示密码错误，比赛结束前10分钟突然想到是[手机键盘密码](http://dyf.ink/crypto/classical/others/#_24)：
 
-<img src="https://hujiekang.top/images/uploads/big/c41159cb8521607c6045dda4041248bd.jpg" style="zoom:50%;" />
+<img src="https://pic.hujiekang.top/uploads/big/c41159cb8521607c6045dda4041248bd.jpg" style="zoom:50%;" />
 
 拿到密码为`ctfisfun`，解开图片中的文档：
 
-![](https://hujiekang.top/images/uploads/big/f2e343f897f3acc2670997622c069ece.png)
+![](https://pic.hujiekang.top/uploads/big/f2e343f897f3acc2670997622c069ece.png)
 
 拿到flag：`flag{Pudd1n!!_y0u_F1nd_m3!}`
 
@@ -379,13 +379,13 @@ flag：`flag{w3lc0me_4o_9kct5}`
 
 首先打开视频，是一段监控录像，在最后几秒有一帧出现了一个二维码：
 
-![](https://hujiekang.top/images/uploads/big/f7e4e752981d5d7017c797f0936190a1.png)
+![](https://pic.hujiekang.top/uploads/big/f7e4e752981d5d7017c797f0936190a1.png)
 
 扫描得到一个百度网盘的链接，但是不知道提取码，只能再回去翻看视频找找线索。
 
 借助hint1，找了几遍后发现了“闪烁的光芒”，就是视频中间那个摄像头：
 
-![](https://hujiekang.top/images/uploads/big/029a120e0f3ed31e7d49b90efa7a4f2e.png)
+![](https://pic.hujiekang.top/uploads/big/029a120e0f3ed31e7d49b90efa7a4f2e.png)
 
 发现灯亮的时长有两种：1帧和3帧，于是想到了摩斯电码，得到下面的文本：
 
@@ -418,9 +418,9 @@ efb851bdc71d72b9ff668bddd30fd6bd
 
 然后又试了一下上面的算法，在AES这里解出了结果：
 
-![](https://hujiekang.top/images/uploads/big/741e1af908b77e1c215c3f20685ed88c.png)
+![](https://pic.hujiekang.top/uploads/big/741e1af908b77e1c215c3f20685ed88c.png)
 
 压缩包密码`GG0kc.tf`，解压出来得到一个`.ovex`文件，用五线谱打谱软件Overture打开即可拿到flag：`flag{gkctf_is_fun}`
 
-![](https://hujiekang.top/images/uploads/big/6b5d1a2fcf4ea992c84433ddc1a9ad17.png)
+![](https://pic.hujiekang.top/uploads/big/6b5d1a2fcf4ea992c84433ddc1a9ad17.png)
 

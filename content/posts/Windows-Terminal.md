@@ -9,7 +9,7 @@ Windows Terminal是微软新发布的一款Terminal产品（以下称WT）。对
 
 由于WT的可定制化非常之高，只需要很简单的步骤就可以调节各种界面元素以及操作习惯，所以把它打造成最适合自己的Windows终端程序是完全做得到的。
 
-![](https://hujiekang.top/images/uploads/big/dd1b349437a75f62865844324420660b.png)
+![](https://pic.hujiekang.top/uploads/big/dd1b349437a75f62865844324420660b.png)
 
 <!-- more -->
 
@@ -78,7 +78,7 @@ Windows Terminal是微软新发布的一款Terminal产品（以下称WT）。对
 
 至此，`oh-my-posh`的安装就完成了，打开WT的效果如下：
 
-![](https://hujiekang.top/images/uploads/big/1982b4fd2020beecc269ee8290d45195.png)
+![](https://pic.hujiekang.top/uploads/big/1982b4fd2020beecc269ee8290d45195.png)
 
 在其他教程中有看到使用`ColorTool`进行配色方案的修改，但是经尝试后发现只能一次性的修改，关闭后再打开还是原来的配色，项目里的issue中给出的解决方案也并没有解决问题。于是找到了另一种更改配色的解决方案，不需要依赖其他程序，在下文中会介绍到。
 
@@ -115,7 +115,7 @@ Windows Terminal是微软新发布的一款Terminal产品（以下称WT）。对
 
 这一波下来就算是大功告成了。贴一张图：
 
-![](https://hujiekang.top/images/uploads/big/a4c9101dc4b26b5d8d3429ebd35a29c5.png)
+![](https://pic.hujiekang.top/uploads/big/a4c9101dc4b26b5d8d3429ebd35a29c5.png)
 
 ## 将WT添加至右键菜单
 
@@ -138,7 +138,7 @@ Windows Registry Editor Version 5.00
 
 效果图：
 
-![](https://hujiekang.top/images/uploads/big/c0330d6bdfbced6831c96fdb995f59c1.png)
+![](https://pic.hujiekang.top/uploads/big/c0330d6bdfbced6831c96fdb995f59c1.png)
 
 图标自取：
 
@@ -166,7 +166,7 @@ Set-ExecutionPolicy RemoteSigned -scope Process; iwr -useb https://raw.githubuse
 
 先上效果图：
 
-![](https://hujiekang.top/images/uploads/big/7958300f98c52de2651b848a2bd1d6d1.png)
+![](https://pic.hujiekang.top/uploads/big/7958300f98c52de2651b848a2bd1d6d1.png)
 
 要实现这个效果，只需要启用一个选项，并配置好一个主题：
 

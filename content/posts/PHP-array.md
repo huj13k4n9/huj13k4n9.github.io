@@ -61,8 +61,8 @@ $example = array(
 ```php
 <?php
 
-    $example = array("a", "b", "c");  
-    
+    $example = array("a", "b", "c");
+
     for($i = 0; $i < count($example); $i++){
         echo $example[$i]."<br>";
     }
@@ -249,19 +249,19 @@ System => Linux
   由Web服务器创建，包含头信息、路径、脚本位置、脚本名称、系统环境变量、请求方法、请求路径等信息。
   下图为使用`print_r()`函数产生的输出：
 
-  ![](https://hujiekang.top/images/uploads/big/44c469c45e4b3c56d09d8d72da8f615d.png)
+  ![](https://pic.hujiekang.top/uploads/big/44c469c45e4b3c56d09d8d72da8f615d.png)
 
 - **`$_ENV`**
   $_ENV的内容是在PHP解析器运行时，从PHP所在服务器中的环境变量转变为全局变量得到的。
   下图为使用`print_r()`函数产生的输出：
 
-  ![](https://hujiekang.top/images/uploads/big/54ac006a5e9fdd510f2e4b84642171cb.png)
+  ![](https://pic.hujiekang.top/uploads/big/54ac006a5e9fdd510f2e4b84642171cb.png)
 
 - **`$_GET`**
   这个数组存放着通过GET请求方法传入的变量及其对应的值。
   下图为传入参数后使用`print_r()`函数产生的输出：
 
-  ![](https://hujiekang.top/images/uploads/big/4b42ae328423e956d7064dcba2423631.png)
+  ![](https://pic.hujiekang.top/uploads/big/4b42ae328423e956d7064dcba2423631.png)
 
 - **`$_POST`**
   这个数组存放着通过POST请求方法传入的变量及其对应的值。
@@ -287,18 +287,18 @@ System => Linux
 
   页面效果：
 
-  ![](https://hujiekang.top/images/uploads/big/7c3db8a5b331e6fb8e3b3858162821f0.png)
+  ![](https://pic.hujiekang.top/uploads/big/7c3db8a5b331e6fb8e3b3858162821f0.png)
 
   接下来在输入框中输入数据提交，显示如下：
 
-  ![](https://hujiekang.top/images/uploads/big/fb4a70065643c9c8d07e9305929ecc33.png)
+  ![](https://pic.hujiekang.top/uploads/big/fb4a70065643c9c8d07e9305929ecc33.png)
 
 - **`$_REQUEST`**
   此数组包含了`$_GET`、`$_POST`、`$_COOKIE`数组的全部内容，也就是说，在这里可以访问到使用GET方法和POST方法请求的数据。但是速度较慢，不推荐使用。
 
   打印效果如图所示：
 
-  ![](https://hujiekang.top/images/uploads/big/3ea34c7e46cba87669e326d8b0739210.png)
+  ![](https://pic.hujiekang.top/uploads/big/3ea34c7e46cba87669e326d8b0739210.png)
 
 - **`$GLOBALS`**
   此数组包含了程序里所有的全局变量。
@@ -314,7 +314,7 @@ System => Linux
 
   打印结果：
 
-  ![](https://hujiekang.top/images/uploads/big/09a60271ef7986c785c02c743b19b076.png)
+  ![](https://pic.hujiekang.top/uploads/big/09a60271ef7986c785c02c743b19b076.png)
 
   注意：`$_GET`、`$_POST`、`$_FILES`、`$_COOKIE`这些超全局数组也属于全局变量，所以也包含在内。
 
@@ -324,7 +324,7 @@ System => Linux
   下面创建了一个带有`file`域的表单、在下方可以打印出`$_POST`和`$_FILES`数组的内容。可以看到`$_POST`是一个空数组，而`$_FILES`则包含有文件名、文件临时文件的路径、文件大小等信息。
   <b style="color:#ff7473">注意：<code style="color:#ff7473">form</code>标签里面必须带有<code style="color:#ff7473">enctype="multipart/form-data"</code>属性，否则<code style="color:#ff7473">$_FILES</code>会显示为空。</b>
 
-  ![](https://hujiekang.top/images/uploads/big/28a3b9d816651c5323aec3bac6a38309.png)
+  ![](https://pic.hujiekang.top/uploads/big/28a3b9d816651c5323aec3bac6a38309.png)
 
 - **`$_COOKIE`**
   这个数组存储了从客户端浏览器提取的`cookie`信息。
@@ -512,7 +512,7 @@ System => Linux
                 'last_name' => 'Doe',
             )
         );
-        
+
         print_r(array_column($records, 'first_name'));
         echo "<br>";
         print_r(array_column($records, 'first_name', 'id'));
@@ -533,7 +533,7 @@ System => Linux
     返回元素顺序翻转的数组。第二个可选参数`preserve_keys`为`bool`值，若设为`TRUE`，则保留原来键的值（仅索引数组，关联数组总是保留）；否则不保留。
 
 12. `array_replace()`和`array_replace_recursive()`
-    这两个函数都是使用后面数组元素相同键的值替换第一个参数数组中的值。如果一个键**存在于第一个数组同时也存在于第二个数组**，它的值将被第二个数组中的值**替换**；如果一个键**存在于第二个数组，但是不存在于第一个数组**，则会在第一个数组中**创建这个元素**；如果一个键**仅存在于第一个数组**，它将**保持不变**。如果传递了多个替换数组，它们将被按顺序依次处理，后面的数组将覆盖之前的值。 
+    这两个函数都是使用后面数组元素相同键的值替换第一个参数数组中的值。如果一个键**存在于第一个数组同时也存在于第二个数组**，它的值将被第二个数组中的值**替换**；如果一个键**存在于第二个数组，但是不存在于第一个数组**，则会在第一个数组中**创建这个元素**；如果一个键**仅存在于第一个数组**，它将**保持不变**。如果传递了多个替换数组，它们将被按顺序依次处理，后面的数组将覆盖之前的值。
 
     两者的区别是：后者不是简单的替换，它将遍历数组并将相同的处理应用到数组的***内部值***。
 
@@ -571,30 +571,30 @@ System => Linux
 
     ```php
     //array_replace_recursive
-    Array ( 
-        [a] => Array ( 
+    Array (
+        [a] => Array (
             [a] => yellow      //Replaced
-            [b] => Array ( 
+            [b] => Array (
                 [0] => black   //Replaced
-                [1] => blue 
-            ) 
-        ) 
-        [b] => Array ( 
+                [1] => blue
+            )
+        )
+        [b] => Array (
             [0] => black       //Replaced
-            [1] => blue 
-        ) 
+            [1] => blue
+        )
     )
     //array_replace
-    Array ( 
-        [a] => Array ( 
+    Array (
+        [a] => Array (
             [a] => yellow      //Replaced
             [b] => Array (     //All items in "b" key are replaced
-                [0] => black 
-            ) 
-        ) 
-        [b] => Array ( 
+                [0] => black
+            )
+        )
+        [b] => Array (
             [0] => black       //All items in "b" key are replaced
-        ) 
+        )
     )
     ```
 
@@ -624,20 +624,20 @@ System => Linux
 
    第二个可选参数，用于设置返回的数组中的排序方式。有以下四个值：
 
-   - `SORT_REGULAR`：按照通常方法比较（不修改类型） 
-   - `SORT_NUMERIC`：按照数字形式比较 
-   - `SORT_STRING`：按照字符串形式比较 
-   - `SORT_LOCALE_STRING`：根据当前的本地化设置，按照字符串比较。 
+   - `SORT_REGULAR`：按照通常方法比较（不修改类型）
+   - `SORT_NUMERIC`：按照数字形式比较
+   - `SORT_STRING`：按照字符串形式比较
+   - `SORT_LOCALE_STRING`：根据当前的本地化设置，按照字符串比较。
 
-   
+
 
 ## 使用回调函数处理数组的函数
 
 1. `array_filter()`
    用回调函数过滤数组中的单元。如果回调函数返回TRUE，则该值不会被过滤；若返回FALSE，则该值被过滤。
    第三个可选参数`flag`用于确定函数接受参数的形式（若不设定`flag`则接受值为唯一参数）：
-   - ARRAY_FILTER_USE_KEY - 接受键名作为的唯一参数 
-   - ARRAY_FILTER_USE_BOTH - 同时接受键名和键值 
+   - ARRAY_FILTER_USE_KEY - 接受键名作为的唯一参数
+   - ARRAY_FILTER_USE_BOTH - 同时接受键名和键值
 
     ```php
     <?php
@@ -650,7 +650,7 @@ System => Linux
         var_dump(array_filter($arr, function($v, $k) {
             return $k == 'b' || $v == 4;
         }, ARRAY_FILTER_USE_BOTH));
-    ?> 
+    ?>
     ```
 
     打印结果：
@@ -692,14 +692,14 @@ System => Linux
     打印结果：
 
     ```php
-    Array ( 
-        [a] => 16 
-        [b] => 8 
-        [c] => 4 
-        [d] => Array ( 
-            [e] => 2 
-            [f] => 1 
-        ) 
+    Array (
+        [a] => 16
+        [b] => 8
+        [c] => 4
+        [d] => Array (
+            [e] => 2
+            [f] => 1
+        )
     )
     ```
 
@@ -714,7 +714,7 @@ System => Linux
         function cube_and_add($value1,$value2){
             return $value1*$value1*$value1+$value2;
         }
-        
+
         print_r(array_map("cube_and_add", $arr1, $arr2));
     ?>
     ```
@@ -722,12 +722,12 @@ System => Linux
     打印结果：
 
     ```php
-    Array ( 
-        [0] => 2 
-        [1] => 10 
-        [2] => 30 
-        [3] => 68 
-        [4] => 130 
+    Array (
+        [0] => 2
+        [1] => 10
+        [2] => 30
+        [3] => 68
+        [4] => 130
     )
     ```
 
@@ -763,7 +763,7 @@ System => Linux
    - `ksort()` - 对键名升序排序
    - `krsort()` - 对键名降序排序
    使用方式同`sort()`和`rsort()`，排序之后保留原来的键。
-   
+
 3. 根据元素的值排序
    - `asort()` - 对键名升序排序
    - `arsort()` - 对键名降序排序
@@ -796,19 +796,19 @@ System => Linux
    打印结果：
 
    ```php
-   Array ( 
-       [3] => FILE12.txt 
-       [2] => File2.txt 
-       [4] => file.txt 
-       [0] => file1.txt 
-       [1] => file11.txt 
+   Array (
+       [3] => FILE12.txt
+       [2] => File2.txt
+       [4] => file.txt
+       [0] => file1.txt
+       [1] => file11.txt
     )
-   Array ( 
-       [4] => file.txt 
-       [0] => file1.txt 
-       [2] => File2.txt 
-       [1] => file11.txt 
-       [3] => FILE12.txt 
+   Array (
+       [4] => file.txt
+       [0] => file1.txt
+       [2] => File2.txt
+       [1] => file11.txt
+       [3] => FILE12.txt
     )
    ```
 
@@ -847,14 +847,14 @@ System => Linux
    打印结果：
 
    ```php
-   Array ( 
-       [0] => aa 
-       [1] => aaaaa 
-       [2] => aaaaa 
-       [3] => aaaaaaaaaaaa 
-       [4] => aaaaaaaaaaaaaaaa 
-       [5] => aaaaaaaaaaaaaaaaaaaa 
-       [6] => aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 
+   Array (
+       [0] => aa
+       [1] => aaaaa
+       [2] => aaaaa
+       [3] => aaaaaaaaaaaa
+       [4] => aaaaaaaaaaaaaaaa
+       [5] => aaaaaaaaaaaaaaaaaaaa
+       [6] => aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
     )
    ```
 
@@ -885,11 +885,11 @@ System => Linux
    打印结果：
 
    ```php
-   Array ( 
-        [Database] => Array ( [id] => 3 [soft] => MySQL [rating] => 4 ) 
-        [Language] => Array ( [id] => 4 [soft] => PHP [rating] => 2 ) 
-        [Server] => Array ( [id] => 2 [soft] => Apache [rating] => 1 ) 
-        [System] => Array ( [id] => 1 [soft] => Linux [rating] => 3 ) 
+   Array (
+        [Database] => Array ( [id] => 3 [soft] => MySQL [rating] => 4 )
+        [Language] => Array ( [id] => 4 [soft] => PHP [rating] => 2 )
+        [Server] => Array ( [id] => 2 [soft] => Apache [rating] => 1 )
+        [System] => Array ( [id] => 1 [soft] => Linux [rating] => 3 )
     )
    ```
 
@@ -897,11 +897,11 @@ System => Linux
 
 1. `array_slice()`
    从数组中取出一段。
-   
+
    ```php
    array_slice(array $array, int $offset[, int $length = NULL[, bool $preserve_keys = false]]): array
    ```
-   
+
    最后一个可选参数`preserve_keys`为`bool`值，若设为`TRUE`，则保留原来键的值（仅索引数组，关联数组总是保留）；否则不保留。
 
 2. `array_splice()`
@@ -925,9 +925,9 @@ System => Linux
    ```php
    array_merge(array $array1[, array $...] ): array
    ```
-   如果输入的数组中**有相同的字符串键名**，则该键名**后面的值将覆盖前一个值**。然而，如果数组**包含数字键名**，后面的值将不会覆盖原来的值，而是**附加到后面**。 
+   如果输入的数组中**有相同的字符串键名**，则该键名**后面的值将覆盖前一个值**。然而，如果数组**包含数字键名**，后面的值将不会覆盖原来的值，而是**附加到后面**。
 
-   如果**只给了一个数组**并且该数组是**数字索引**的，则键名会**以连续方式重新索引**。 
+   如果**只给了一个数组**并且该数组是**数字索引**的，则键名会**以连续方式重新索引**。
 
 5. `array_intersect()`
    返回多个数组的交集，键名保持不变。
@@ -938,7 +938,7 @@ System => Linux
 
 6. `array_diff()`
    返回多个数组的差集，键名保持不变。
-   
+
    ```php
    array_diff(array $array1, array $array2[, array $...] ): array
    ```

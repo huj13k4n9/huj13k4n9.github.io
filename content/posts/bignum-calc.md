@@ -23,19 +23,19 @@ categories:
 
 - 加法在手工竖式计算中，当两个位相加得到的值大于`10`时就会产生一个进位值，并会在高一位的计算中把进位值也加入计算，这样从低位到高位一直计算直到计算结束为止。所以在算法中也需要定义一个进位值的变量。
 
-![](https://hujiekang.top/images/uploads/big/0ba49271293220bde14db7c42ced3326.png)
+![](https://pic.hujiekang.top/uploads/big/0ba49271293220bde14db7c42ced3326.png)
 
 - 减法与加法类似，当被减数位小于减数位时，会产生一个退位值，即向更高一位去借10，来避免产生负数。若这一位产生了借位，那么高一位的计算中就要减去1再进行计算。所以在算法中也需要定义一个退位值的变量。
 
-![](https://hujiekang.top/images/uploads/big/2e003464c0b36a28e6dd325bc1f212c4.png)
+![](https://pic.hujiekang.top/uploads/big/2e003464c0b36a28e6dd325bc1f212c4.png)
 
 - 乘法的运算在竖式计算中是把乘数逐位的与被乘数相乘，且运算结果随着乘数的位数向左移，最后再全部相加。所以在对单个结果位的处理中要考虑到三个因素：第一个是当前的计算结果；第二个是前一位产生的进位；第三个是之前的计算中在这一位得出的结果。
 
-![](https://hujiekang.top/images/uploads/big/3d9716af2b39030d118b904666931ab4.png)
+![](https://pic.hujiekang.top/uploads/big/3d9716af2b39030d118b904666931ab4.png)
 
 - 除法在竖式运算中可以理解为是多次的减法。下图展示了除法算法的流程：
 
-![](https://hujiekang.top/images/uploads/big/3f19ef7d64ab57361bdb22f87211b785.png)
+![](https://pic.hujiekang.top/uploads/big/3f19ef7d64ab57361bdb22f87211b785.png)
 
 - 模指数运算
 除此之外，还有多精度数的模指数运算，即计算以下式子的值：
@@ -44,7 +44,7 @@ $$\Large{a^e\space mod\space m} $$
 
 可采用重复平方乘算法来实现：
 
-![](https://hujiekang.top/images/uploads/big/0cc2b4c2041dfc8ee92be8988f733319.png)
+![](https://pic.hujiekang.top/uploads/big/0cc2b4c2041dfc8ee92be8988f733319.png)
 
 ## 算法实现
 
@@ -354,7 +354,7 @@ Python（注释可参考Java版本）：
 
 ```python
 class BigNum:
-    
+
     @staticmethod
     def __isBigger(num1, num2):
         if len(num1) < len(num2):
@@ -369,7 +369,7 @@ class BigNum:
                     return True
         return True
 
-    
+
     @staticmethod
     def bigPlus(n1, n2):
         if len(n1) < len(n2):
@@ -378,7 +378,7 @@ class BigNum:
             return n2
         if n2 == []:
             return n1
-        
+
         num1 = list(reversed(n1))
         num2 = list(reversed(n2))
         result = []
@@ -396,13 +396,13 @@ class BigNum:
             result.append(c+num1[len(num2)])
             for each in num1[len(num2)+1:]:
                 result.append(each)
-       
+
         result.reverse()
         if result[0] == 0:
             result.pop(0)
         return result
-        
-        
+
+
     @staticmethod
     def bigSub(n1, n2):
         if n1 == n2 or (n1 == [] and n2 == []):
@@ -414,7 +414,7 @@ class BigNum:
         elif not BigNum.__isBigger(n1, n2):
             print("检测到减数大于被减数，已自动将减数与被减数交换")
             n1, n2 = n2, n1
-        
+
         num1 = list(reversed(n1))
         num2 = list(reversed(n2))
         result = []
@@ -433,9 +433,9 @@ class BigNum:
         result.reverse()
         if result[0] == 0:
             result.pop(0)
-        
+
         return result
-        
+
 
     @staticmethod
     def bigMult(num1, num2):
@@ -459,9 +459,9 @@ class BigNum:
         while result[0] == 0:
             result.pop(0)
         return result
-        
-  
-    @staticmethod    
+
+
+    @staticmethod
     def bigDiv(num1, num2):
         if num1 == num2:
             return [1,], [0,]
@@ -479,11 +479,11 @@ class BigNum:
         num2_duiqi = num2[:]
         mult_times = 0
         times = 0
-        
+
         while len(num2_duiqi)!=len(num1):
             num2_duiqi.append(0)
             mult_times+=1
-        
+
         while True:
             while BigNum.__isBigger(num1, num2_duiqi):
                 num1 = BigNum.bigSub(num1, num2_duiqi)
@@ -492,13 +492,13 @@ class BigNum:
                 times+=1
             result[mult_times] = times
             times = 0
-            
+
             if num2_duiqi[len(num2_duiqi)-1]==0 and len(num2_duiqi)>len(num2):
                 num2_duiqi.pop(len(num2_duiqi)-1)
                 mult_times-=1
             else:
                 result.reverse()
                 break
-        
+
         return result, num1
 ```

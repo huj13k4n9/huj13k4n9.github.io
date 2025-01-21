@@ -28,7 +28,7 @@ const app = express()
 const BOT_HOST = 'bot'
 const BOT_PORT = 8080
 
-app.use(fileUpload({ 
+app.use(fileUpload({
     limits: {
         fileSize: 2 * 1024 * 1024 // 2 MB
     },
@@ -191,7 +191,7 @@ if (document.location.hash==="#mycollection") {
 
 折腾了一阵子img之后发现没有什么进展，于是转换思路开始琢磨这个Sanitizer API的过滤有没有遗漏。询问了出题人，得到回答说并不需要绕过Sanitizer：
 
-![](https://hujiekang.top/images/uploads/big/14cfc6c97ff659502299af64673bb4a2.png)
+![](https://pic.hujiekang.top/uploads/big/14cfc6c97ff659502299af64673bb4a2.png)
 
 但其他的点也都没有突破口，于是还是Fuzz了一下哪些标签可用，不会被过滤：
 
@@ -223,7 +223,7 @@ a, abbr, acronym, address, area, article, aside, audio, b, bdi, bdo, big, blockq
 
 于是乎，就有了个自动化跳转的劫持请求方案，下面浅浅画了个流程图：
 
-![](https://hujiekang.top/images/uploads/big/46f52debe3cbf009facafdd8071284b4.png)
+![](https://pic.hujiekang.top/uploads/big/46f52debe3cbf009facafdd8071284b4.png)
 
 图中首先Bot收到了我们发送的URL并访问，访问到包含XSS的Challenge页面，跳转到COS中存储的恶意页面Evil.html，该页面中包含创建并注册一个Service Worker的JS代码。注册完毕之后页面自动刷新，此时去往COS的流量就已经全部被Service Worker截获，依照攻击者编写的逻辑将访问页面的URL、Cookie等数据传送到攻击者的服务器中。
 
@@ -233,7 +233,7 @@ a, abbr, acronym, address, area, article, aside, audio, b, bdi, bdo, big, blockq
 
 - 注册的JS Handler URI的MIME类型必须为text/javascript或者application/javascript等JS文件的合法MIME类型，否则会出现下面的错误：
 
-  ![](https://hujiekang.top/images/uploads/big/9c9a09f20c74f9b1ef186f093dd93b21.png)
+  ![](https://pic.hujiekang.top/uploads/big/9c9a09f20c74f9b1ef186f093dd93b21.png)
 
 - 注册的源必须和站点源一致，且注册的域范围最大不能超过JS文件所在的域路径（也就是说不能越到JS文件所在目录的上级目录，只能在其目录或子目录下注册）
 
@@ -340,9 +340,9 @@ RIFFAAAAWEBP<!DOCTYPE html><html lang="en"><script>location='https://challenge';
 
 最后在服务器上会收到一个URL，访问即为Flag。直到拿到Flag我才知道，原来主页取Cookie中`flag`的值的目的是为了让Bot将Flag弹回来hhh，所以要将页面跳转回主页，触发Bot通过`iframe`请求Cookie加盐MD5后拼合得到Flag的图像。
 
-![](https://hujiekang.top/images/uploads/big/5432fa9f601f40461e2959c1e8392b12.png)
+![](https://pic.hujiekang.top/uploads/big/5432fa9f601f40461e2959c1e8392b12.png)
 
-![](https://hujiekang.top/images/uploads/big/399b473268e5bc3ae718ed2f5d81f4f5.png)
+![](https://pic.hujiekang.top/uploads/big/399b473268e5bc3ae718ed2f5d81f4f5.png)
 
 ## Reference
 

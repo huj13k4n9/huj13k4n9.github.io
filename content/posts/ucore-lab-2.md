@@ -19,7 +19,7 @@ ENTRY(kern_entry)
 SECTIONS {
     /* Load the kernel at this address: "." means the current address */
     . = 0xC0100000;
-		
+
 		......
 }
 ```
@@ -72,7 +72,7 @@ __gdt:
 ```nasm
 kern_entry:
     # reload temperate gdt (second time) to remap all physical memory
-    # virtual_addr 0~4G=linear_addr&physical_addr -KERNBASE~4G-KERNBASE 
+    # virtual_addr 0~4G=linear_addr&physical_addr -KERNBASE~4G-KERNBASE
     lgdt REALLOC(__gdtdesc)
     movl $KERNEL_DS, %eax
     movw %ax, %ds
@@ -111,8 +111,8 @@ boot_map_segment(pde_t *pgdir, uintptr_t la, size_t size, uintptr_t pa, uint32_t
 这一步完成了之后，此时从`KERNBASE`开始的`KMEMSIZE`大小的内存页都被映射到从物理地址0开始的同等大小的地址。随后，下面这行代码，将页目录表的第一项赋值了内核基址的物理地址：
 
 ```c
-//temporary map: 
-//virtual_addr 3G~3G+4M = linear_addr 0~4M = linear_addr 3G~3G+4M = phy_addr 0~4M     
+//temporary map:
+//virtual_addr 3G~3G+4M = linear_addr 0~4M = linear_addr 3G~3G+4M = phy_addr 0~4M
 boot_pgdir[0] = boot_pgdir[PDX(KERNBASE)];
 ```
 
@@ -155,7 +155,7 @@ gdt_init(void) {
 
 下面分析`boot_pgdir[0] = boot_pgdir[PDX(KERNBASE)];`这行代码的作用。尝试注释这一行后编译执行，在GDB中会发现在设置CR0的这一条指令中产生异常（对应的现象是内核一运行到这就重启）：
 
-![](https://hujiekang.top/images/uploads/big/2f058f76c3885c121d6891c176238276.png)
+![](https://pic.hujiekang.top/uploads/big/2f058f76c3885c121d6891c176238276.png)
 
 抓了一下QEMU的终端Log（参数`-d int -D <logfile>`），发现是产生了缺页中断，具体信息如下：
 
@@ -173,7 +173,7 @@ check_exception old: 0xffffffff new 0xe
 ```c
 c010506b:	0f 22 c0             	mov    %eax,%cr0
     lcr0(cr0);
-c010506e:	c9                   	leave  
+c010506e:	c9                   	leave
 c010506f:	c3                   	ret
 ```
 
@@ -231,7 +231,7 @@ struct Page {
 };
 
 /* Flags describing the status of a page frame */
-#define PG_reserved                 0       // if this bit=1: the Page is reserved for kernel, cannot be used in alloc/free_pages; otherwise, this bit=0 
+#define PG_reserved                 0       // if this bit=1: the Page is reserved for kernel, cannot be used in alloc/free_pages; otherwise, this bit=0
 #define PG_property                 1       // if this bit=1: the Page is the head page of a free memory block(contains some continuous_addrress pages), and can be used in alloc_pages; if this bit=0: if the Page is the the head page of a free memory block, then this Page and the memory block is alloced. Or this Page isn't the head page.
 ```
 
@@ -276,11 +276,11 @@ for (i = 0; i < memmap->nr_map; i ++) {
     - 头部页的`property`属性值设置为空闲块的页面数，其余页面该属性值为0。
 - 总空闲页面计数增加`n`。
 
-![](https://hujiekang.top/images/uploads/big/a5877d9b49699664533b1bfcf7021e67.png)
+![](https://pic.hujiekang.top/uploads/big/a5877d9b49699664533b1bfcf7021e67.png)
 
 ```c
 static void
-default_init_memmap(struct Page *base, size_t n) {    
+default_init_memmap(struct Page *base, size_t n) {
     // n must be a positive number
     assert(n > 0);
 
@@ -297,7 +297,7 @@ default_init_memmap(struct Page *base, size_t n) {
     // set bit and property of the first page
     SetPageProperty(base);
     base->property = n;
-    
+
     nr_free += n;
     list_add(&free_list, &(base->page_link));
 }
@@ -307,7 +307,7 @@ default_init_memmap(struct Page *base, size_t n) {
 
 在进行内存块的分配时，需要从空闲链表表头开始遍历（也就是从低地址到高地址），寻找到第一个符合分配大小条件的内存块，从其头部开始划分空间用于分配使用，剩余的空闲块则重新插入链表中。
 
-![](https://hujiekang.top/images/uploads/big/f83231b277a4dfeb25ceff0d5d438494.png)
+![](https://pic.hujiekang.top/uploads/big/f83231b277a4dfeb25ceff0d5d438494.png)
 
 ```c
 static struct Page *
@@ -340,7 +340,7 @@ can_alloc:
         }
         // set bits of the allocated pages
         ClearPageProperty(p);
-        p->property -= n; 
+        p->property -= n;
         nr_free -= n;
     }
     return p;
@@ -356,7 +356,7 @@ can_alloc:
 3. 该块与某个空闲块的头部邻接：将对应空闲块从链表中删除，修改要释放内存块头部页的页面数量，将其重新插入链表；
 4. 该块同时与两个块邻接：直接修改尾部邻接的空闲块的页面数量即可。
 
-![](https://hujiekang.top/images/uploads/big/407e1ebd4c25751666f8a749485bc9fe.png)
+![](https://pic.hujiekang.top/uploads/big/407e1ebd4c25751666f8a749485bc9fe.png)
 
 其中2、3、4属于特殊情况，在遍历空闲链表的时候首先判断这三种情况。若三种情况都无法满足，根据一般情况，判断要释放块与空闲块的地址大小来确定插入位置。如果无法找到地址比要释放块大的空闲块，直接将其插入链表末尾。
 
