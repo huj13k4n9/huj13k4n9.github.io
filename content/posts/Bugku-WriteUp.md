@@ -78,7 +78,7 @@ categories:
 
 ## 流量分析
 
-题目文件：[点击下载](/downloads/01a25ea3fd6349c6e635a1d0196e75fb.pcapng)
+题目文件：[点击下载](https://o.hujiekang.top/downloads/01a25ea3fd6349c6e635a1d0196e75fb.pcapng)
 
 下载下来是一个WireShark的抓包记录文件，使用WireShark打开，追踪TCP数据流即可拿到flag。
 
@@ -390,7 +390,7 @@ while(True):
 ```php
 
 // index.php
-<?php 
+<?php
 echo "I Think Git Is Very NB!!!";
 ?>
 
@@ -424,7 +424,7 @@ class Read{//f1a9.php
     public $file;
     public function __toString(){
         if(isset($this->file)){
-            echo file_get_contents($this->file);    
+            echo file_get_contents($this->file);
         }
         return "__toString was called!";
     }
@@ -437,7 +437,7 @@ error_reporting(E_ALL & ~E_NOTICE);
 $user = $_GET["user"];
 $file = $_GET["file"];
 $pass = $_GET["pass"];
- 
+
 if(isset($user)&&(file_get_contents($user,'r')==="admin")){
     echo "hello admin!<br>";
     if(preg_match("/f1a9/",$file)){
@@ -450,14 +450,14 @@ if(isset($user)&&(file_get_contents($user,'r')==="admin")){
 }else{
     echo "you are not admin ! ";
 }
- 
+
 ?>
- 
+
 <!--
 $user = $_GET["user"];
 $file = $_GET["file"];
 $pass = $_GET["pass"];
- 
+
 if(isset($user)&&(file_get_contents($user,'r')==="admin")){
     echo "hello admin!<br>";
     include($file); //class.php
@@ -634,7 +634,7 @@ echo base64_encode(serialize($s));
 > *123*
 > *用户登录后可自行修改密码*
 > *密码只支持3位数字*
-> 
+>
 > *你也想学php验证码啊*
 > *http://123.206.31.85:10023/1.png*
 

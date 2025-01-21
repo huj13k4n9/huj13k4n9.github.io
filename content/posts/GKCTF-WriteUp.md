@@ -19,7 +19,7 @@ categories:
 
 ```php
 <title>Check_In</title>
-<?php 
+<?php
 highlight_file(__FILE__);
 class ClassName
 {
@@ -76,7 +76,7 @@ new ClassName();
 
 页面中有一个链接`?url=http://www.ctfhub.com`，可以把前面改成一个回环地址来绕过`ctfhub.com`的限制：`?url=http://127.0.0.123%00.ctfhub.com`
 
-> （也通过这个题目学到了本地回环地址不止127.0.0.1…… 
+> （也通过这个题目学到了本地回环地址不止127.0.0.1……
 >
 > 127.0.0.1 ~ 127.255.255.254（去掉0和255）的范围都是本地回环地址。 ——百度百科
 
@@ -288,7 +288,7 @@ flag：`flag{3d0914a1-1e97-4822-a745-c7e20c5179b9}`
 
 > 比赛累了吧,怀旧一把，我在103号道路等你
 >
-> [点击下载附件](/downloads/cf02194ee2308e71856417983bbf64e3.zip)
+> [点击下载附件](https://o.hujiekang.top/downloads/cf02194ee2308e71856417983bbf64e3.zip)
 
 题目附件是《口袋妖怪：绿宝石》的GBA ROM，使用GBA模拟器打开，走完前面剧情，可以自由活动之后去103号道路，看到地上草丛摆成的flag：`flag{PokEmon_14_CutE}`
 
@@ -328,7 +328,7 @@ for n in A B C D E F G H I J K L M N O P Q R S T U V W X Y Z do eval An = "n"
     num = 0
 for n in a b c d e f g h i j do eval Bn = "n"
     num =
-    $((num + 1)) done 
+    $((num + 1)) done
     alert("Bk=' ';Bm='"';Bn='#';Bs='(';Bt=')';By='.';Cb=';';Cc='<';Ce='>';Cl='_';Cn='{';Cp='}';Da='0';Db='1';Dc='2';Dd='3';De='4';Df='5';Dg='6';Dh='7';Di='8';Dj='9';")
 ```
 
@@ -347,7 +347,7 @@ flag：`flag{w3lc0me_4o_9kct5}`
 
 > hint:电话音&九宫格、FreeFileCamouflage
 
-附件是一段音频和一张图片：[点击下载](/downloads/f4798fdb420ca8a9b1dfdffa43b2ccfe.zip)
+附件是一段音频和一张图片：[点击下载](https://o.hujiekang.top/downloads/f4798fdb420ca8a9b1dfdffa43b2ccfe.zip)
 
 音频的最后有一段电话拨号的声音，截取下来，用Au放慢速度自己用手机对着听或者直接用`dtmf2num.exe`分析都可以顺利拿到对应的信息：`#222833344477773338866#`
 
@@ -369,7 +369,7 @@ flag：`flag{w3lc0me_4o_9kct5}`
 
 ## Sail a boat down the river
 
-附件是一个视频和一个压缩包：[点击下载](/downloads/aef3857763de1570d51d9568cfd33bf5.zip)
+附件是一个视频和一个压缩包：[点击下载](https://o.hujiekang.top/downloads/aef3857763de1570d51d9568cfd33bf5.zip)
 
 > hint1: 闪烁的光芒
 >

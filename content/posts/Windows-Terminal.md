@@ -18,7 +18,7 @@ Windows Terminal是微软新发布的一款Terminal产品（以下称WT）。对
 ## 安装<code style="font-size:20px">oh-my-posh</code>（类似于Linux上的<code style="font-size:20px">oh-my-zsh</code>）
 
 1. 安装`scoop`
-   
+
    首先在`Powershell`中输入以下代码来保证允许本地脚本的执行：
    ```bash
    set-executionpolicy remotesigned -scope currentuser
@@ -26,17 +26,17 @@ Windows Terminal是微软新发布的一款Terminal产品（以下称WT）。对
 
    然后就可以脚本安装`scoop`了：
    ```bash
-   iex (new-object net.webclient).downloadstring('https://get.scoop.sh')   
+   iex (new-object net.webclient).downloadstring('https://get.scoop.sh')
    ```
 
 2. 更换`Powerline`字体
-   
+
    `Powerline`字体有很多种，这里使用了`Fira Code`，项目地址为[https://github.com/tonsky/FiraCode](https://github.com/tonsky/FiraCode)，下载后安装在电脑上即可，其他字体可自行搜索。
 
    安装在电脑上之后，只需要在WT的配置文件`profiles.json`中修改显示字体就可以了，这个下面会讲到。
 
 3. 安装`choco`
-   
+
    ```bash
    Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
    ```
@@ -48,7 +48,7 @@ Windows Terminal是微软新发布的一款Terminal产品（以下称WT）。对
    ```
 
 5. 安装 `posh-git`、`oh-my-posh` 和 `Get-ChildItemColor`
-   
+
    前两个是`oh-my-posh`的必备组件，最后一个是美化`ls`命令的显示效果的插件，可以选装。
    ```bash
    Install-Module posh-git -Scope CurrentUser
@@ -57,13 +57,13 @@ Windows Terminal是微软新发布的一款Terminal产品（以下称WT）。对
    ```
 
 6. 设置 `Powershell` 的 `profile`
-   
+
    ```bash
    if (!(Test-Path -Path $PROFILE )) { New-Item -Type File -Path $PROFILE -Force }
    ```
 
 7. 打开`$PROFILE`文件并粘贴以下内容
-   
+
    ```bash
    Import-Module posh-git
    Import-Module oh-my-posh
@@ -142,7 +142,7 @@ Windows Registry Editor Version 5.00
 
 图标自取：
 
-![](/downloads/f5bed12bd7dde3097ba040db5dc8034a.ico)
+![](https://o.hujiekang.top/downloads/f5bed12bd7dde3097ba040db5dc8034a.ico)
 
 ## 添加管理员权限启动
 

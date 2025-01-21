@@ -15,7 +15,7 @@ categories:
 
 ## yusa_yyds
 
-附件下载：[链接](/downloads/0ee265de8929e92360337fcdeb426b8d.zip)
+附件下载：[链接](https://o.hujiekang.top/downloads/0ee265de8929e92360337fcdeb426b8d.zip)
 
 是一个Wireshark流量文件，打开一看是USB数据包。比赛的时候搜了半天只找到了键盘和鼠标的东西，赛后看wp发现是Xbox 360手柄。。。
 
@@ -63,7 +63,7 @@ PS：后面看WP发现通过Wireshark I/O图表可以更直观的看出来（两
 
 题目链接：<http://yusa-papa.7bf48c.challenge.gcsis.cn/index.html>
 
-全部题目附件：[downloads/9745fe900dbb625aaf893e3d219d5e31.zip](/downloads/9745fe900dbb625aaf893e3d219d5e31.zip)
+全部题目附件：[downloads/9745fe900dbb625aaf893e3d219d5e31.zip](https://o.hujiekang.top/downloads/9745fe900dbb625aaf893e3d219d5e31.zip)
 
 首先在源代码里面找到一段文字：
 
@@ -229,7 +229,7 @@ de_p.save('out.png')
 
 ## Barbar
 
-附件下载：[链接](/downloads/ea3dc39ca0b2f6b5f17abddec1f0e9a4.png)
+附件下载：[链接](https://o.hujiekang.top/downloads/ea3dc39ca0b2f6b5f17abddec1f0e9a4.png)
 
 打开是一张二维码，扫描结果为“密‍‌﻿‍﻿﻿﻿‎‌‍‌‏﻿‎‍‍‎‌‌‍‏‍‌‎﻿‌﻿‍﻿‌‍‌‍﻿‎‌﻿‍‏﻿‍﻿‍‎﻿‌‎﻿‌‍‌﻿‌‌‌‏‌‌‎‎‍‌﻿‌‍‏‌﻿‏‌‍‎‍﻿‍﻿﻿‏‍‏‌﻿﻿‏‍‌‌‍‎‍‍‎﻿‍‎﻿码是在哪啊”，查看源数据发现不对劲：
 

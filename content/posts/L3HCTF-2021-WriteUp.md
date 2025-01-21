@@ -37,7 +37,7 @@ categories:
 
 ```php
 if (
-    "admin" == $_GET[username] & 
+    "admin" == $_GET[username] &
     字符1 + !! 字符2 &
 	"字符1CTF字符2l3hctf" == $_GET[字符1L3H字符2password]
 )
@@ -55,7 +55,7 @@ Flag: `flag{Y0U_F0UND_CVE-2021-42574!}`
 
 ## a-sol
 
-> We captured traffic in the IDC management network. [Attachment](/downloads/f371aea737484ec4a4821907a935c2c0.zip)
+> We captured traffic in the IDC management network. [Attachment](https://o.hujiekang.top/downloads/f371aea737484ec4a4821907a935c2c0.zip)
 
 这题是一个流量分析题，是一个叫做IPMI的管理接口相关，好像是一套用来远程管理服务器的协议，文档可以在Intel官网找到：[IPMI Specification, V2.0, Rev. 1.1: Document (intel.com)](https://www.intel.com/content/www/us/en/products/docs/servers/ipmi/ipmi-second-gen-interface-spec-v2-rev1-1.html)。用Wireshark查看协议细节，发现大部分协议包都是加密的，所以需要通过分析握手包来获取到解密的方法。
 
@@ -177,7 +177,7 @@ func main() {
 		msgLen := BytesToInt(p[10:12])
 		fmt.Fprintf(output,"Msg Length: %d\n", msgLen)
 		payload := p[12:(12+msgLen)]
-		
+
         // 解密Payload
 		en := cipher.NewCBCDecrypter(aesCipher, payload[:16])
 		result := make([]byte, msgLen-16)

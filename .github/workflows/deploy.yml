@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   build-hugo-blog:
@@ -31,5 +32,16 @@ jobs:
 
       - name: Invoke Webhook
         run: |
-          echo "artifact-id ${{ steps.artifact-upload-step.outputs.artifact-id }}" && \
-          echo "artifact-digest ${{ steps.artifact-upload-step.outputs.artifact-digest }}"
+          response=$(curl -s -X POST \
+            -d "hash=${{ steps.artifact-upload-step.outputs.artifact-digest }}" \
+            -H "Authorization: Bearer ${{ secrets.AUTH_TOKEN }}" \
+            ${{ secrets.WEBHOOK_URL }})
+
+          status=$(echo "$response" | jq -r '.status')
+
+          if [ "$status" = "failed" ]; then
+            echo "Webhook invocation failed."
+            exit 1
+          else
+            echo "Webhook invoked successfully."
+          fi

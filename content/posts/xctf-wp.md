@@ -159,7 +159,7 @@ include($page);
         exit;
     } else {
         echo "<br><img src=\"https://i.loli.net/2018/11/01/5bdb0d93dc794.jpg\" />";
-    }  
+    }
 ?>
 ```
 
@@ -213,7 +213,7 @@ include($page);
 
 ## NaNNaNNaNNaN-Batman
 
-题目文件：[点击下载](/downloads/1686bc246b6841428465673ad4c7c980.zip)
+题目文件：[点击下载](https://o.hujiekang.top/downloads/1686bc246b6841428465673ad4c7c980.zip)
 
 文件是个压缩包，解压后得到文件web100，内容如下：
 
@@ -339,32 +339,32 @@ for i in [].__class__.__base__.__subclasses__():
 直接给出源代码：
 
 ```php
-<?php 
-class Demo { 
+<?php
+class Demo {
     private $file = 'index.php';
-    public function __construct($file) { 
-        $this->file = $file; 
+    public function __construct($file) {
+        $this->file = $file;
     }
-    function __destruct() { 
-        echo @highlight_file($this->file, true); 
+    function __destruct() {
+        echo @highlight_file($this->file, true);
     }
-    function __wakeup() { 
-        if ($this->file != 'index.php') { 
+    function __wakeup() {
+        if ($this->file != 'index.php') {
             //the secret is in the fl4g.php
-            $this->file = 'index.php'; 
-        } 
-    } 
+            $this->file = 'index.php';
+        }
+    }
 }
-if (isset($_GET['var'])) { 
-    $var = base64_decode($_GET['var']); 
-    if (preg_match('/[oc]:\d+:/i', $var)) { 
-        die('stop hacking!'); 
+if (isset($_GET['var'])) {
+    $var = base64_decode($_GET['var']);
+    if (preg_match('/[oc]:\d+:/i', $var)) {
+        die('stop hacking!');
     } else {
-        @unserialize($var); 
-    } 
-} else { 
-    highlight_file("index.php"); 
-} 
+        @unserialize($var);
+    }
+} else {
+    highlight_file("index.php");
+}
 ?>
 ```
 
@@ -498,7 +498,7 @@ echo md5('69cd0335-5640-41b3-b594-1c7a4d1cd380'.md5('/fllllllllllllag'));
 
 一个代码审计题，打开是一个买彩票的游戏界面，主页介绍了游戏规则，使用一个用户名就可以创建一个账户，然后给你20块，只要赢了9990000块就可以买flag了
 
-附件：[点击下载](/downloads/f2920a7744a8413a8b0cb95f7ba0ab3e.zip)
+附件：[点击下载](https://o.hujiekang.top/downloads/f2920a7744a8413a8b0cb95f7ba0ab3e.zip)
 
 ![](https://hujiekang.top/images/uploads/big/4060cdb7e6d409fca18d6059cdea1f5f.png)
 
@@ -586,14 +586,14 @@ $miwen="a1zLbgQsCESEIqRLwuQAyMwLyq2L5VwBxqGA3RQAyumZ0tmMvSGM2ZwB4tws";
 function encode($str){
     $_o=strrev($str);
     // echo $_o;
-        
+
     for($_0=0;$_0<strlen($_o);$_0++){
-       
+
         $_c=substr($_o,$_0,1);
         $__=ord($_c)+1;
         $_c=chr($__);
-        $_=$_.$_c;   
-    } 
+        $_=$_.$_c;
+    }
     return str_rot13(strrev(base64_encode($_)));
 }
 
@@ -786,7 +786,7 @@ class UserInfo
 if(isset($_POST['usr']) && isset($_POST['pw'])){
         $user = $_POST['usr'];
         $pass = $_POST['pw'];
-        $db = new SQLite3('../fancy.db');   
+        $db = new SQLite3('../fancy.db');
         $res = $db->query("SELECT id,name from Users where name='".$user."' and password='".sha1($pass."Salz!")."'");
     if($res){
         $row = $res->fetchArray();
@@ -809,13 +809,13 @@ highlight_file('login.php');
 看着应该有一个SQLite的注入。百度一下发现SQLite里面也有一个系统表`sqlite_master`，其结构看起来如下：
 
 ```sql
-CREATE TABLE sqlite_master ( 
-    type TEXT, 
-    name TEXT, 
-    tbl_name TEXT, 
-    rootpage INTEGER, 
-    sql TEXT 
-); 
+CREATE TABLE sqlite_master (
+    type TEXT,
+    name TEXT,
+    tbl_name TEXT,
+    rootpage INTEGER,
+    sql TEXT
+);
 ```
 
 也就是说可以通过type和name来读数据表的信息，因为可以直接读到创建表的SQL语句，所以相当于也可以拿到列信息。尝试union，就拿到了所有数据表的SQL语句（这里只有一个Users）
@@ -890,7 +890,7 @@ def find_password():
 if __name__ == "__main__":
     find_password()
 
-    
+
 # Python3
 import os
 import hashlib
@@ -918,7 +918,7 @@ def find_password():
             if sha1_password == '3fab54a50e770d830c0416df817567662a9dc85c':
                 print("Find the password :" + word)
                 exit()
-                
+
 if __name__ == "__main__":
     find_password()
 ```

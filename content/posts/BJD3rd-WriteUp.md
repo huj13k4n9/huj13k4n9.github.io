@@ -186,7 +186,7 @@ flag：`flag{4dfe14e0c6c21ffcf5a3b4f0ed1911f6}`
 
 ![](https://hujiekang.top/images/uploads/big/1b4209af38ffd9af0ce46851d2a65fea.png)
 
-完整题目传送门：[/downloads/8036cabb971ec21a1a6f7ac152ef08ec.png](/downloads/8036cabb971ec21a1a6f7ac152ef08ec.png)
+完整题目传送门：[/downloads/8036cabb971ec21a1a6f7ac152ef08ec.png](https://o.hujiekang.top/downloads/8036cabb971ec21a1a6f7ac152ef08ec.png)
 
 ## /bin/cat 2
 
@@ -250,7 +250,7 @@ for barcode in barcodes:
 
 ![](https://hujiekang.top/images/uploads/big/54ec0010e59358e55a9a497365114d9d.png)
 
-访问网页得到[`flag.zip`](/downloads/11b7ee2bb01b35cdd56d5bba95068641.zip)，看了一下，真的有密码不是伪加密，然后寻找一番，在标题`Password_is_here`这里发现了一些零宽字符：
+访问网页得到[`flag.zip`](https://o.hujiekang.top/downloads/11b7ee2bb01b35cdd56d5bba95068641.zip)，看了一下，真的有密码不是伪加密，然后寻找一番，在标题`Password_is_here`这里发现了一些零宽字符：
 
 ```html
 <p class="container" id="ZipPass is here:">
@@ -260,7 +260,7 @@ Pass&#8203;&#8203;&#8203;&#8203;&rlm;&rlm;&zwj;&#8203;&#8203;&#8203;&#8203;&rlm;
 
 这个肯定是密码了，但是想不出来出来用的什么编码。。。
 
-看了WP之后发现又有在线加解密网站。。。看样子的确要整理一个各种奇怪编码的list了。。。网站传送门：<https://offdev.net/demos/zwsp-steg-js>（感谢Y1ng师傅提供的js脚本：[点击查看](/downloads/4d128327a3183e60ad70c040b1da331e.js)，使用方法如下）
+看了WP之后发现又有在线加解密网站。。。看样子的确要整理一个各种奇怪编码的list了。。。网站传送门：<https://offdev.net/demos/zwsp-steg-js>（感谢Y1ng师傅提供的js脚本：[点击查看](https://o.hujiekang.top/downloads/4d128327a3183e60ad70c040b1da331e.js)，使用方法如下）
 
 ```javascript
 const stego = require('unicode_steganography.js').unicodeSteganographer;
@@ -356,7 +356,7 @@ f.close()
 
 然后给了hint：
 
-> hint1: /f1a9.bak 你看到了嘛? 
+> hint1: /f1a9.bak 你看到了嘛?
 > hint2: 用`df`命令看看硬盘总共多大，再看看flag多大
 > hint3：系统命令不太好使？试试万能的Python
 
