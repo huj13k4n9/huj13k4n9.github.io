@@ -71,14 +71,16 @@ params:
 
   # home-info mode
   homeInfoParams:
-    Title: "Hi there \U0001F44B"
-    Content: ありがたいからありがとう、去りがたいだら去りがとう。
+    Title: "Hi there \U0001F61D"
+    Content: "Add a soundtrack to your life and perfect it."
 
   socialIcons:
     - name: github
       url: "https://github.com/huj13k4n9"
     - name: email
       url: "mailto:jiekang.hu@outlook.com"
+    - name: steam
+      url: "https://steamcommunity.com/id/huj13k4n9"
     - name: rss
       url: "/index.xml"
 
@@ -126,8 +128,6 @@ params:
       link: https://cheuhxg.github.io/
     - name: Mtaun
       link: https://mtaun.github.io/
-    - name: Hughes
-      link: https://hughlhz.github.io/
 
 menu:
   main:
