@@ -1,47 +1,32 @@
-name: Deploy Hugo Blog
-
+name: Deploy Hugo to GitHub Pages
 on:
   push:
-    branches:
-      - main
-  workflow_dispatch:
-
+    branches: [main]
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 jobs:
-  build-hugo-blog:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Source Code
-        uses: actions/checkout@v4
-
-      - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v3
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: peaceiris/actions-hugo@v3
         with:
           hugo-version: '0.145.0'
           extended: true
-
-      - name: Build Blog Site
-        run: hugo --gc --buildDrafts --minify
-
-      - name: Upload Artifact
-        id: artifact-upload-step
-        uses: actions/upload-artifact@v4
+      - run: hugo --gc --buildDrafts --minify
+      - uses: actions/upload-pages-artifact@v3
         with:
-          name: hugo-blog
-          path: public/
-          if-no-files-found: error
-
-      - name: Invoke Webhook
-        run: |
-          response=$(curl -s -X POST \
-            -d "hash=${{ steps.artifact-upload-step.outputs.artifact-digest }}" \
-            -H "Authorization: Bearer ${{ secrets.AUTH_TOKEN }}" \
-            ${{ secrets.WEBHOOK_URL }})
-
-          status=$(echo "$response" | jq -r '.status')
-
-          if [ "$status" = "failed" ]; then
-            echo "Webhook invocation failed."
-            exit 1
-          else
-            echo "Webhook invoked successfully."
-          fi
+          path: ./public
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/deploy-pages@v4
+        id: deployment
