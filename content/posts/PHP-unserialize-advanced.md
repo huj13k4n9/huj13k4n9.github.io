@@ -87,7 +87,7 @@ categories:
 
    下面是两端程序输出的差异：
 
-   ![](https://pic.hujiekang.top/uploads/big/92acc99968dddc6fa7d127d2de4f5d5f.png)
+   ![](https://images.hujiekang.top/blogimage-92acc99968dddc6fa7d127d2de4f5d5f-60940b1e.png)
 
    需要注意的是，对象引用只有在对象序列化时才会产生，对数组和其他标量类型是无法产生的。
 

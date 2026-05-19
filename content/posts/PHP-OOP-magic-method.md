@@ -226,7 +226,7 @@ PHP中对对象设计了15个非常有用的魔术方法，分别是`__construct
 
 上面这段代码新建了一个`Test`对象`$t1`，将其序列化之后的字符串反序列化至另一个`Test`对象`$t2`。输出结果如下，可以看到两个对象的内容一模一样。
 
-![](https://pic.hujiekang.top/uploads/big/f5fdd47033076f1f85d994697643218f.png)
+![](https://images.hujiekang.top/blogimage-f5fdd47033076f1f85d994697643218f-72c0fb70.png)
 
 `__sleep()`、`__wakeup()`这两个方法分别在对象被序列化和反序列化时自动调用。`__sleep()`在对象被序列化为字符串之前调用，可以使用这个魔术方法来控制要序列化哪些变量；`__wakeup()`在对象被反序列化之后调用，用于对反序列化后的部分成员进行重新初始化。
 
@@ -312,7 +312,7 @@ var_dump(unserialize($s1));
 
 <b style="color:#ff7473">果然输出了字节数大小的错误，<code style="color:#ff7473">unserialize()</code>函数也返回了<code style="color:#ff7473">false</code>。</b>
 
-![](https://pic.hujiekang.top/uploads/big/793cc3f01fa16a7d777162e709897c38.png)
+![](https://images.hujiekang.top/blogimage-793cc3f01fa16a7d777162e709897c38-28b98415.png)
 
 <b style="color:#ff7473">如果修改字符数为正确值再去反序列化，会发现对象已经发生了改变：</b>
 

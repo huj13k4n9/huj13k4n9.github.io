@@ -36,13 +36,13 @@ categories:
 
 所以从流量包的前一段很容易发现是在读取USB设备列表，因为每次`GET DESCRIPTOR`的地址都不同。然后搜索发现在`GET DESCRIPTOR Response DEVICE`返回的是设备的类型，包含设备生产商、设备名称等信息：
 
-![](https://pic.hujiekang.top/uploads/big/72eab3dc871aa67e6b0e146906274cbd.png)
+![](https://images.hujiekang.top/blogimage-72eab3dc871aa67e6b0e146906274cbd-3b6ac8e2.png)
 
 由于后面的数据包传输对象地址都是`2.15.2`，所以只需要关注`2.15`开头的设备即可。可以看见`2.15.0`的`GET DESCRIPTOR Response DEVICE`返回值里面出现了Microsoft和Xbox360 Controller字样。所以可以确定后续的数据包都是Xbox360手柄产生的。
 
 然后开始查看传输的数据包。关注每个数据包的LCD（Leftover Capture Data），可以发现大体的数据包格式：`000800ff00000000`和`0008000000000000`，然后从[这个链接](https://www.partsnotincluded.com/understanding-the-xbox-360-wired-controllers-usb-data/)中找到了Xbox360传输数据包的格式，发现这是震动的数据包，下面是网站中的说明：
 
-![](https://pic.hujiekang.top/uploads/medium/2508f829ecf0553ec23599c5ffb5e8e3.jpg)
+![](https://images.hujiekang.top/blogimage-2508f829ecf0553ec23599c5ffb5e8e3-543160f8.jpg)
 
 > A type byte of ‘0x00’ indicates a rumble packet. The controller contains two rumble motors: a large weight in the left grip and a small weight in the right grip. The value for both of these motors is updated in a single packet.
 > The rumble values are 8-bit unsigned integers representing the motor speed, where ‘0’ is off and ‘255’ is max speed. The left motor’s rumble value is stored in index 3, while the right motor’s rumble value is stored in index 4.
@@ -57,7 +57,7 @@ categories:
 
 PS：后面看WP发现通过Wireshark I/O图表可以更直观的看出来（两个坡峰算一次震动）：
 
-![](https://pic.hujiekang.top/uploads/big/f12daec911d0ab9d631aaae4e841a43f.png)
+![](https://images.hujiekang.top/blogimage-f12daec911d0ab9d631aaae4e841a43f-5870b12a.png)
 
 ## Yusa
 
@@ -225,7 +225,7 @@ de_p.save('out.png')
 
 输出结果：
 
-![](https://pic.hujiekang.top/uploads/medium/9e42debcdbf5e7ba4217c1ea8fc27803.png)
+![](https://images.hujiekang.top/blogimage-9e42debcdbf5e7ba4217c1ea8fc27803-2e25427f.png)
 
 ## Barbar
 
@@ -233,21 +233,21 @@ de_p.save('out.png')
 
 打开是一张二维码，扫描结果为“密‍‌﻿‍﻿﻿﻿‎‌‍‌‏﻿‎‍‍‎‌‌‍‏‍‌‎﻿‌﻿‍﻿‌‍‌‍﻿‎‌﻿‍‏﻿‍﻿‍‎﻿‌‎﻿‌‍‌﻿‌‌‌‏‌‌‎‎‍‌﻿‌‍‏‌﻿‏‌‍‎‍﻿‍﻿﻿‏‍‏‌﻿﻿‏‍‌‌‍‎‍‍‎﻿‍‎﻿码是在哪啊”，查看源数据发现不对劲：
 
-![](https://pic.hujiekang.top/uploads/big/ccbe19500a6e2164d576d04b8dd90c9e.png)
+![](https://images.hujiekang.top/blogimage-ccbe19500a6e2164d576d04b8dd90c9e-8e4cfadb.png)
 
 发现是零宽字节隐写，丢进[在线网站](https://yuanfux.github.io/zero-width-web/)解，得到一串字符`YcfVgMBUraXftwO6Cp92YBGAbyRyWNOO`。
 
 然后把这个二维码丢进Stegsolve发现有ZIP数据：
 
-![](https://pic.hujiekang.top/uploads/big/00ec93f320bc0c05a4da633eb05713ca.png)
+![](https://images.hujiekang.top/blogimage-00ec93f320bc0c05a4da633eb05713ca-98e20a73.png)
 
 提取出来解压，得到一个Word文档和一张图片。Word文档改后缀解压后到处翻，在`/word/document.xml`里面找到了一堆Base64数据，解码发现是PNG：
 
-![](https://pic.hujiekang.top/uploads/big/d64c279b705d79208aaf4255046f1fe2.png)
+![](https://images.hujiekang.top/blogimage-d64c279b705d79208aaf4255046f1fe2-ca0412ad.png)
 
 然后导出来得到下面的图片：
 
-![](https://pic.hujiekang.top/uploads/big/38088fd5f3f1ea7aebdad1c774b8f45b.png)
+![](https://images.hujiekang.top/blogimage-38088fd5f3f1ea7aebdad1c774b8f45b-7c0eca2c.png)
 
 结合题目名称，发现是一种条形码（参考<https://en.wikipedia.org/wiki/Barcode>）
 
@@ -255,7 +255,7 @@ de_p.save('out.png')
 
 此时还有另一张图片没用，官方WP中给出的是npiet，是一种图片编程语言，官网<http://www.bertnase.de/npiet>。看了之后发现这种编程语言分为有输入和无输入两种执行类型，于是<http://www.bertnase.de/npiet/npiet-execute.php>上传图片，input填入上面的结果，输出即为flag：
 
-![](https://pic.hujiekang.top/uploads/big/30183eb0f940648aa0cc0d3b43075347.png)
+![](https://images.hujiekang.top/blogimage-30183eb0f940648aa0cc0d3b43075347-72f27dcf.png)
 
 # Web
 
@@ -310,13 +310,13 @@ else{
 
 然后是文件内容，首先输入`{"content":""}`，发现直接报错（这里吐槽一波Hackbar，会在我输入的JSON里面加一些莫名其妙的项，还是Burp靠谱），初步猜测可能是ban了`content`关键字，然后找了一下，发现JSON支持Unicode，于是试一波Unicode编码，发现可以成功绕过：
 
-![](https://pic.hujiekang.top/uploads/big/ae6f56d596474b22ada5cf2884e08372.png)
+![](https://images.hujiekang.top/blogimage-ae6f56d596474b22ada5cf2884e08372-bf0ce301.png)
 
 然后愉快的写马，然后愉快的执行命令，最终执行根目录下的readflag即可获得flag
 
 Payload：`{"\u0063\u006f\u006e\u0074\u0065\u006e\u0074": "\u003c\u003f\u0070\u0068\u0070\u0020\u0073\u0079\u0073\u0074\u0065\u006d\u0028\u0027\u002f\u0072\u0065\u0061\u0064\u0066\u006c\u0061\u0067\u0027\u0029\u003b\u0020\u003f\u003e"}`
 
-![](https://pic.hujiekang.top/uploads/big/a9259a86b276b33dfca61ff6efe61de6.png)
+![](https://images.hujiekang.top/blogimage-a9259a86b276b33dfca61ff6efe61de6-d154507f.png)
 
 ## NewUpload
 
@@ -328,7 +328,7 @@ Payload：`{"\u0063\u006f\u006e\u0074\u0065\u006e\u0074": "\u003c\u003f\u0070\u0
 
 然后是文件内容，经过尝试，好像如果检测到是纯文本就会有过滤，然后在马前面套一个PNG头上去没问题了：
 
-![](https://pic.hujiekang.top/uploads/big/21b5e6c69827882b98e6a45afe8d727c.png)
+![](https://images.hujiekang.top/blogimage-21b5e6c69827882b98e6a45afe8d727c-0f7820da.png)
 
 这里的一句话不能写eval那种的，因为宝塔也会检测参数输入，所以没办法整。
 
@@ -346,7 +346,7 @@ ini_set('open_basedir','/');var_dump(scandir($_GET['hhh']));
 
 读到根目录，发现flag和readflag，说明还是要执行系统命令才能读到flag：
 
-![](https://pic.hujiekang.top/uploads/big/345e2ba66d0440a41ab49d9d7660dae7.png)
+![](https://images.hujiekang.top/blogimage-345e2ba66d0440a41ab49d9d7660dae7-5630e4ed.png)
 
 ### 绕过`disable_functions`
 
@@ -570,7 +570,7 @@ $fp = stream_socket_client("unix:///tmp/php-cgi-74.sock", $errno, $errstr,30);$o
 
 然后上传访问，最终在VPS上获得了flag（之前的命令是curl，所以flag是通过curl打回来的）：
 
-![](https://pic.hujiekang.top/uploads/big/d28165a10121a8dc05c73886d3acc304.png)
+![](https://images.hujiekang.top/blogimage-d28165a10121a8dc05c73886d3acc304-85bb51cb.png)
 
 当然也可以将flag写入一个文件，然后再去读取（反正都任意命令执行了
 
@@ -667,7 +667,7 @@ var_dump(parse_url("127.0.0.1/path"));
 
 输出结果如下图，可见前者被正常解析，后者则直接全部认为是path，所以在上面的代码里面可以直接绕过。
 
-![](https://pic.hujiekang.top/uploads/big/cf097184c9782c3a4a56ccb81c015166.png)
+![](https://images.hujiekang.top/blogimage-cf097184c9782c3a4a56ccb81c015166-52ed4218.png)
 
 `check()`后面的逻辑是在进行IP类型的检测，如果判断输入的URL是域名，则解析后判断是否为内网IP；如果直接输入IP则直接判断是否为内网IP。然后写了一个`is_inner_ip_regx()`函数来进行IP的判断。
 
@@ -732,25 +732,25 @@ print(urllib.parse.quote(result))
 
 刚开始做的时候没有想到可以截断，所以上面脚本用的DNS查询反弹，但是发现限制有点大，只要包含空格就搞不了了，只能执行`whoami`和`uname`这种无关紧要的命令：
 
-![](https://pic.hujiekang.top/uploads/big/80498f6cf3755180978ce17d6f421609.png)
+![](https://images.hujiekang.top/blogimage-80498f6cf3755180978ce17d6f421609-96c2579d.png)
 
 试了一堆命令，由于域名的特殊性，带一些特殊字符就挂了跑不起来，所以只能想想别的办法。然后扒了一下[之前的文章](https://www.jianshu.com/p/5e505e3d8075)，看见一个之前没认真看的东西`${IFS}`把它带进去Shell跑一下：
 
-![](https://pic.hujiekang.top/uploads/big/0b276332e85d1c0c3e067a80d3444d45.png)
+![](https://images.hujiekang.top/blogimage-0b276332e85d1c0c3e067a80d3444d45-86701350.png)
 
 好家伙，是换行符，应该可以截断，带进去<code>127.0.0.1${IFS}`ls%09-la`</code>试一下（由于输入过滤，这里的空格需要绕掉，可以使用%09代替）：
 
-![](https://pic.hujiekang.top/uploads/big/f0bbff25a4c339bca9f22a2f8f025266.png)
+![](https://images.hujiekang.top/blogimage-f0bbff25a4c339bca9f22a2f8f025266-7810c754.png)
 
 然后`cat /flag`直接拿到flag：
 
-![](https://pic.hujiekang.top/uploads/big/6f1c6d7a1167c1f993947acbb6d1fcbb.png)
+![](https://images.hujiekang.top/blogimage-6f1c6d7a1167c1f993947acbb6d1fcbb-9027613b.png)
 
 ## 2
 
 主要考点：同表SQL注入、JWT越权
 
-![](https://pic.hujiekang.top/uploads/big/c116ee2b63df264b504a778f6dfc01b6.png)
+![](https://images.hujiekang.top/blogimage-c116ee2b63df264b504a778f6dfc01b6-0d282b62.png)
 
 打开就是个登录界面，找了一下没有其他的可疑点了，所以直接尝试SQL注入。
 
@@ -758,13 +758,13 @@ print(urllib.parse.quote(result))
 
 fuzz一下，ban了`and select sleep regexp benchmark`：
 
-![](https://pic.hujiekang.top/uploads/big/9950064211fac4e9e8f379a576dc144f.png)
+![](https://images.hujiekang.top/blogimage-9950064211fac4e9e8f379a576dc144f-2b11b649.png)
 
 从一般注入的角度来说感觉过滤的还行，毕竟order by、union啥的都还在；但现在的问题是select给ban了，也就意味着联合查询莫得了，还有时间盲注也没有机会了，information_schema也利用不了。
 
 已经确认了注入点，正确回显`用户名或密码错误！`，错误回显`账号不存在！`，嗦一把布尔盲注。尝试爆一波`user()`：`admin'+or+length(user())=19#`
 
-![](https://pic.hujiekang.top/uploads/big/c663ca091ddfe6983f8c0ec6a9bedaa3.png)
+![](https://images.hujiekang.top/blogimage-c663ca091ddfe6983f8c0ec6a9bedaa3-57d4a4ba.png)
 
 说明Payload没问题。如法炮制搞出来`version()`和`database()`：
 
@@ -778,7 +778,7 @@ version()=10.1.44-MariaDB-0ubuntu0.18.04.1
 
 爆出来两个正确结果，说明至少两个用户：
 
-![](https://pic.hujiekang.top/uploads/big/84551b7d1603c2fe34d9ac8afb6da08a.png)
+![](https://images.hujiekang.top/blogimage-84551b7d1603c2fe34d9ac8afb6da08a-6136ce91.png)
 
 同样方法爆第二位，发现每一个都只有一个返回结果，说明只有这两个用户。
 
@@ -788,7 +788,7 @@ version()=10.1.44-MariaDB-0ubuntu0.18.04.1
 
 如法炮制，密码也出来了。然后学长还有给一个Hint，那就是另外两列的名字已经给出来了，很容易在HTML注释里面找到：
 
-![](https://pic.hujiekang.top/uploads/big/b9a7c60771e4ded569b153b1d40bdfd3.png)
+![](https://images.hujiekang.top/blogimage-b9a7c60771e4ded569b153b1d40bdfd3-4564d88a.png)
 
 爆出来完整的数据表如下：
 
@@ -814,13 +814,13 @@ Content-Type: text/html; charset=UTF-8
 
 很清晰的JWT格式，丢到<https://jwt.io/#debugger-io>上面可以解码：
 
-![](https://pic.hujiekang.top/uploads/big/64fe94f105784106a00dfdbea36278df.png)
+![](https://images.hujiekang.top/blogimage-64fe94f105784106a00dfdbea36278df-91b088f4.png)
 
 然后发现这个token的签名是无效的，然后我尝试自己输入密钥重新签名，然后提交请求，发现仍然可以登录上去，那么基本可以确定后端没有签名的验证机制，只是简单的读了一个用户数据而已，所以可以通过修改JWT直接越权。
 
 那么事情就简单多了，直接换掉用户名，生成JWT往上一打，拿到flag：
 
-![](https://pic.hujiekang.top/uploads/big/f4609a0e5a06edbdf446431ef6fd678e.png)
+![](https://images.hujiekang.top/blogimage-f4609a0e5a06edbdf446431ef6fd678e-c38f89cb.png)
 
 题目做完了，后面有听学长讲解，发现这个网站实际上的数据处理逻辑和我做题时的预想不一样。我一直以为这是出题人的一个Trick，就是把正确输出的回显搞成用户名密码错误，让我们认为这是错误回显，实际上是我的思路有问题。整个网站的查询逻辑应该是这样的（伪代码）：
 
@@ -971,7 +971,7 @@ callback(null, {
 
 而`gen_tmp_credentials`是要求传入token的：
 
-![](https://pic.hujiekang.top/uploads/big/445ba17d5d75fbd1f7f2bb341d9c2b19.png)
+![](https://images.hujiekang.top/blogimage-445ba17d5d75fbd1f7f2bb341d9c2b19-c09b6a16.png)
 
 所以大致可以总结为：临时密钥的生成需要token（用于确定权限范围），而拿到了临时密钥之后进行签名需要请求目录（用于确定是否处在用户的权限范围内）和请求方式的参与。
 
@@ -1045,9 +1045,9 @@ uploadFile({method:"GET", path:"/"})
 
 运行结果即为对应的临时密钥，直接带入请求中就可以访问：
 
-![](https://pic.hujiekang.top/uploads/big/0e7f7deda90727870eba27443d7040e0.png)
+![](https://images.hujiekang.top/blogimage-0e7f7deda90727870eba27443d7040e0-4bcfc2d4.png)
 
-![](https://pic.hujiekang.top/uploads/big/e7b87b52a7fdcd8c28b641a135ed5fea.png)
+![](https://images.hujiekang.top/blogimage-e7b87b52a7fdcd8c28b641a135ed5fea-a4e5e449.png)
 
 成功显示出所有的文件键值结果。整个存储桶的文件都在这了，想下载哪个直接进行下载即可，不需要再次认证。但是如果是访问一个目录（不是真的目录，可以理解为其他用户的权限范围），就需要进行重新签名。至于为什么，我觉得可能和腾讯云官方给出的一个反面例子差不多：<https://cloud.tencent.com/document/product/436/40265>
 
@@ -1057,7 +1057,7 @@ uploadFile({method:"GET", path:"/"})
 
 在文件列表里面可以搜索flag，发现文件`/flag_is_here`（不是目录），重新签名后请求拿到flag：
 
-![](https://pic.hujiekang.top/uploads/big/2671e244e6c4c3733f5e08d3d86b6744.png)
+![](https://images.hujiekang.top/blogimage-2671e244e6c4c3733f5e08d3d86b6744-e2c9587d.png)
 
 ### 使用CosAuth API
 

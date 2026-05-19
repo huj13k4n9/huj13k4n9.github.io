@@ -235,7 +235,7 @@ Flag: `cnss{Array_Tr1ck_is_use4}`
 
 于是摸Cookie，摸到token字段，很明显的JWT：
 
-![](https://pic.hujiekang.top/uploads/big/02a877bdfa2c60c625011abc2cae3cdc.png)
+![](https://images.hujiekang.top/blogimage-02a877bdfa2c60c625011abc2cae3cdc-e14ca076.png)
 
 丢进<https://jwt.io>分析，修改Payload数据为admin，直接打过去发现验证了签名，所以必须找到签名的那个key
 
@@ -261,13 +261,13 @@ Flag: `CNSS{Admin_1s_w4tch1ng_y0u}`
 
 > 你的每一条留言都会由管理员 (的 bot) 亲自查看，快写下你想对 CNSS 说的话吧！
 
-![](https://pic.hujiekang.top/uploads/big/827bb83834b1a06bf26725c09659e09f.png)
+![](https://images.hujiekang.top/blogimage-827bb83834b1a06bf26725c09659e09f-faef2c6f.png)
 
 很容易发现Name输入框和Email输入框存在XSS，通过Preview按钮可以看的更直观一些
 
 之后就是注入一个`<form>`，利用JS自动提交Cookie到自己的服务器上面，随后Admin就会访问提交的页面，Cookie就会直接打到服务器上
 
-![](https://pic.hujiekang.top/uploads/big/7e75f8ec377fab00afb1322312577c73.png)
+![](https://images.hujiekang.top/blogimage-7e75f8ec377fab00afb1322312577c73-bdda12c8.png)
 
 然后使用Cookie访问`/admin`获得flag
 
@@ -281,7 +281,7 @@ Flag: `CNSS{Admin_1s_AAAAAAAAAngry}`
 
 主页提示`/request`接口，可以访问一个链接返回结果：
 
-![](https://pic.hujiekang.top/uploads/big/60229c89d68f3f7246646629f37c765d.png)
+![](https://images.hujiekang.top/blogimage-60229c89d68f3f7246646629f37c765d-97b926cd.png)
 
 稍微试了几个协议，发现只有`http://`、`https://`和`file://`可以用，于是借助`/proc/self/cwd`可以读到app.py源代码：
 
@@ -322,7 +322,7 @@ if __name__ == '__main__':
 
 直到某一天突然被另一个师傅点醒可以打内网，这个时候才想起接着去翻`/proc`，发现`/proc/net`可以查看网络相关的状况。查看路由表`/proc/net/route`，发现只有去网关的路由；TCP连接`/proc/net/tcp`只有Flask与外部IP的连接；最后查看ARP表`/proc/net/arp`，在一堆`00:00:00:00:00:00`中发现了一个看起来挺合理的MAC，对应的IP是`172.16.233.233`（看着就很可疑）
 
-![](https://pic.hujiekang.top/uploads/big/31b2544c792fcd760eea74108554ebc7.png)
+![](https://images.hujiekang.top/blogimage-31b2544c792fcd760eea74108554ebc7-03de5235.png)
 
 考虑到Flask默认监听5000端口，且题目不要求使用扫描器，所以访问一下看看，果然有东西：
 
@@ -392,7 +392,7 @@ if (isset($_GET['secret'])) {
 
 查看`phpinfo()`，发现这个`hello.so`是个PHP扩展，并且以及加载进了Web环境中：
 
-![](https://pic.hujiekang.top/uploads/big/90c4330b7698ff01e324c1a15f679723.png)
+![](https://images.hujiekang.top/blogimage-90c4330b7698ff01e324c1a15f679723-ecd6d4b9.png)
 
 所以接下来要做的就是搞懂`you_may_need_ida()`干了啥，直接IDA走起，发现对应C语言函数`zif_you_may_need_ida()`
 
@@ -532,7 +532,7 @@ print(data, res)
 
 符合预期。
 
-![](https://pic.hujiekang.top/uploads/big/2ce9b183c44aa253ad5fe283ca9b5c43.png)
+![](https://images.hujiekang.top/blogimage-2ce9b183c44aa253ad5fe283ca9b5c43-8894415d.png)
 
 在这里又卡住了一阵子，因为只有反序列化的操作也没法进行任何的利用，只能再去那个Extension里面翻一翻，果然又翻到了一个类`Hello`：
 
@@ -562,7 +562,7 @@ class Hello {
 
 于是将这个类序列化后输出，发现可以读取对应文件，于是将`name`值改为`/flag`即可拿到flag。Payload：`secret=Gal5LrQawTIWyTUaxbR3NGk2xalcLrQrRqgaLqV3RnNrL69=`
 
-![](https://pic.hujiekang.top/uploads/big/0a1ce3ae84162795e38ff2e112543e7b.png)
+![](https://images.hujiekang.top/blogimage-0a1ce3ae84162795e38ff2e112543e7b-62a6c205.png)
 
 **参考：**
 

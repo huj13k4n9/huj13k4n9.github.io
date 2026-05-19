@@ -28,7 +28,7 @@ categories:
 
 **Timetable：**
 
-<img src="https://pic.hujiekang.top/uploads/big/cf69919992836e8029937baa306b3636.png" style="zoom: 70%;" />
+<img src="https://images.hujiekang.top/blogimage-cf69919992836e8029937baa306b3636-d65f782f.png" style="zoom: 70%;" />
 
 # 北京邮电大学网络空间安全学院
 

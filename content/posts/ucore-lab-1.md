@@ -469,7 +469,7 @@ bad:
 
 x86函数堆栈结构：
 
-![](https://pic.hujiekang.top/uploads/big/b53a1a56952dc06adb61baad23d9ff1d.png)
+![](https://images.hujiekang.top/blogimage-b53a1a56952dc06adb61baad23d9ff1d-7e2890dd.png)
 
 ```c
 void
@@ -520,7 +520,7 @@ print_debuginfo(uintptr_t eip) {
 
 IDT中的一个表项占8个字节。第16-31位表示中断程序所在的段选择子，0-15, 48-63位表示对应段的偏移值，据此可定位到中断处理程序的地址。
 
-![](https://pic.hujiekang.top/uploads/medium/4c78d0741ceeff01f5546c910932b1f1.png)
+![](https://images.hujiekang.top/blogimage-4c78d0741ceeff01f5546c910932b1f1-0d9f24c6.png)
 
 ## 初始化中断描述符表
 
@@ -846,7 +846,7 @@ END;
 
 先看看中断真正的处理代码（不包括保存现场的代码）前后的栈帧情况。可以看见，由INT指令和`__alltraps`处理例程将寄存器组压栈，在栈上内存空间组合成了一个`struct trapframe`结构体。
 
-![](https://pic.hujiekang.top/uploads/big/b77ac44296c5d94431e0358c51cb68a5.png)
+![](https://images.hujiekang.top/blogimage-b77ac44296c5d94431e0358c51cb68a5-1448addf.png)
 
 可以看见，这个结构体的底部ESP和SS的值由于中断时并未压栈，此时指向原有栈的数据，分别为`lab1_switch_to_user`中保存的EBP，和`lab1_switch_to_user`的返回地址。显然这两个地址的数据是无法被修改的，若被修改函数则无法返回，所以若要保证IRET能够正确返回，需要一个另外的空间来存储这些信息。
 
@@ -919,7 +919,7 @@ gdt_init(void) {
 
 因此在调用INT指令时，通过GDB可以发现在`stack0`的尾部压入了对应的数据：
 
-![](https://pic.hujiekang.top/uploads/big/48f8f559ad0a3c476ef7ecf71ac5737e.png)
+![](https://images.hujiekang.top/blogimage-48f8f559ad0a3c476ef7ecf71ac5737e-0c5006d2.png)
 
 而在IRET返回时，由于此时各段已被修改为0特权级，所以相当于同特权级返回，因此IRET不会再弹出栈段的寄存器数据。此时不再需要一个临时栈帧，直接修改当前栈帧的权限即可：
 

@@ -340,7 +340,7 @@ for packet := range source.Packets() {
 
 运行结果：
 
-![](https://pic.hujiekang.top/uploads/big/2f18862b03c310ea31457d4f16d659dd.png)
+![](https://images.hujiekang.top/blogimage-2f18862b03c310ea31457d4f16d659dd-491015e3.png)
 
 上面只是利用到了数据包中应用层的信息。如果对所有层的信息都感兴趣，那么可以使用`github.com/google/gopacket/layers`子包，里面包含了对数据包进行解码、编码的方法以及各层一些常量的定义。使用该子包可以构建自定义的数据包，也可以直接将整个数据包解析为Go结构体。更多信息可以参考[这篇文章](https://colobu.com/2019/06/01/packet-capture-injection-and-analysis-gopacket/)以及官方文档。
 
@@ -578,7 +578,7 @@ go build -buildmode=plugin -o 'libnss_X/P0P_SH3LLZ_ .so.2' lib.go
 
 接下来测试程序是否能够提权。拉取符合版本要求的Docker镜像`manishfoodtechs/xfcefulldesktop_ubuntu20.4`（目前最新版本的Ubuntu已经修补了漏洞，所以即使sudo版本符合要求仍然无法提权），下面是运行截图，可以看见和原C语言程序完全一致，提权成功：
 
-![](https://pic.hujiekang.top/uploads/big/8706a6cd9ca9b8f91c881c635af16e68.png)
+![](https://images.hujiekang.top/blogimage-8706a6cd9ca9b8f91c881c635af16e68-9dc7229e.png)
 
 ## 在Go中应用Shellcode
 

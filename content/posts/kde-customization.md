@@ -17,9 +17,9 @@ categories:
 
 需要说明的是，本文的美化都是在Arch Linux下最新版本的KDE下进行的，老版本KDE可能部分功能存在差异（比如我用过的Kubuntu 20.04，KDE直接比同期的Arch Linux差一个大版本，不少功能都是缺失的）。先上两张效果图：
 
-![](https://pic.hujiekang.top/uploads/big/f4d5f08678b1286261c58d5ba495a43e.png)
+![](https://images.hujiekang.top/blogimage-f4d5f08678b1286261c58d5ba495a43e-7d58ea09.png)
 
-![](https://pic.hujiekang.top/uploads/big/d11f5969a8182b85cb87a04ca7d6e712.png)
+![](https://images.hujiekang.top/blogimage-d11f5969a8182b85cb87a04ca7d6e712-c1c7e071.png)
 
 KDE桌面环境拥有其自己的[主题商店](https://store.kde.org/)，包含了全局主题、图标包、小组件、配色方案等所有可自定义部分的主题资源。因为KDE主题商店网站在国内的速度属实不咋地而且还经常掉线，个人最推荐通过`ocs-url`来进行安装，能够直接通过浏览器来捕获下载文件的信息，并自动根据组件类型将主题包解包至指定的位置，基本上即装即用。当然除此之外，一些热门的主题资源也包含在了Arch Linux的AUR仓库中，可以直接通过yay安装。
 
@@ -31,7 +31,7 @@ yay -S ocs-url
 
 如果通过浏览器直接下载提示网络问题无法下载，还可以通过命令行代理，从命令行来启动`ocs-url`，使用方法即`ocs-url [OCS URL]`，对应的主题包URL（以`ocs://`开头）可以在主题组件下载页通过浏览器开发者工具抓取到：
 
-![](https://pic.hujiekang.top/uploads/big/37ac8d4bbd726d42ed8ac22892788866.png)
+![](https://images.hujiekang.top/blogimage-37ac8d4bbd726d42ed8ac22892788866-b4d1402f.png)
 
 # 桌面主题的更换
 
@@ -45,7 +45,7 @@ KDE中一个比较完整的全局主题包含以下三个部分：
 
 再打开Kvantum Manager即可以应用Kvantum主题，配置页面也可以对主题进行更进一步的个性化设置。在这里有一个小坑，若系统开启了缩放比例，需要在配置主题中将禁用非整数比例的半透明取消勾选（默认是勾选了的），否则无论怎么弄毛玻璃都没法生效。
 
-<img src="https://pic.hujiekang.top/uploads/big/c9f609174bbfec58817d1b1eaa0a35a9.png" style="zoom:75%;" />
+<img src="https://images.hujiekang.top/blogimage-c9f609174bbfec58817d1b1eaa0a35a9-dce2f6d1.png" style="zoom:75%;" />
 
 窗口样式上，个人更喜欢[breeze-blurred](https://aur.archlinux.org/packages/breeze-blurred-git)，是基于KDE默认的微风窗口样式魔改的，添加了毛玻璃的特效，与Kvantum设置的毛玻璃相结合，即可以实现整个窗口的无缝毛玻璃。举个例子，Konsole的无缝毛玻璃，只需要让Konsole配色方案的第一个背景色和系统颜色方案中的“活动标题栏”颜色一致，再让breeze-blurred的透明度和Konsole的背景透明度一致即可。
 

@@ -15,7 +15,7 @@ categories:
 
 求逆则使用了欧几里得算法：
 
-![](https://pic.hujiekang.top/uploads/medium/dc44f5fa20f90f22e7d25887ca9dc5f5.jpg)
+![](https://images.hujiekang.top/blogimage-dc44f5fa20f90f22e7d25887ca9dc5f5-34e0dfd2.jpg)
 
 以及有限域 $F_{2^8}$ 上基于指数对数表的乘法和求逆，对应的不可约多项式 $f(x)=x^8+x^6+x^5+x+1$ 。
 

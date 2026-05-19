@@ -179,7 +179,7 @@ abstract function func();
 
 下图中可以很清楚的看出接口和类的关系：
 
-![](https://pic.hujiekang.top/uploads/medium/f33dcd00d7c52422b6d7ad8c24f048a0.png)
+![](https://images.hujiekang.top/blogimage-f33dcd00d7c52422b6d7ad8c24f048a0-529f687d.png)
 
 使用接口，可以指定某个类**必须实现哪些方法**，但**不需要定义这些方法的具体内容**。和抽象类一样，**实现接口必须实现接口的所有方法**。
 接口中定义的**所有方法都必须是公有**，这是**接口的特性**。

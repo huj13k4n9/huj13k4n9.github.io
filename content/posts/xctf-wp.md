@@ -19,7 +19,7 @@ categories:
 
 打开页面会自动跳转至1.php，尝试输入index.php访问，然后发现302跳转至1.php，然后在302响应头里找到flag：
 
-![](https://pic.hujiekang.top/uploads/big/78d8b2b1c181e8abe834a78b436781e3.png)
+![](https://images.hujiekang.top/blogimage-78d8b2b1c181e8abe834a78b436781e3-a607de5e.png)
 
 ## Training-WWW-Robots
 
@@ -29,11 +29,11 @@ categories:
 
 这题一打开是一个ThinkPHP的默认界面：
 
-![](https://pic.hujiekang.top/uploads/big/298a55c8f5131105fb28485491237373.png)
+![](https://images.hujiekang.top/blogimage-298a55c8f5131105fb28485491237373-81c58154.png)
 
 一开始先试了一下，访问一哈404的目录，发现只是返回正常的404界面；然后给主页加一些乱七八糟的参数，返回了错误，错误中泄露了软件版本（后面发现是我蒙中了s参数）：
 
-![](https://pic.hujiekang.top/uploads/big/00f8371efa15696e55465f8fbfc3d79b.png)
+![](https://images.hujiekang.top/blogimage-00f8371efa15696e55465f8fbfc3d79b-ff379c45.png)
 
 然后呢。。。就没有然后了，找了半天毛都找不到，robots.txt也没有信息。。。
 
@@ -43,7 +43,7 @@ categories:
 
 通过这些参数执行了Linux的`find`指令，找到了flag所在目录/flag，于是执行`cat /flag`，拿到flag：
 
-![](https://pic.hujiekang.top/uploads/big/1068344b5b7d17e153dd36f690cd9c54.png)
+![](https://images.hujiekang.top/blogimage-1068344b5b7d17e153dd36f690cd9c54-b586da17.png)
 
 当然肯定不止这种解法，就这都任意文件写入了，直接写个马也是没问题的。
 
@@ -71,19 +71,19 @@ include($page);
 
    Payload1：`?page=PhP://input`+POST任意PHP命令
 
-   ![](https://pic.hujiekang.top/uploads/big/d9d18d00119f5e2ea1e264ac8802588e.png)
+   ![](https://images.hujiekang.top/blogimage-d9d18d00119f5e2ea1e264ac8802588e-241b6cc7.png)
 
-![](https://pic.hujiekang.top/uploads/big/392a1a3fa10889d4ff7a822402d7c705.png)
+![](https://images.hujiekang.top/blogimage-392a1a3fa10889d4ff7a822402d7c705-93124bf4.png)
 
 ​	Payload2：`?page=PhP://filter/read=convert.base64-encode/resource=fl4gisisish3r3.php`，解码拿到flag
 
-![](https://pic.hujiekang.top/uploads/big/6649ad9a674a7f10451ec1450cf2d440.png)
+![](https://images.hujiekang.top/blogimage-6649ad9a674a7f10451ec1450cf2d440-79f26aa5.png)
 
 2. data协议任意命令执行（明文和base64都可）
 
    Payload：`?page=data://text/plain;base64,PD9waHAgZWNobyBmaWxlX2dldF9jb250ZW50cygiZmw0Z2lzaXNpc2gzcjMucGhwIik7Pz4=`
 
-   ![](https://pic.hujiekang.top/uploads/big/95dad4b8af770cb67bfa7ff961a93795.png)
+   ![](https://images.hujiekang.top/blogimage-95dad4b8af770cb67bfa7ff961a93795-b0310f92.png)
 
 还有几种方法是看了别人的WriteUp做的，感觉自己脑洞还不够大。。。
 
@@ -105,7 +105,7 @@ include($page);
 
    Payload：`?page=http://localhost/index.php?hello=<?show_source("fl4gisisish3r3.php");?>`
 
-   ![](https://pic.hujiekang.top/uploads/big/84911978bf4908a1c8e41420ff72b28f.png)
+   ![](https://images.hujiekang.top/blogimage-84911978bf4908a1c8e41420ff72b28f-33ba0b8f.png)
 
 ## warmup
 
@@ -169,7 +169,7 @@ include($page);
 
 再看`emmm::checkFile()`方法：
 
-![](https://pic.hujiekang.top/uploads/medium/2c16c568431b4c7c3010cb8fb57bbf6b.png)
+![](https://images.hujiekang.top/blogimage-2c16c568431b4c7c3010cb8fb57bbf6b-f57f894e.png)
 
 一共有三个地方可以令这个方法返回true，如果是直接满足第一个条件的话，那我们就无法加其他的东西进去了；后面两个条件是有办法加东西进去的，所以考虑后面两个条件的满足。
 
@@ -177,13 +177,13 @@ include($page);
 
 我在网站根目录的上一级放了一个只有一个`echo`语句的test.php文件，然后网站主页使用source.php的代码。首先在第二个条件进行绕过，令参数`file=hint.php?/../../test.php`，发现报错：
 
-![](https://pic.hujiekang.top/uploads/big/bed5f4ba3019165bc7057e98b7639630.png)
+![](https://images.hujiekang.top/blogimage-bed5f4ba3019165bc7057e98b7639630-fed7a142.png)
 
 然后查了一下[资料](https://stackoverflow.com/questions/41985625/file-get-contents-failed-to-open-stream-no-error)，发现是`?`后面的字符被当成了传入hint.php的参数，而本地文件包含和读取是不允许参数存在的，所以报错。一般情况下，可以通过使用HTTP协议来解决这个问题，但这里显然是不行的。
 
 第二个条件不行，那么尝试满足最后一个条件，把`?`进行二次URL编码得到`%253f`，令`file=hint.php%253f/../../test.php`，发现成功读取到文件：
 
-![](https://pic.hujiekang.top/uploads/big/df478300cf9b7a8ee523efbf59672764.png)
+![](https://images.hujiekang.top/blogimage-df478300cf9b7a8ee523efbf59672764-fece5f2c.png)
 
 关于这个包含路径的问题，感觉比较迷，一开始想了半天想不通为什么访问上一级文件夹的内容要两个`../`，后来就查了一下，下面是一个解释：
 
@@ -195,7 +195,7 @@ include($page);
 
 然后就可以做题了，由hint得知flag文件名`ffffllllaaaagggg`，所以靠着相对路径一步一步往前摸，最后可以摸到flag：
 
-![](https://pic.hujiekang.top/uploads/big/4a89194f159f0c3c01c98c66b496e39d.png)
+![](https://images.hujiekang.top/blogimage-4a89194f159f0c3c01c98c66b496e39d-5113414c.png)
 
 做完了题又查了一下，发现这个题是phpMyAdmin的一个LFI漏洞：<https://mp.weixin.qq.com/s/HZcS2HdUtqz10jUEN57aog>
 
@@ -205,11 +205,11 @@ include($page);
 
 首先试探是否存在注入，发现or语句直接出来所有数据：
 
-![](https://pic.hujiekang.top/uploads/big/b917f12a795fd78d9229a8d8b2ebfb20.gif)
+![](https://images.hujiekang.top/blogimage-b917f12a795fd78d9229a8d8b2ebfb20-b3ab9578.gif)
 
 然后就用SQLMap爆：`python sqlmap.py -r 1.txt --dump`
 
-![](https://pic.hujiekang.top/uploads/big/9534e803f1ccee29ed8132313e211abf.png)
+![](https://images.hujiekang.top/blogimage-9534e803f1ccee29ed8132313e211abf-7ce5dc3c.png)
 
 ## NaNNaNNaNNaN-Batman
 
@@ -285,11 +285,11 @@ Can you anthenticate to this website?
 
 然后就很简单了，二次URL编码即可：
 
-![](https://pic.hujiekang.top/uploads/big/90eeab8124fc136fa35b75c8b98b6882.png)
+![](https://images.hujiekang.top/blogimage-90eeab8124fc136fa35b75c8b98b6882-10044a9c.png)
 
 ## unserialize3
 
-![](https://pic.hujiekang.top/uploads/big/e0c2a18f3927c317d392d1a4237b65a3.png)
+![](https://images.hujiekang.top/blogimage-e0c2a18f3927c317d392d1a4237b65a3-338cc9b4.png)
 
 这题完全就是明示了，直接通过`__wakeup()`的CVE-2016-7124漏洞绕掉，Payload：`?code=O:4:"xctf":2:{s:4:"flag";s:3:"111";}`
 
@@ -297,9 +297,9 @@ Can you anthenticate to this website?
 
 这题。。。就一个上传文件的，查看源代码发现只有前端验证扩展名，直接抓包改扩展名，直接挂马：
 
-![](https://pic.hujiekang.top/uploads/big/ee2185536297b91dfc72f72f15dce9ee.png)
+![](https://images.hujiekang.top/blogimage-ee2185536297b91dfc72f72f15dce9ee-860ec46c.png)
 
-![](https://pic.hujiekang.top/uploads/big/25683a1e558c4b6caafad1e61d513ea3.png)
+![](https://images.hujiekang.top/blogimage-25683a1e558c4b6caafad1e61d513ea3-a234e1b4.png)
 
 ## Web_python_template_injection
 
@@ -326,7 +326,7 @@ for i in [].__class__.__base__.__subclasses__():
 
 回到这道题叭。这题的环境里面，可以调用到`<class 'site._Printer'>`和`<class 'site.Quitter'>`这两个类，所以就更加方便了，直接上Payload：
 
-![](https://pic.hujiekang.top/uploads/big/c31b61ef4fa34881c7832d5c2726a5c3.png)
+![](https://images.hujiekang.top/blogimage-c31b61ef4fa34881c7832d5c2726a5c3-5af8a9ca.png)
 
 然后`os.popen('ls')`找到flag文件fl4g，再来一哈`os.popen('cat fl4g')`轻松拿到flag。
 
@@ -372,23 +372,23 @@ if (isset($_GET['var'])) {
 
 Payload：`?var=TzorNDoiRGVtbyI6Mjp7czoxMDoiAERlbW8AZmlsZSI7czo4OiJmbDRnLnBocCI7fQ==`（注意反序列化对象里面的`\x00`字符）
 
-![](https://pic.hujiekang.top/uploads/big/2cdbbfa15d696da7fc08885ad1e97ec1.png)
+![](https://images.hujiekang.top/blogimage-2cdbbfa15d696da7fc08885ad1e97ec1-64de25b2.png)
 
 ## supersqli
 
 这题是一个比较特别的SQL注入，之前没碰到过
 
-![](https://pic.hujiekang.top/uploads/big/bc1bd510c83e4b2b6de5e1d2190a0d0b.png)
+![](https://images.hujiekang.top/blogimage-bc1bd510c83e4b2b6de5e1d2190a0d0b-c5f579f8.png)
 
 一开始先尝试注了一下，发现有错误回显，然后摸到是字符型注入，使用`--+`注释可以注入，`order by`也可以执行，猜出来表列数为2，但是想用union的时候，发现被过滤了：
 
-![](https://pic.hujiekang.top/uploads/big/5de806e3b4f1059d8198af46347869d2.png)
+![](https://images.hujiekang.top/blogimage-5de806e3b4f1059d8198af46347869d2-bc7a403b.png)
 
 由于开了不区分大小写，而且双写也莫得。。。所以这些关键字就没办法绕了，只能想点别的办法
 
 试一下多语句执行，发现可以整：
 
-![](https://pic.hujiekang.top/uploads/big/b390d81db44d31cdc639180e8bcbd0b9.png)
+![](https://images.hujiekang.top/blogimage-b390d81db44d31cdc639180e8bcbd0b9-61613924.png)
 
 然后又`show columns`了一下，发现flag在`1919810931114514`数据表里面，那么接下来就是想办法把数据显示出来。
 
@@ -402,7 +402,7 @@ alter table `1919810931114514` rename to `words`;
 
 把这三条放在一个请求里全部执行之后，此时默认读取数据表已经发生了改变，所以直接用`1' or 1=1--+`就可以直接拿到flag：
 
-![](https://pic.hujiekang.top/uploads/big/1cbf22575ced20946a3c7db8797d2987.png)
+![](https://images.hujiekang.top/blogimage-1cbf22575ced20946a3c7db8797d2987-a7e21718.png)
 
 通过这题学到了一种新的SQL注入形式，如果在生产环境下这么搞，然后过滤条件还没这里严谨的话，那<s>删库跑路也不是不可以</s>
 
@@ -431,13 +431,13 @@ md5(cookie_secret+md5(filename))
 
 由于Tornado也是基于Python开发的，所以同样想到模板注入，随意输入filename摸到一个错误界面，发现`msg`参数可控：
 
-![](https://pic.hujiekang.top/uploads/big/62c09c1118eb6700b100955bfada0355.png)
+![](https://images.hujiekang.top/blogimage-62c09c1118eb6700b100955bfada0355-823b84f8.png)
 
 然后试了一下传入`{ { application.settings } }`，就500了。。。估计做了一些过滤措施叭
 
 然后又翻文档，发现另一个对象`RequestHandler`，这个对象是用来处理网站的请求的，在它的构造方法里面，传入了要处理请求的Web应用对象，并且有一个`settings`方法，会返回这个`application`的`settings`：
 
-![](https://pic.hujiekang.top/uploads/big/385bef9ab16370675017f973b3d5165c.png)
+![](https://images.hujiekang.top/blogimage-385bef9ab16370675017f973b3d5165c-7aeed0b2.png)
 
 而且从注释里面看出，Tornado还有一套别名机制，估计是为了方便调用做出来的
 
@@ -463,7 +463,7 @@ md5(cookie_secret+md5(filename))
 
 `RequestHandler`对象有个别名叫`handler`，所以是不是可以通过`handler.settings`访问到`settings`字典呢？理论上行得通，实际上也没错：
 
-![](https://pic.hujiekang.top/uploads/big/5797bee30b5814c3d04674190ea070bc.png)
+![](https://images.hujiekang.top/blogimage-5797bee30b5814c3d04674190ea070bc-dba659c6.png)
 
 拿到了`cookie_secret`，接下来使用md5做对应的操作就可以算出/fllllllllllllag对应的filehash值：
 
@@ -484,7 +484,7 @@ echo md5('69cd0335-5640-41b3-b594-1c7a4d1cd380'.md5('/fllllllllllllag'));
 
 这题目是一道爆破题，一开始还以为是注入，结果后来才发现不对劲。。。
 
-![](https://pic.hujiekang.top/uploads/big/591a202a601207001fab4b4f122de8ad.png)
+![](https://images.hujiekang.top/blogimage-591a202a601207001fab4b4f122de8ad-0563692f.png)
 
 打卡页面是一个假的管理系统界面，主页只有一张图片，而且侧边栏只有报表中心可以跳转，其他都是假的
 
@@ -492,7 +492,7 @@ echo md5('69cd0335-5640-41b3-b594-1c7a4d1cd380'.md5('/fllllllllllllag'));
 
 然后就想到爆破：
 
-![](https://pic.hujiekang.top/uploads/big/382eda1a8aa93b21434c788b6a44aa8f.png)
+![](https://images.hujiekang.top/blogimage-382eda1a8aa93b21434c788b6a44aa8f-e634b9d9.png)
 
 ## lottery
 
@@ -500,11 +500,11 @@ echo md5('69cd0335-5640-41b3-b594-1c7a4d1cd380'.md5('/fllllllllllllag'));
 
 附件：[点击下载](https://o.hujiekang.top/downloads/f2920a7744a8413a8b0cb95f7ba0ab3e.zip)
 
-![](https://pic.hujiekang.top/uploads/big/4060cdb7e6d409fca18d6059cdea1f5f.png)
+![](https://images.hujiekang.top/blogimage-4060cdb7e6d409fca18d6059cdea1f5f-65c7badb.png)
 
 一开始先玩了一下，果然一下子把钱输完了……然后看源代码，发现生成彩票号码和确认是否中奖的代码逻辑在api.php中：
 
-![](https://pic.hujiekang.top/uploads/big/3fa17068ce89997c968a4538184f88db.png)
+![](https://images.hujiekang.top/blogimage-3fa17068ce89997c968a4538184f88db-26018b2d.png)
 
 这是彩票的中奖数字生成算法，用了一个没有见过的随机字节串生成函数`openssl_random_pseudo_bytes()`，用的是强加密算法，PHP文档里面这么解释的：
 
@@ -565,13 +565,13 @@ function buy($req){
 
 抓包：
 
-![](https://pic.hujiekang.top/uploads/big/ccabde59200024ec56c849e91ad03c13.png)
+![](https://images.hujiekang.top/blogimage-ccabde59200024ec56c849e91ad03c13-a3c82080.png)
 
 我把numbers参数的值从字符串改成了一个布尔数组，这样传进去的话`$numbers = $req['numbers'];`这句得到的就是一个布尔数组，循环里面每次比较都是`"数字"==true`，虽然有0的情况出现，但至少中奖几率大了很多啊。
 
 多搞了几次，成功拿到几千万，然后去买flag：
 
-![](https://pic.hujiekang.top/uploads/big/5e524c82c66082f71e2638d3d05a301c.png)
+![](https://images.hujiekang.top/blogimage-5e524c82c66082f71e2638d3d05a301c-c6ad304a.png)
 
 ## mfw
 
@@ -675,13 +675,13 @@ if __name__ == '__main__':
 
 此时可用的上下文或函数有`url_for`, `g`, `request`, `namespace`, `lipsum`, `range`, `session`, `dict`, `get_flashed_messages`, `cycler`, `joiner`, `config`，而此时`config`肯定不能直接用，于是试着找它们的全局变量`__globals__`，发现`url_for`和`get_flashed_messages`的全局变量里面有`current_app`对象：
 
-![](https://pic.hujiekang.top/uploads/big/4e13acfcecf7abeffc306a9138a1a46f.png)
+![](https://images.hujiekang.top/blogimage-4e13acfcecf7abeffc306a9138a1a46f-ff5d117a.png)
 
 然后构造Payload`url_for.__globals__['current_app'].config['FLAG']`和``get_flashed_messages.__globals__['current_app'].config['FLAG']`就能拿到flag。
 
 另一个思路，`app`对象的`__dict__`属性，可以通过调用模块`sys`找到：`app.__init__.__globals__.sys.modules.app.app.__dict__.config['FLAG']`
 
-![](https://pic.hujiekang.top/uploads/big/014e610ce8ebad092b5b26206e999c4a.png)
+![](https://images.hujiekang.top/blogimage-014e610ce8ebad092b5b26206e999c4a-b183c837.png)
 
 然后找了半天，又发现了另一个思路：通过递归查找`request`对象的属性和函数找到`config`，传送门<https://ctftime.org/writeup/10851>。这个代码不是很看得懂（Python是真的菜），但是稍微改了一下代码，令其显示所有结果，但是还是只有这一个`request.application.__self__._get_data_for_json.__globals__['json'].JSONEncoder.default.__globals__['current_app'].config['FLAG']`，估计只找到了这一个。
 
@@ -696,25 +696,25 @@ if __name__ == '__main__':
 
 ## fakebook
 
-![](https://pic.hujiekang.top/uploads/big/1914f67bceb021bb943d60d5dd1802e6.png)
+![](https://images.hujiekang.top/blogimage-1914f67bceb021bb943d60d5dd1802e6-7e4028a2.png)
 
 一开始看见login，以为登录框有SQL注入，然后点join，输入信息后就可以在网站里面添加一条数据。
 
-![](https://pic.hujiekang.top/uploads/big/ea94e6efc348c3cd853702a84502ef50.png)
+![](https://images.hujiekang.top/blogimage-ea94e6efc348c3cd853702a84502ef50-626411e3.png)
 
 点击用户名，来到`/view.php?no=1`，然后又感觉这里也可以注入，先对login测了一下，发现好像莫得注，然后对这里试了一下`no=1'`，发现报错。
 
 然后就是一阵愉快的`union select`，然后发现对空格做了过滤，尝试注释绕过，成功：
 
-![](https://pic.hujiekang.top/uploads/big/ad4cab158573d6d00f79ca442bc03d11.png)
+![](https://images.hujiekang.top/blogimage-ad4cab158573d6d00f79ca442bc03d11-0273c7cb.png)
 
 接下来就用SQLmap去跑，发现怎么都弄不下来数据，所以只能手工注了：爆出字段`no`，`username`，`passwd`，`data`，前三个数据就是在join输入的数据，只有`data`，是一段序列化对象：
 
-![](https://pic.hujiekang.top/uploads/big/e936488912940d9ad9ad203cb54706ed.png)
+![](https://images.hujiekang.top/blogimage-e936488912940d9ad9ad203cb54706ed-73512d6f.png)
 
 然后看了以下正常的网页源码，加载Blog内容的地方有一个iframe，src里面是一段base64，于是猜能不能改变这个参数来读文件，尝试改变blog参数为`file:///var/www/html/view.php`，直接丢到`union select`里面去，发现源码里面的iframe src变长了，一解码直接拿到源码：
 
-![](https://pic.hujiekang.top/uploads/big/020d4e8fde194dc6b9105ff8b97d5ff3.png)
+![](https://images.hujiekang.top/blogimage-020d4e8fde194dc6b9105ff8b97d5ff3-9ddf8ba5.png)
 
 于是通过这个可以顺藤摸瓜拿到所有代码，拿到`user.php`中发现读取blog内容靠的是`curl`，也就难怪可以使用`file:///`协议读取了。（后来看WriteUp发现robots.txt直接给了`user.php`的备份文件）
 
@@ -767,13 +767,13 @@ class UserInfo
 
 然后尝试读一下`flag.php`（别问 问就是猜），就拿到了flag：
 
-![](https://pic.hujiekang.top/uploads/big/51786ec87c11b34c8325205236ec488b.png)
+![](https://images.hujiekang.top/blogimage-51786ec87c11b34c8325205236ec488b-d42b56f9.png)
 
 ## FlatScience
 
 在这题第一次接触SQLite的注入，感觉比MySQL的简单一点点
 
-![](https://pic.hujiekang.top/uploads/big/3cdf22e7a86151d7eac6f2e5213c8cff.png)
+![](https://images.hujiekang.top/blogimage-3cdf22e7a86151d7eac6f2e5213c8cff-2ab5d5a2.png)
 
 打开页面显示的是一个教授的个人网站的半成品，说是里面有一些他写的论文，然后附了几个链接，全部点了一遍，除了PDF的其他链接都是在来回跳转，没有什么信息。
 
@@ -820,7 +820,7 @@ CREATE TABLE sqlite_master (
 
 也就是说可以通过type和name来读数据表的信息，因为可以直接读到创建表的SQL语句，所以相当于也可以拿到列信息。尝试union，就拿到了所有数据表的SQL语句（这里只有一个Users）
 
-![](https://pic.hujiekang.top/uploads/big/662abb903dfd8a22ee090e9658bf0c37.png)
+![](https://images.hujiekang.top/blogimage-662abb903dfd8a22ee090e9658bf0c37-aa23f61e.png)
 
 Users表有`id`、`name`、`password`、`hint`4列，也可以分别读出来，Payload：`0' union select id,group_concat(password) from Users--+`
 
@@ -834,11 +834,11 @@ Users表有`id`、`name`、`password`、`hint`4列，也可以分别读出来，
 
 拿password里面3个md5值去解密，发现只有admin的解的出：
 
-![](https://pic.hujiekang.top/uploads/big/9ffae77587d776d5a006f19fb6878722.png)
+![](https://images.hujiekang.top/blogimage-9ffae77587d776d5a006f19fb6878722-376234f1.png)
 
 正好`admin.php`里面用户名默认也给的admin，于是尝试密码`ThinJerboa`，直接拿到flag：
 
-![](https://pic.hujiekang.top/uploads/big/4a5789041bb4b939dc0a6892c92b7efc.png)
+![](https://images.hujiekang.top/blogimage-4a5789041bb4b939dc0a6892c92b7efc-36a0a2b3.png)
 
 当然还有hint没用，我觉得这肯定不是出题者的本意，看了hint发现`my fav word in my fav paper?!`，是不是意味着这个单词可能藏在那些论文里面呢？
 
@@ -925,4 +925,4 @@ if __name__ == "__main__":
 
 然后跑了一下脚本，也能拿到这个单词`ThinJerboa`。
 
-![](https://pic.hujiekang.top/uploads/big/36f6d429d0d6e043a7d867881da0a9e4.png)
+![](https://images.hujiekang.top/blogimage-36f6d429d0d6e043a7d867881da0a9e4-8ca3ba5b.png)

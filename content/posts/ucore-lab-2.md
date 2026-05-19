@@ -155,7 +155,7 @@ gdt_init(void) {
 
 下面分析`boot_pgdir[0] = boot_pgdir[PDX(KERNBASE)];`这行代码的作用。尝试注释这一行后编译执行，在GDB中会发现在设置CR0的这一条指令中产生异常（对应的现象是内核一运行到这就重启）：
 
-![](https://pic.hujiekang.top/uploads/big/2f058f76c3885c121d6891c176238276.png)
+![](https://images.hujiekang.top/blogimage-2f058f76c3885c121d6891c176238276-19b35de5.png)
 
 抓了一下QEMU的终端Log（参数`-d int -D <logfile>`），发现是产生了缺页中断，具体信息如下：
 
@@ -276,7 +276,7 @@ for (i = 0; i < memmap->nr_map; i ++) {
     - 头部页的`property`属性值设置为空闲块的页面数，其余页面该属性值为0。
 - 总空闲页面计数增加`n`。
 
-![](https://pic.hujiekang.top/uploads/big/a5877d9b49699664533b1bfcf7021e67.png)
+![](https://images.hujiekang.top/blogimage-a5877d9b49699664533b1bfcf7021e67-550e5b0d.png)
 
 ```c
 static void
@@ -307,7 +307,7 @@ default_init_memmap(struct Page *base, size_t n) {
 
 在进行内存块的分配时，需要从空闲链表表头开始遍历（也就是从低地址到高地址），寻找到第一个符合分配大小条件的内存块，从其头部开始划分空间用于分配使用，剩余的空闲块则重新插入链表中。
 
-![](https://pic.hujiekang.top/uploads/big/f83231b277a4dfeb25ceff0d5d438494.png)
+![](https://images.hujiekang.top/blogimage-f83231b277a4dfeb25ceff0d5d438494-086eda9b.png)
 
 ```c
 static struct Page *
@@ -356,7 +356,7 @@ can_alloc:
 3. 该块与某个空闲块的头部邻接：将对应空闲块从链表中删除，修改要释放内存块头部页的页面数量，将其重新插入链表；
 4. 该块同时与两个块邻接：直接修改尾部邻接的空闲块的页面数量即可。
 
-![](https://pic.hujiekang.top/uploads/big/407e1ebd4c25751666f8a749485bc9fe.png)
+![](https://images.hujiekang.top/blogimage-407e1ebd4c25751666f8a749485bc9fe-64d98b36.png)
 
 其中2、3、4属于特殊情况，在遍历空闲链表的时候首先判断这三种情况。若三种情况都无法满足，根据一般情况，判断要释放块与空闲块的地址大小来确定插入位置。如果无法找到地址比要释放块大的空闲块，直接将其插入链表末尾。
 

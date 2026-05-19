@@ -11,13 +11,13 @@ categories:
 
 该题用到了Grafana应用中最为广泛的一个CVE漏洞CVE-2021-43798，可以未授权通过Grafana的插件实现任意文件读取。
 
-![](https://pic.hujiekang.top/uploads/big/c2f7ed834077bc4c895a65c86e22bd93.png)
+![](https://images.hujiekang.top/blogimage-c2f7ed834077bc4c895a65c86e22bd93-9791726c.png)
 
 <!-- more -->
 
 通过搜索获取到Grafana的配置文件路径`/etc/grafana/grafana.ini`，在里面翻到了管理员的帐号和密码（一开始我还以为不会这么简单，还去读取了一下Grafana的数据库，`/var/lib/grafana/grafana.db`）
 
-![](https://pic.hujiekang.top/uploads/big/6c39f2967216f1ef4e5a5d3265d72cb0.png)
+![](https://images.hujiekang.top/blogimage-6c39f2967216f1ef4e5a5d3265d72cb0-27e6d01d.png)
 
 然后利用后台的数据库查询工具，查询Grafana的数据库获得flag。
 
@@ -25,21 +25,21 @@ categories:
 
 打开网站后是一个简单的笔记界面，创建账户登录进去之后就可以写笔记并且查看笔记：
 
-![](https://pic.hujiekang.top/uploads/big/5e764c8c30f27f366589ebd5a36620dc.png)
+![](https://images.hujiekang.top/blogimage-5e764c8c30f27f366589ebd5a36620dc-0844a84d.png)
 
 点进去笔记详情页，很容易发现URL格式为`/view?note_id=at8k8cdp6874vqcvzifietexy4gtnpey`，尝试修改为不存在的note_id，产生报错，发现后端是Flask而且开启了调试模式，查看错误代码发现是SQL查询错误：
 
-![](https://pic.hujiekang.top/uploads/big/5db5374c792dbce17c89746feb6e0256.png)
+![](https://images.hujiekang.top/blogimage-5db5374c792dbce17c89746feb6e0256-d003a610.png)
 
 于是尝试注入，发现轻松注进去，没有任何过滤：
 
-![](https://pic.hujiekang.top/uploads/big/e71136b38ff86a773436366ea54f6219.png)
+![](https://images.hujiekang.top/blogimage-e71136b38ff86a773436366ea54f6219-758420f7.png)
 
 但是翻看了一阵子数据库之后发现没什么有用的信息，且数据库为USAGE权限所以没法提权。翻看了一下其他的功能点，整个网站的功能也十分单一并没有发现额外的功能，所以接着把关注点放在了Flask的调试模式上。
 
 注意到在报错代码的右侧有个小按钮，名为`Open an interactive python shell in this frame`，也就是可以直接起一个Python shell，但是需要一个Debug PIN才能解锁。
 
-![](https://pic.hujiekang.top/uploads/big/ffb4e45342410bd8b6f0780a69710b3f.png)
+![](https://images.hujiekang.top/blogimage-ffb4e45342410bd8b6f0780a69710b3f-d4db71b6.png)
 
 于是搜索发现这个PIN可以直接生成，参考文章<https://www.daehee.com/werkzeug-console-pin-exploit/>。文章中提到这个PIN是由四个公共变量和两个私有变量经过哈希生成的，也就是下面这一段：
 
@@ -164,7 +164,7 @@ private_bits = [
 
 为了避免本身Web程序报错导致的可能Console也报错运行不了的问题，可以不用触发程序报错，直接访问`/console`直接进入无报错调试界面，调用`/readflag`即可获得flag。
 
-![](https://pic.hujiekang.top/uploads/big/41a6464d9548a2efb5798063d44eab93.png)
+![](https://images.hujiekang.top/blogimage-41a6464d9548a2efb5798063d44eab93-7203df7c.png)
 
 ## Today
 
@@ -182,24 +182,24 @@ private_bits = [
 
 搜索机器学习与数据科学相关的论坛和社区，Google第一项是一个叫Kaggle的社区：
 
-![](https://pic.hujiekang.top/uploads/big/e11fac4e77d8cc7ed1cb28f552b10e85.png)
+![](https://images.hujiekang.top/blogimage-e11fac4e77d8cc7ed1cb28f552b10e85-747f1cc7.png)
 
 然后去搜索anninefour这个用户，果然存在<https://www.kaggle.com/anninefour>：
 
-![](https://pic.hujiekang.top/uploads/big/3fe00cec819873144bfe3fb90eef7a6e.png)
+![](https://images.hujiekang.top/blogimage-3fe00cec819873144bfe3fb90eef7a6e-ecd28583.png)
 
 用户的个人页面中留了一个Twitter的地址<https://twitter.com/1liujing>，点进去看，唯一一条推文是一张图片：
 
-![](https://pic.hujiekang.top/uploads/big/e090105333f69355f4f6ff4d3ab66514.png)
+![](https://images.hujiekang.top/blogimage-e090105333f69355f4f6ff4d3ab66514-add7d06c.png)
 
 字面意思，让我们找他在哪。这张图中还是有很明显的特征的，比如对面的x夫果品生鲜超市、花山汤圆等等店铺。丢进地图去搜索，搜到一个农夫果品生鲜超市，在上海，结合推文中的lockdown（疫情封小区）描述以及百度地图中提供的全景和实拍图片，也就可以确定就是这个地址了。
 
-![](https://pic.hujiekang.top/uploads/big/4d8849bbfb5301ca842792238861a488.png)
+![](https://images.hujiekang.top/blogimage-4d8849bbfb5301ca842792238861a488-466ace15.png)
 
 接下来，从拍摄者的角度向路对面看，可以发现这个小区叫花山名苑，对比全景图，发现这个入口的保安亭也和照片中的一致。
 
-![](https://pic.hujiekang.top/uploads/big/5de8d3f004d36cd6a9aeafed6d04bb12.png)
+![](https://images.hujiekang.top/blogimage-5de8d3f004d36cd6a9aeafed6d04bb12-da788014.png)
 
 然后要去哪里找flag呢？因为一直通过百度地图来搜索信息的原因，没有想到出题人把flag放在了谷歌地图里面。。。在谷歌地图对花山名苑的名片中，可以加载到用户对该小区的评论，flag就放在这里：
 
-![](https://pic.hujiekang.top/uploads/big/6eb6914da1bfdf1c0f31ebbce05f2485.png)
+![](https://images.hujiekang.top/blogimage-6eb6914da1bfdf1c0f31ebbce05f2485-664b6c49.png)

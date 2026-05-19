@@ -184,7 +184,7 @@ flag：`flag{4dfe14e0c6c21ffcf5a3b4f0ed1911f6}`
 
 然后查看网络，发现填写完答案后没有产生额外的请求，所以答案肯定在前端。查看源代码，拿到了答案和对应的部分flag：
 
-![](https://pic.hujiekang.top/uploads/big/1b4209af38ffd9af0ce46851d2a65fea.png)
+![](https://images.hujiekang.top/blogimage-1b4209af38ffd9af0ce46851d2a65fea-bcd2e140.png)
 
 完整题目传送门：[/downloads/8036cabb971ec21a1a6f7ac152ef08ec.png](https://o.hujiekang.top/downloads/8036cabb971ec21a1a6f7ac152ef08ec.png)
 
@@ -192,15 +192,15 @@ flag：`flag{4dfe14e0c6c21ffcf5a3b4f0ed1911f6}`
 
 打开附件是张动图，缩小了看像是一张被压扁了的二维码，查看尺寸，发现宽度刚好是长度的两倍。所以应该就是横向双倍拉长了。很容易发现吃鸡腿的猫代表黑色像素，吃饼干的猫代表白色像素，提取gif中的一帧丢进PS，进行替换即可（还好出题人在图案之间留了线条，这样更方便填色，否则不知道要搞到什么时候。。。而且密密麻麻的眼睛容易看花，希望有更好的解决办法）
 
-![](https://pic.hujiekang.top/uploads/medium/e6f9ea481211b553972587baebdd632e.gif)
+![](https://images.hujiekang.top/blogimage-e6f9ea481211b553972587baebdd632e-e069ea47.gif)
 
 处理后的图片如下：
 
-![](https://pic.hujiekang.top/uploads/big/0a2c171c40521c0a91e3e148e52bb8e0.png)
+![](https://images.hujiekang.top/blogimage-0a2c171c40521c0a91e3e148e52bb8e0-69b83a69.png)
 
 扫一下得到文本`m1ao~miao~mi@o~Mia0~m!aO~m1a0~~~`，然后md5加密一下就得到flag了：
 
-![](https://pic.hujiekang.top/uploads/big/ed110ee3e2073000ba547681b80085a1.png)
+![](https://images.hujiekang.top/blogimage-ed110ee3e2073000ba547681b80085a1-15a967e7.png)
 
 **更新：在[别的师傅的WP](http://www.fzwjscj.xyz/index.php/archives/30/#bincat2)中找到了脚本替换的方法（未测试）**
 
@@ -248,7 +248,7 @@ for barcode in barcodes:
 
 ## babyweb
 
-![](https://pic.hujiekang.top/uploads/big/54ec0010e59358e55a9a497365114d9d.png)
+![](https://images.hujiekang.top/blogimage-54ec0010e59358e55a9a497365114d9d-46ede28c.png)
 
 访问网页得到[`flag.zip`](https://o.hujiekang.top/downloads/11b7ee2bb01b35cdd56d5bba95068641.zip)，看了一下，真的有密码不是伪加密，然后寻找一番，在标题`Password_is_here`这里发现了一些零宽字符：
 
@@ -277,17 +277,17 @@ console.log(stego.decodeText('xxxxxx'));
 
 拿到图片：
 
-![](https://pic.hujiekang.top/uploads/big/81f9d89f2b44dd2ce1711c7b30af131a.png)
+![](https://images.hujiekang.top/blogimage-81f9d89f2b44dd2ce1711c7b30af131a-26d59897.png)
 
 一共四组图案，从左到右分别是[`Arthur Minimoys Alphabet`](https://www.dcode.fr/arthur-invisibles-cipher)、`Galactic Alphabet`、`跳舞的小人`、`Unown Alphabet`，对应关系贴在下面了：
 
-![](https://pic.hujiekang.top/uploads/big/2e5b3520293c136f9d0312dcf73c0d6e.gif)
+![](https://images.hujiekang.top/blogimage-2e5b3520293c136f9d0312dcf73c0d6e-1294b426.gif)
 
-![](https://pic.hujiekang.top/uploads/big/38d6d0313da338cef7a31d977a36b708.png)
+![](https://images.hujiekang.top/blogimage-38d6d0313da338cef7a31d977a36b708-a6b861ba.png)
 
-![](https://pic.hujiekang.top/uploads/big/82b86df7ccc61c2cacd47b1e95cfd24d.jpg)
+![](https://images.hujiekang.top/blogimage-82b86df7ccc61c2cacd47b1e95cfd24d-bea96694.jpg)
 
-![](https://pic.hujiekang.top/uploads/big/628b50acd92691003d1347491660e0a2.png)
+![](https://images.hujiekang.top/blogimage-628b50acd92691003d1347491660e0a2-94c02c36.png)
 
 解出flag：`BJD{UVWHZAITQAU}`
 
@@ -295,11 +295,11 @@ console.log(stego.decodeText('xxxxxx'));
 
 题目要求用nc连接指定地址，连接后弹出来个像是shell的东西：
 
-![](https://pic.hujiekang.top/uploads/big/5321ad6418e94091f76d72e5674e8f84.png)
+![](https://images.hujiekang.top/blogimage-5321ad6418e94091f76d72e5674e8f84-34a8016e.png)
 
 默认目录下只有这两个文件，然后这个flag只会显示一个老鼠的emoji就卡住了。试了一下`cd`发现没有权限，但是`ls`是可以遍历目录的。尝试`ls /`，发现可疑文件`start.sh`、`run.sh`、`f1a9.py`和`f1a9.bak`：
 
-![](https://pic.hujiekang.top/uploads/big/b62d05a6fcbbcbef8552943e8c348aae.png)
+![](https://images.hujiekang.top/blogimage-b62d05a6fcbbcbef8552943e8c348aae-12a634ef.png)
 
 然后`cat`一下，发现除了f1a9.py没有权限，其他的都可以显示。这样就差不多可以搞清楚整个程序逻辑了：
 
@@ -362,7 +362,7 @@ f.close()
 
 看了一下发现整个硬盘大小只有15MB。。。而flag文件有13602GB。。？
 
-![](https://pic.hujiekang.top/uploads/big/0169f62938c3a8265ecdf8e534ece25a.png)
+![](https://images.hujiekang.top/blogimage-0169f62938c3a8265ecdf8e534ece25a-c8ddbded.png)
 
 emmmm其实挺想知道这文件是怎么写进去的。。。我在本地测试都没写成功。。。还蛮神奇的
 

@@ -168,7 +168,7 @@ iptables -t nat -nvL --line-number
 
 任意需要访问Tor服务的主机，将网关设置为该主机的IP地址即可，然后访问https://check.torproject.org，成功截图如下：
 
-![](https://pic.hujiekang.top/uploads/big/86cd9082a22ff807d7ea564fd2189bbc.png)
+![](https://images.hujiekang.top/blogimage-86cd9082a22ff807d7ea564fd2189bbc-007b0a70.png)
 
 ## 参考资料
 

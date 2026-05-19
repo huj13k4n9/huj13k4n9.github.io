@@ -49,7 +49,7 @@ Docker使用阿里云镜像源安装：
 
    若添加成功，则将显示如下信息：
 
-   ![](https://pic.hujiekang.top/uploads/big/100de9bf933b83620ccbfcfb9da329d2.png)
+   ![](https://images.hujiekang.top/blogimage-100de9bf933b83620ccbfcfb9da329d2-24d69512.png)
 
 6. 添加阿里云的软件源
 
@@ -75,7 +75,7 @@ Docker使用阿里云镜像源安装：
 
    安装完毕之后，通过`docker --version`来验证安装是否成功：
 
-   ![](https://pic.hujiekang.top/uploads/big/bbdd287fc77a316f10f8e52c39c47da9.png)
+   ![](https://images.hujiekang.top/blogimage-bbdd287fc77a316f10f8e52c39c47da9-f3eb0216.png)
 
 9. 启动Docker服务并设置为开机启动
 
@@ -123,7 +123,7 @@ Docker使用阿里云镜像源安装：
 
    使用`docker-compose --version`验证安装：
 
-   ![](https://pic.hujiekang.top/uploads/big/5343f8893310644d336b9011120b39c2.png)
+   ![](https://images.hujiekang.top/blogimage-5343f8893310644d336b9011120b39c2-f82e3033.png)
 
 # 安装配置CTFd和CTFd-Whale
 
@@ -173,11 +173,11 @@ Docker使用阿里云镜像源安装：
 
 首先需要在Accounts里面启用Verify Emails：
 
-![](https://pic.hujiekang.top/uploads/big/d1e8969daeef57af4d90d407a6f744a0.png)
+![](https://images.hujiekang.top/blogimage-d1e8969daeef57af4d90d407a6f744a0-cea4ea93.png)
 
 然后在Email里面设置SMTP信息：（以QQ邮箱为例，其余邮箱类似）
 
-![](https://pic.hujiekang.top/uploads/medium/4e75ce3fc9494fccce511117dfd406c4.png)
+![](https://images.hujiekang.top/blogimage-4e75ce3fc9494fccce511117dfd406c4-42082395.png)
 
 ## 配置CTFd-Whale
 
@@ -215,7 +215,7 @@ Docker使用阿里云镜像源安装：
 
 创建完成后在题目详情页预览题目，点击`Launch an Instance`即可部署一个靶机容器：
 
-![](https://pic.hujiekang.top/uploads/big/f796979034493af8c7585204853bac0f.png)
+![](https://images.hujiekang.top/blogimage-f796979034493af8c7585204853bac0f-f14c93a5.png)
 
 ## 报错情况总结
 

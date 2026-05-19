@@ -23,19 +23,19 @@ categories:
 
 - 加法在手工竖式计算中，当两个位相加得到的值大于`10`时就会产生一个进位值，并会在高一位的计算中把进位值也加入计算，这样从低位到高位一直计算直到计算结束为止。所以在算法中也需要定义一个进位值的变量。
 
-![](https://pic.hujiekang.top/uploads/big/0ba49271293220bde14db7c42ced3326.png)
+![](https://images.hujiekang.top/blogimage-0ba49271293220bde14db7c42ced3326-024e5ffa.png)
 
 - 减法与加法类似，当被减数位小于减数位时，会产生一个退位值，即向更高一位去借10，来避免产生负数。若这一位产生了借位，那么高一位的计算中就要减去1再进行计算。所以在算法中也需要定义一个退位值的变量。
 
-![](https://pic.hujiekang.top/uploads/big/2e003464c0b36a28e6dd325bc1f212c4.png)
+![](https://images.hujiekang.top/blogimage-2e003464c0b36a28e6dd325bc1f212c4-99a381d2.png)
 
 - 乘法的运算在竖式计算中是把乘数逐位的与被乘数相乘，且运算结果随着乘数的位数向左移，最后再全部相加。所以在对单个结果位的处理中要考虑到三个因素：第一个是当前的计算结果；第二个是前一位产生的进位；第三个是之前的计算中在这一位得出的结果。
 
-![](https://pic.hujiekang.top/uploads/big/3d9716af2b39030d118b904666931ab4.png)
+![](https://images.hujiekang.top/blogimage-3d9716af2b39030d118b904666931ab4-c642aad0.png)
 
 - 除法在竖式运算中可以理解为是多次的减法。下图展示了除法算法的流程：
 
-![](https://pic.hujiekang.top/uploads/big/3f19ef7d64ab57361bdb22f87211b785.png)
+![](https://images.hujiekang.top/blogimage-3f19ef7d64ab57361bdb22f87211b785-2325fc2e.png)
 
 - 模指数运算
 除此之外，还有多精度数的模指数运算，即计算以下式子的值：
@@ -44,7 +44,7 @@ $$\Large{a^e\space mod\space m} $$
 
 可采用重复平方乘算法来实现：
 
-![](https://pic.hujiekang.top/uploads/big/0cc2b4c2041dfc8ee92be8988f733319.png)
+![](https://images.hujiekang.top/blogimage-0cc2b4c2041dfc8ee92be8988f733319-510c05d6.png)
 
 ## 算法实现
 

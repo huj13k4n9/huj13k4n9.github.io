@@ -11,19 +11,19 @@ categories:
 
 ## 你能爆破吗
 
-![image-20200630140359446](https://pic.hujiekang.top/uploads/big/1b380797fcffb117960b33c62c4a0042.png)
+![image-20200630140359446](https://images.hujiekang.top/blogimage-1b380797fcffb117960b33c62c4a0042-55021b07.png)
 
 首页有个登录界面，随便输入会返回查询的语句，可以发现存在特殊字符转义没办法注入。于是尝试用户名和密码均输入admin，显示如下界面：
 
-![image-20200630140620101](https://pic.hujiekang.top/uploads/big/699c7a68734979939e092fa5d15be5ff.png)
+![image-20200630140620101](https://images.hujiekang.top/blogimage-699c7a68734979939e092fa5d15be5ff-5632138a.png)
 
 发现服务器将刚才输入的用户名作为Cookie储存了起来，base64解密后是`admin`：
 
-![image-20200630140750172](https://pic.hujiekang.top/uploads/big/334eccb561076dc5896ca31f3edd4563.png)
+![image-20200630140750172](https://images.hujiekang.top/blogimage-334eccb561076dc5896ca31f3edd4563-0e1da001.png)
 
 尝试改为`admin" or 1=1 limit 1,1#`，发现输出改变，说明存在SQL注入：
 
-![image-20200630141041314](https://pic.hujiekang.top/uploads/big/226479b044c84e545ef0c9a25eff49cf.png)
+![image-20200630141041314](https://images.hujiekang.top/blogimage-226479b044c84e545ef0c9a25eff49cf-ed7ed74d.png)
 
 于是使用联合注入，完整的注入过程如下：
 
@@ -40,7 +40,7 @@ SELECT * FROM users WHERE username="xxx" union select 1,group_concat(id),3 from 
 
 最终发现`flag`表，查询得到flag。对应的payload为`eHh4IiB1bmlvbiBzZWxlY3QgMSxncm91cF9jb25jYXQoaWQpLGdyb3VwX2NvbmNhdChmbGFnKSBmcm9tIGZsYWcj`
 
-![image-20200630141712110](https://pic.hujiekang.top/uploads/big/193a586ef59964aa0369ee52ccdad840.png)
+![image-20200630141712110](https://images.hujiekang.top/blogimage-193a586ef59964aa0369ee52ccdad840-b6a77f75.png)
 
 flag：`flag{a405ef895ef46d96}`
 
@@ -58,11 +58,11 @@ flag：`flag{a405ef895ef46d96}`
 
 题目首页打开，就是个小游戏，和题目没啥太大关系：
 
-![image-20200630141712111](https://pic.hujiekang.top/uploads/big/bf1ecea96a6d5979ca4bb9daabdb1743.jpg)
+![image-20200630141712111](https://images.hujiekang.top/blogimage-bf1ecea96a6d5979ca4bb9daabdb1743-6f1ee283.jpg)
 
 然后直接抓包用Burp打shell上去，测试的时候发现只有`shell.jsp/`这种方式，上传后才能够访问得到：
 
-![image-20200630175702179](https://pic.hujiekang.top/uploads/big/579d1e7646adecfdd833e4f9e1613b82.png)
+![image-20200630175702179](https://images.hujiekang.top/blogimage-579d1e7646adecfdd833e4f9e1613b82-171cd284.png)
 
 这个jsp的RCE代码如下，这个是基于网上一个[带密码的版本](https://blog.csdn.net/darkhq/article/details/79302051)改的（不知道为什么要带密码参数），改成了不需要传密码的版本：
 
@@ -97,7 +97,7 @@ flag：`flag{a405ef895ef46d96}`
 
 传上去之后直接访问，使用`cat /flag.txt`打出flag：
 
-![image-20200630180458688](https://pic.hujiekang.top/uploads/big/2d0c9b5557f4072318ee1feee7f6dbc7.png)
+![image-20200630180458688](https://images.hujiekang.top/blogimage-2d0c9b5557f4072318ee1feee7f6dbc7-a4bdd445.png)
 
 flag：`flag{54e47be053bf6ea1}`
 
@@ -109,23 +109,23 @@ flag：`flag{54e47be053bf6ea1}`
 
 于是使用`cmd`的`copy`命令，将一句话木马和图片文件压到一起：
 
-![image-20200630185401708](https://pic.hujiekang.top/uploads/big/f310b4d0a29f37b7308f50433c432545.png)
+![image-20200630185401708](https://images.hujiekang.top/blogimage-f310b4d0a29f37b7308f50433c432545-b138c7a9.png)
 
 一开始是传了个普通的一句话，直接上传，下载上传后的文件发现图片被做了修改：
 
-![image-20200630185934363](https://pic.hujiekang.top/uploads/big/d4badf8e08e942b734b061d1659b1239.png)
+![image-20200630185934363](https://images.hujiekang.top/blogimage-d4badf8e08e942b734b061d1659b1239-810b2320.png)
 
 于是猜测对`<?`、`php`、`eval`做了过滤。尝试双写`<<?? pphphp evevalal($_POST["aaa"]); ?>`，发现下载下来的图片中shell代码是完整的：
 
-![image-20200630190728398](https://pic.hujiekang.top/uploads/big/ba255b250a3119f302c21e2cee46e8dd.png)
+![image-20200630190728398](https://images.hujiekang.top/blogimage-ba255b250a3119f302c21e2cee46e8dd-7edef9f3.png)
 
 然后上传文件，用Burp修改后缀，发现改大小写`.Php`没办法解析，`.php5`，`.php7`这样的后缀也都过滤掉了，最后试出来`.pht`可以顺利解析：
 
-![image-20200630191344983](https://pic.hujiekang.top/uploads/big/dbdde72599db0391324d0374c8faf484.png)
+![image-20200630191344983](https://images.hujiekang.top/blogimage-dbdde72599db0391324d0374c8faf484-c9033fba.png)
 
 于是连蚁剑，网站目录的上级中有`key`文件，直接拿到flag：
 
-![image-20200630191418701](https://pic.hujiekang.top/uploads/big/ae4e56c9d4f764d1f1a74024b3aac954.png)
+![image-20200630191418701](https://images.hujiekang.top/blogimage-ae4e56c9d4f764d1f1a74024b3aac954-b5f3550c.png)
 
 flag：`flag{Aa3c7c37508E40B3}`
 
@@ -260,13 +260,13 @@ for command in execute:
 
 跑完的效果如下：
 
-![image-20200701230054402](https://pic.hujiekang.top/uploads/big/15d54da9f8fcc4f5cc158d58e83859e1.png)
+![image-20200701230054402](https://images.hujiekang.top/blogimage-15d54da9f8fcc4f5cc158d58e83859e1-54fc79f0.png)
 
 然后蚁剑连美汁汁儿：
 
-![image-20200701230157098](https://pic.hujiekang.top/uploads/big/97e60d3e77936c299c6e6548a03cd55a.png)
+![image-20200701230157098](https://images.hujiekang.top/blogimage-97e60d3e77936c299c6e6548a03cd55a-a00b7211.png)
 
-![image-20200701230255244](https://pic.hujiekang.top/uploads/big/311a8c1fadf8a9fd3333b318d889c8d3.png)
+![image-20200701230255244](https://images.hujiekang.top/blogimage-311a8c1fadf8a9fd3333b318d889c8d3-92b73d59.png)
 
 ### 第二种方法
 
@@ -276,19 +276,19 @@ for command in execute:
 
 我做了一个测试，在当前目录写一个`xxx`文件，内容为123，在上一级目录写一个`yyy`文件，内容为456，然后利用重定向符写一个`cat`文件：
 
-![image-20200701231325980](https://pic.hujiekang.top/uploads/big/e67a274cea9f9ea38e5f1ddc7e24192c.png)
+![image-20200701231325980](https://images.hujiekang.top/blogimage-e67a274cea9f9ea38e5f1ddc7e24192c-51e6e5b5.png)
 
 输入`*`的效果如下，效果等价于`cat xxx`：
 
-![image-20200701231407700](https://pic.hujiekang.top/uploads/big/ce6adb911e11ac82c3f310fad6597751.png)
+![image-20200701231407700](https://images.hujiekang.top/blogimage-ce6adb911e11ac82c3f310fad6597751-4d203834.png)
 
 输入`* ../yyy`效果如下，效果等价于`cat xxx ../yyy`：
 
-![image-20200701231612303](https://pic.hujiekang.top/uploads/big/3c92a54b61634262634a7c3a9230ce21.png)
+![image-20200701231612303](https://images.hujiekang.top/blogimage-3c92a54b61634262634a7c3a9230ce21-9729e9f4.png)
 
 用在题目上同理，只需要先写一个`cat`文件，然后`* ../key`就可以读到上级目录的key文件了，当然这里有字符数限制，所以改成通配符`* ../*`：
 
-![image-20200701232158795](https://pic.hujiekang.top/uploads/big/c2a98e049ffc4b421a31db8608d761d8.png)
+![image-20200701232158795](https://images.hujiekang.top/blogimage-c2a98e049ffc4b421a31db8608d761d8-a733a4ac.png)
 
 flag：`flag{a1c8BFF2}`
 

@@ -13,37 +13,37 @@ categories:
 
 首先是一个登录页，随便输入后发现会显示出查询数据库的具体语句：
 
-![](https://pic.hujiekang.top/uploads/big/6ff42ed36128add8f8bc0cac22172992.png)
+![](https://images.hujiekang.top/blogimage-6ff42ed36128add8f8bc0cac22172992-63b18d0e.png)
 
 于是想到可能有注入，试了一下万能密码`admin' or 1=1 -- `，竟然成功进去了
 
 登进去之后发现一个修改个人信息的功能点，可以上传头像：
 
-![](https://pic.hujiekang.top/uploads/big/f8df409d16f2d817a067eb7814042b63.png)
+![](https://images.hujiekang.top/blogimage-f8df409d16f2d817a067eb7814042b63-b82083bb.png)
 
 尝试传个一句话上去，但发现存在后缀名的黑名单，和PHP相关的后缀名不是被ban了就是没解析，其他格式也不会被解析。还搜了一下，PHP在FashCGI模式下，也支持类似Apache里面`.htaccess`的独立配置文件用法，可以在某个文件夹创建一个名为`.user.ini`的配置文件，该配置仅对当前目录生效。但后面又发现`.ini`也被ban了……所以也没法通过修改解析格式的方式来解析脚本了（具体`.user.ini`能不能修改解析方式也没有去深究，找个时间研究一下）
 
 除此之外，发现文件内容也会被替换，比如`?`会被替换成`!`，使得PHP起始的标签没法构造：
 
-![](https://pic.hujiekang.top/uploads/big/41db4f0772adc51d311e95656fa8a058.png)
+![](https://images.hujiekang.top/blogimage-41db4f0772adc51d311e95656fa8a058-d6239b68.png)
 
 不过其他的过滤倒也没有，可以使用`<script language="php"></script>`来绕过PHP标签的过滤，来写入一句话。
 
 一句话传上去了，接下来就想着怎么执行。因为无论怎么传也没法解析，黑名单也没法绕过，于是想到是不是可能有其他的包含点，翻源码翻来翻去，在用户列表的页面里找到了一个小提示，果然有包含点：
 
-![](https://pic.hujiekang.top/uploads/big/d928967e349dde25f06f1393d5caafd4.png)
+![](https://images.hujiekang.top/blogimage-d928967e349dde25f06f1393d5caafd4-31fa4f52.png)
 
-![](https://pic.hujiekang.top/uploads/big/856b21508eb92a704b2690d95edba24b.png)
+![](https://images.hujiekang.top/blogimage-856b21508eb92a704b2690d95edba24b-2a1a56e5.png)
 
 然后就是直接包含上传的一句话，执行命令`cat /flagaaaaaaaaaaaa`拿到Flag：
 
-![](https://pic.hujiekang.top/uploads/big/4eb83dfb2e7110e1f1cf335cf1df7e42.png)
+![](https://images.hujiekang.top/blogimage-4eb83dfb2e7110e1f1cf335cf1df7e42-1db75b39.png)
 
 # sqli
 
 一道很直白的SQL注入题，随便试了一下发现有报错，根据报错信息可以知道传参外面是包裹了一层单引号的。尝试了不少关键词都显示`hack`，于是首先fuzz了一下黑名单，发现过滤的有亿点多：
 
-![](https://pic.hujiekang.top/uploads/medium/6e4db6f7b25002a32d79657b4510d63b.png)
+![](https://images.hujiekang.top/blogimage-6e4db6f7b25002a32d79657b4510d63b-fa2f0df9.png)
 
 除去常见的关键字外，还过滤了下面这几类：
 
@@ -67,7 +67,7 @@ categories:
 
 如手册中所述，在传入普通字符串的时候，`locate`函数是大小写不敏感的，所以需要使用`binary`函数转换为二进制字符串来处理：
 
-![](https://pic.hujiekang.top/uploads/big/b103302814b191f607da186ec1abf807.png)
+![](https://images.hujiekang.top/blogimage-b103302814b191f607da186ec1abf807-9070f06d.png)
 
 下一步就是想办法构造一个能够区分盲注是否成功的布尔状态。此时想到之前注释符中的`//`还可以用，因此尝试是否可以用除法运算来实现盲注，最终形成的拼接如下，发现可以正确返回`hello world`。可以将中间的`1`替换成想要盲注的表达式即可。
 

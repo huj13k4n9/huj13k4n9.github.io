@@ -249,19 +249,19 @@ System => Linux
   由Web服务器创建，包含头信息、路径、脚本位置、脚本名称、系统环境变量、请求方法、请求路径等信息。
   下图为使用`print_r()`函数产生的输出：
 
-  ![](https://pic.hujiekang.top/uploads/big/44c469c45e4b3c56d09d8d72da8f615d.png)
+  ![](https://images.hujiekang.top/blogimage-44c469c45e4b3c56d09d8d72da8f615d-97507505.png)
 
 - **`$_ENV`**
   $_ENV的内容是在PHP解析器运行时，从PHP所在服务器中的环境变量转变为全局变量得到的。
   下图为使用`print_r()`函数产生的输出：
 
-  ![](https://pic.hujiekang.top/uploads/big/54ac006a5e9fdd510f2e4b84642171cb.png)
+  ![](https://images.hujiekang.top/blogimage-54ac006a5e9fdd510f2e4b84642171cb-7bdfe3d1.png)
 
 - **`$_GET`**
   这个数组存放着通过GET请求方法传入的变量及其对应的值。
   下图为传入参数后使用`print_r()`函数产生的输出：
 
-  ![](https://pic.hujiekang.top/uploads/big/4b42ae328423e956d7064dcba2423631.png)
+  ![](https://images.hujiekang.top/blogimage-4b42ae328423e956d7064dcba2423631-89b40af2.png)
 
 - **`$_POST`**
   这个数组存放着通过POST请求方法传入的变量及其对应的值。
@@ -287,18 +287,18 @@ System => Linux
 
   页面效果：
 
-  ![](https://pic.hujiekang.top/uploads/big/7c3db8a5b331e6fb8e3b3858162821f0.png)
+  ![](https://images.hujiekang.top/blogimage-7c3db8a5b331e6fb8e3b3858162821f0-751d149d.png)
 
   接下来在输入框中输入数据提交，显示如下：
 
-  ![](https://pic.hujiekang.top/uploads/big/fb4a70065643c9c8d07e9305929ecc33.png)
+  ![](https://images.hujiekang.top/blogimage-fb4a70065643c9c8d07e9305929ecc33-e3c3185f.png)
 
 - **`$_REQUEST`**
   此数组包含了`$_GET`、`$_POST`、`$_COOKIE`数组的全部内容，也就是说，在这里可以访问到使用GET方法和POST方法请求的数据。但是速度较慢，不推荐使用。
 
   打印效果如图所示：
 
-  ![](https://pic.hujiekang.top/uploads/big/3ea34c7e46cba87669e326d8b0739210.png)
+  ![](https://images.hujiekang.top/blogimage-3ea34c7e46cba87669e326d8b0739210-21896477.png)
 
 - **`$GLOBALS`**
   此数组包含了程序里所有的全局变量。
@@ -314,7 +314,7 @@ System => Linux
 
   打印结果：
 
-  ![](https://pic.hujiekang.top/uploads/big/09a60271ef7986c785c02c743b19b076.png)
+  ![](https://images.hujiekang.top/blogimage-09a60271ef7986c785c02c743b19b076-c5c73997.png)
 
   注意：`$_GET`、`$_POST`、`$_FILES`、`$_COOKIE`这些超全局数组也属于全局变量，所以也包含在内。
 
@@ -324,7 +324,7 @@ System => Linux
   下面创建了一个带有`file`域的表单、在下方可以打印出`$_POST`和`$_FILES`数组的内容。可以看到`$_POST`是一个空数组，而`$_FILES`则包含有文件名、文件临时文件的路径、文件大小等信息。
   <b style="color:#ff7473">注意：<code style="color:#ff7473">form</code>标签里面必须带有<code style="color:#ff7473">enctype="multipart/form-data"</code>属性，否则<code style="color:#ff7473">$_FILES</code>会显示为空。</b>
 
-  ![](https://pic.hujiekang.top/uploads/big/28a3b9d816651c5323aec3bac6a38309.png)
+  ![](https://images.hujiekang.top/blogimage-28a3b9d816651c5323aec3bac6a38309-fd81d2a3.png)
 
 - **`$_COOKIE`**
   这个数组存储了从客户端浏览器提取的`cookie`信息。

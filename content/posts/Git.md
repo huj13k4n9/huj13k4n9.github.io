@@ -72,7 +72,7 @@ categories:
 - `git branch -d <branch>`：删除一个分支（`-D`强制删除）
 - `git switch -c <branch>`：创建一个分支并切换至该分支
 - `git merge`：以`Fast-Forward`模式合并分支（`--no-ff`参数用于禁用`Fast-Forward`模式，两者的区别如下图）
-  ![](https://pic.hujiekang.top/uploads/big/5fa76ef7b288bc9d1c92d6ded21cbc55.png)
+  ![](https://images.hujiekang.top/blogimage-5fa76ef7b288bc9d1c92d6ded21cbc55-bf3d5db2.png)
 - `git stash`：储存当时工作目录的状态（保护现场）
 - `git stash list`：查看所有的stash内容
 - `git stash apply <stash>`：恢复某个stash（stash内容保留）

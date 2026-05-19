@@ -73,7 +73,7 @@ Password: (enter password)
 
 客户端可以通过`ssh-keygen`命令来生成自己的公钥和私钥。在生成过程中，会提示要不要对私钥设置口令（`passphrase`），如果担心私钥的安全，这里可以设置一个。其他的选项一般来说一路回车保持默认即可。
 
-![](https://pic.hujiekang.top/uploads/big/a55cdd4c862e6756ac0e2911d6309161.png)
+![](https://images.hujiekang.top/blogimage-a55cdd4c862e6756ac0e2911d6309161-7d06f530.png)
 
 这些文件默认会保存在用户文件夹的`.ssh`目录下，其中`id_rsa`是私钥文件，`id_rsa.pub`是公钥文件。所以接下来要做的，就是把`id_rsa.pub`的内容上传给服务器。
 
@@ -113,7 +113,7 @@ rm ~/.ssh/id_rsa.pub
 
 接下来断开服务器连接，再次连接时，就不需要输入密码直接登录了：
 
-![](https://pic.hujiekang.top/uploads/big/76efa6aa71d297f95288dfd11a7c505e.png)
+![](https://images.hujiekang.top/blogimage-76efa6aa71d297f95288dfd11a7c505e-891759be.png)
 
 
 

@@ -15,7 +15,7 @@ categories:
 
 真就人均狗粉丝嗷（
 
-![](https://pic.hujiekang.top/uploads/big/cc99d4f3761a40880ecd569f2f0537f5.png)
+![](https://images.hujiekang.top/blogimage-cc99d4f3761a40880ecd569f2f0537f5-f0bd938d.png)
 
 Flag：`NPUCTF{欢迎来到西北工业大学CTF比赛世界上最简单的比赛}`
 
@@ -66,7 +66,7 @@ $$\left \{  \begin{array}{c} u^3\equiv u\times u^2\equiv c_1c_2\equiv c_3(mod\sp
 
 由同余定义，得$n|c_1c_2-c_3,\space\space n|c_1^2-c_2,\space\space n|c_1^3-c_3$，也就是说这三个结果都是$n$的倍数。接下来如果想办法找到它们的公因数，就可以找到$n$了。（$n$是素数）
 
-![](https://pic.hujiekang.top/uploads/big/418c2a1116bd96aabc7abcb9d601bfaa.png)
+![](https://images.hujiekang.top/blogimage-418c2a1116bd96aabc7abcb9d601bfaa-67085b72.png)
 
 果然我发现了这个网站：<http://www.factordb.com/index.php>，可以在线分解一个数找到它所有的因数。一遍操作得到下面的结果：
 
@@ -88,13 +88,13 @@ for i in range(1, 1000000001):
         print(i)
 ```
 
-![](https://pic.hujiekang.top/uploads/big/2e93eba0ada91b7a922a26d143bb312a.png)
+![](https://images.hujiekang.top/blogimage-2e93eba0ada91b7a922a26d143bb312a-be508f04.png)
 
 解出$e=808723997$。后面看到另一个师傅的WP，用了一个看不太懂的算法，以后慢慢琢磨：<http://0xdktb.top/2020/04/19/WriteUp-NPUCTF-Crypto/#认清形势建立信心>
 
 然后常规求解$d\equiv e^{-1}(mod\space \phi(n))$，用扩展的欧几里得算法求解：
 
-![](https://pic.hujiekang.top/uploads/big/cf2a5a6116840b881b91b0da9178b143.png)
+![](https://images.hujiekang.top/blogimage-cf2a5a6116840b881b91b0da9178b143-6b6848a9.png)
 
 $d=-211826053314667(mod\space \phi(n))=315420901534133$，故明文$m=c^d(mod\space n)=219919251745$,转成字符串得到`345y!`，所以flag为`npuctf{345y!}`。
 
@@ -102,7 +102,7 @@ $d=-211826053314667(mod\space \phi(n))=315420901534133$，故明文$m=c^d(mod\sp
 
 附件一个压缩包，解压下来只有一张图片：
 
-![](https://pic.hujiekang.top/uploads/medium/6209b0039e745f0cfe570f1c137095fa.jpg)
+![](https://images.hujiekang.top/blogimage-6209b0039e745f0cfe570f1c137095fa-f3b7f99a.jpg)
 
 只有一步没想到。。。后来看了WP发现这么简单。。。
 
@@ -124,13 +124,13 @@ $d=-211826053314667(mod\space \phi(n))=315420901534133$，故明文$m=c^d(mod\sp
 
 解开压缩包后拿到一张图片：
 
-![](https://pic.hujiekang.top/uploads/big/ce77157103878515865f8b2c409eddf7.png)
+![](https://images.hujiekang.top/blogimage-ce77157103878515865f8b2c409eddf7-225c8a19.png)
 
 这是古埃及象形文字编码和猪圈密码的合体，对应字母的关系如下：
 
-![](https://pic.hujiekang.top/uploads/big/53ae7fb97297cdd95d9a84f15512f16c.jpg)
+![](https://images.hujiekang.top/blogimage-53ae7fb97297cdd95d9a84f15512f16c-e4e719ec.jpg)
 
-![](https://pic.hujiekang.top/uploads/big/831c43fc1c602763f81f8191dbf2495b.jpg)
+![](https://images.hujiekang.top/blogimage-831c43fc1c602763f81f8191dbf2495b-53de3a8d.jpg)
 
 解出flag：`flag{classicalcode}`
 
@@ -140,7 +140,7 @@ $d=-211826053314667(mod\space \phi(n))=315420901534133$，故明文$m=c^d(mod\sp
 
 最简单的题，网页屏蔽了F12和右键的操作，直接抓包或者加`view-source:`可以看见源代码拿到flag（忘记截图了，贴一张别人的）：
 
-![](https://pic.hujiekang.top/uploads/big/f8fb37aa3b5da7a433b38fc5c0910bbc.png)
+![](https://images.hujiekang.top/blogimage-f8fb37aa3b5da7a433b38fc5c0910bbc-3ee109c5.png)
 
 ## RealEzPHP
 
@@ -176,13 +176,13 @@ if(isset($_GET['source']))
 
 是一道反序列化的题目，然后有命令执行，于是本地构造序列化字符串，一开始试`system()`、`shell_exec()`啥的都没有反应，然后试了`file_get_contents()`可以执行，于是再试了一下`phpinfo()`：`O:8:"HelloPhp":2:{s:1:"a";i:-1;s:1:"b";s:7:"phpinfo";}`，直接在`phpinfo()`中找到flag：
 
-![](https://pic.hujiekang.top/uploads/big/ce67ce86edf9ee91a3487ccde5319108.png)
+![](https://images.hujiekang.top/blogimage-ce67ce86edf9ee91a3487ccde5319108-d190180d.png)
 
 当然我一开始肯定不是这样做的。。。不然就不会有后面的东西了
 
 无意间瞥到`disable_functions`中禁用了一大堆函数：
 
-![](https://pic.hujiekang.top/uploads/big/94e74b9d0a16c3c0abc4705f5c418f2c.png)
+![](https://images.hujiekang.top/blogimage-94e74b9d0a16c3c0abc4705f5c418f2c-7c1eb180.png)
 
 然后又灵光一现，去试了一下`eval()`和`assert()`，`eval`由于是语言结构不能用在可变函数上，但是可以`assert(eval(code))`来执行任意PHP代码。于是构造字符串`O:8:"HelloPhp":2:{s:1:"a";s:19:"eval($_POST["aaa"])";s:1:"b";s:6:"assert";}`，就可以挂蚁剑了，可以上传文件，只不过一大堆命令执行不了，还是有很多限制。
 
@@ -213,13 +213,13 @@ int  geteuid() {
 }
 ```
 
-![](https://pic.hujiekang.top/uploads/big/561ea082aab6c798b87be77da73504b8.png)
+![](https://images.hujiekang.top/blogimage-561ea082aab6c798b87be77da73504b8-dc322025.png)
 
 然后我又折腾了一番，发现蚁剑有现成的插件可以用。。。&#x1F602;用起来挺方便的，直接生成了一个不受限制的PHP文件，直接访问就可以拿到webshell了：
 
-![](https://pic.hujiekang.top/uploads/big/f6ded5acf828554f19e1be2780f5860b.png)
+![](https://images.hujiekang.top/blogimage-f6ded5acf828554f19e1be2780f5860b-3a1455ba.png)
 
-![](https://pic.hujiekang.top/uploads/big/653229af21ae4788b14fd7d19a9ca952.png)
+![](https://images.hujiekang.top/blogimage-653229af21ae4788b14fd7d19a9ca952-a71fcf93.png)
 
 然后`cat /FIag_!S_it`，拿到假flag：`NPUCTF{this_is_not_a_fake_flag_but_true_flag}`
 
@@ -229,7 +229,7 @@ int  geteuid() {
 
 打开页面，和前一题一模一样，然后在源码里面发现位置`index.bak.php`，访问之后弹出来一个留言板，此时发现可疑参数`action`，估计是有文件包含（真就抽象呗）：
 
-![](https://pic.hujiekang.top/uploads/big/cafbc6e0637b10aa7c19cfbe3192ed76.png)
+![](https://images.hujiekang.top/blogimage-cafbc6e0637b10aa7c19cfbe3192ed76-f944d0e3.png)
 
 先到处看了一下，Index就是之前的首页，然后还有一个tips会显示phpinfo，看了一下Message的源码，发现POST消息到`msg.php`：
 
@@ -319,11 +319,11 @@ print(r.text)
 
 如上面代码所示，最后将session文件包含进来，然后执行任意命令，phpinfo里面禁用了`system()`等等一些函数，所以使用`scandir()`来获取文件目录，再`file_get_contents()`拿到flag：
 
-![](https://pic.hujiekang.top/uploads/big/414f8bafa3f8bd25b3ee7050e2571aed.png)
+![](https://images.hujiekang.top/blogimage-414f8bafa3f8bd25b3ee7050e2571aed-11033a8e.png)
 
 由于是在复现环境下，再贴一个session文件的内容吧：
 
-![](https://pic.hujiekang.top/uploads/big/94d7fa00068a542c8b39ec764fbd7a8f.png)
+![](https://images.hujiekang.top/blogimage-94d7fa00068a542c8b39ec764fbd7a8f-4839200f.png)
 
 flag：`NPUCTF{this_is_not_fl4g_it_is_flag}`
 
@@ -331,7 +331,7 @@ flag：`NPUCTF{this_is_not_fl4g_it_is_flag}`
 
 大概就是说，当存在包含文件的地方使用`php://filter/string.strip_tags`会造成Segment Fault返回500（要求PHP<7.2）：
 
-![](https://pic.hujiekang.top/uploads/big/1b840bc1010b620c025f3005992019f4.png)
+![](https://images.hujiekang.top/blogimage-1b840bc1010b620c025f3005992019f4-68f38c44.png)
 
 而如果同时上传一个任意文件上去的话，会被永久的存在PHP的临时文件目录。下面是我复现的结果：
 
@@ -346,15 +346,15 @@ flag：`NPUCTF{this_is_not_fl4g_it_is_flag}`
 
 然后写个马传上去，显然是没有反应的，所以BurpSuite返回`No response received from remote server.`
 
-![](https://pic.hujiekang.top/uploads/big/61abe52c77e3ee307c60381adccdab02.png)
+![](https://images.hujiekang.top/blogimage-61abe52c77e3ee307c60381adccdab02-cf8efc18.png)
 
 然后去查看靶机的临时目录，发现文件就在里面：
 
-![](https://pic.hujiekang.top/uploads/big/443c7c95e832bcebc1737c725426b199.png)
+![](https://images.hujiekang.top/blogimage-443c7c95e832bcebc1737c725426b199-56764635.png)
 
 可以看见，上传的文件名是有一定规律的：`php+6位字母/数字`，成本稍微有点大，但是也不是不可以，所以在实际环境下，这里就选择爆破了（Intruder给的爆破量是`965660736`）：
 
-![](https://pic.hujiekang.top/uploads/big/3290274978a886975cff95ccd88156fe.png)
+![](https://images.hujiekang.top/blogimage-3290274978a886975cff95ccd88156fe-46a9e358.png)
 
 这样就是花的时间长一点。。。别的也还行
 
@@ -384,7 +384,7 @@ for i in range(65):
 
 查看输出，找到`flflflflag.php`：
 
-![](https://pic.hujiekang.top/uploads/big/f1a4631b270e16a01b0826594f42d217.png)
+![](https://images.hujiekang.top/blogimage-f1a4631b270e16a01b0826594f42d217-39a11705.png)
 
 （后面看了PHP源码才知道，默认`name`为空，所以输出的Hash值就已经满足`md5($secret.$name)===$pass`的要求，所以只需要直接填入`pass`即可。）
 
@@ -405,8 +405,8 @@ echo 'include($_GET["file"])';
 
 于是后续就可以直接用上面的`php://filter/string.strip_tags`来上传文件了。后来看官方WP发现有个`dir.php`，可以展示`/tmp`目录下的文件名，也就是说不需要爆破，直接可以包含。
 
-![](https://pic.hujiekang.top/uploads/big/2f5bda6a2424c9fadc2f63587e424d48.png)
+![](https://images.hujiekang.top/blogimage-2f5bda6a2424c9fadc2f63587e424d48-34e70c86.png)
 
 后面的套路就和上面两题类似了，写马上传文件，最后在phpinfo里找到flag：
 
-![](https://pic.hujiekang.top/uploads/big/284e861671543dcfcacbe66d5df1e996.png)
+![](https://images.hujiekang.top/blogimage-284e861671543dcfcacbe66d5df1e996-d51d2821.png)

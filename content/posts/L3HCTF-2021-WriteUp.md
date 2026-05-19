@@ -11,7 +11,7 @@ categories:
 
 借用比赛群里发的一个表情包，Golang逆向属实给整麻了属于是
 
-<img src="https://pic.hujiekang.top/uploads/big/7dc703e6830772bb61bf1e694ee658bd.jpg" style="zoom:50%;" />
+<img src="https://images.hujiekang.top/blogimage-7dc703e6830772bb61bf1e694ee658bd-30a1b237.jpg" style="zoom:50%;" />
 
 <!-- more -->
 
@@ -25,13 +25,13 @@ categories:
 
 打开网页直接有源码，按照代码高亮的一些规律很容易看出猫腻，如下图：
 
-![](https://pic.hujiekang.top/uploads/big/9f65baf3e57c7e1e29ac3b55a5ec005d.png)
+![](https://images.hujiekang.top/blogimage-9f65baf3e57c7e1e29ac3b55a5ec005d-33041911.png)
 
 这里的猫腻在于普通的注释应该都是黄色的才对，而这里`+!!`直接被高亮成了运算符的绿色，`L3HCTF`也是呈现了不同的颜色，所以这里肯定有问题
 
 把代码复制到VScode里面一眼就能看出来，存在不可见的Unicode控制字符：
 
-![](https://pic.hujiekang.top/uploads/big/93b7713668fdaf2c9ebc0052838781bf.png)
+![](https://images.hujiekang.top/blogimage-93b7713668fdaf2c9ebc0052838781bf-d6349e4f.png)
 
 所以这样去看，就会发现和网页中显示的代码逻辑不太一样了，`if`判断的条件变成了下面这样子（避免显示问题，控制字符用“字符x”代替）：
 
@@ -59,7 +59,7 @@ Flag: `flag{Y0U_F0UND_CVE-2021-42574!}`
 
 这题是一个流量分析题，是一个叫做IPMI的管理接口相关，好像是一套用来远程管理服务器的协议，文档可以在Intel官网找到：[IPMI Specification, V2.0, Rev. 1.1: Document (intel.com)](https://www.intel.com/content/www/us/en/products/docs/servers/ipmi/ipmi-second-gen-interface-spec-v2-rev1-1.html)。用Wireshark查看协议细节，发现大部分协议包都是加密的，所以需要通过分析握手包来获取到解密的方法。
 
-![](https://pic.hujiekang.top/uploads/big/dc4cf2dc3742fef2920f0291bed23d91.png)
+![](https://images.hujiekang.top/blogimage-dc4cf2dc3742fef2920f0291bed23d91-a8811d47.png)
 
 如上图，握手包一共有6个，分别是RMCP+ Open Session Request、RMCP+ Open Session Response以及4个RAKP Message，对应到文档中的第13.17-13.24节
 

